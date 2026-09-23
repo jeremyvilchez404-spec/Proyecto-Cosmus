@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
@@ -6,12 +7,21 @@ import 'screens/planet_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/solar_system_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  // Asegura la inicialización de los bindings de Flutter antes de SharedPreferences
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Lee el estado guardado de la sesión
+  final prefs = await SharedPreferences.getInstance();
+  final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +35,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
 
-      // Inicia directamente en la pantalla de Login
-      initialRoute: '/login',
+      // Si la sesión ya está iniciada entra directo a /home, sino a /login
+      initialRoute: isLoggedIn ? '/home' : '/login',
 
       routes: {
         '/login': (context) => const LoginScreen(),
@@ -46,7 +56,7 @@ class MyApp extends StatelessWidget {
         '/quiz': (context) {
           final args = ModalRoute.of(context)?.settings.arguments;
 
-          // Extrae el nombre del planeta si se envía como String; usa 'Tierra' como valor por defecto
+          // Extrae el nombre del planeta si se envía como String; usa 'Tierra' por defecto
           final String planetName = args is String ? args : 'Tierra';
 
           return QuizScreen(planetName: planetName);
