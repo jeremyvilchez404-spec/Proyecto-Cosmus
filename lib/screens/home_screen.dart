@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
       case 2:
         // Explorar
-        Navigator.pushNamed(context, '/solar-system');
+        Navigator.pushNamed(context, '/learn');
         break;
 
       case 3:
@@ -258,7 +258,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: const Color(0xFF183B4E),
                   iconColor: const Color(0xFF29B6F6),
                   onTap: () {
-                    Navigator.pushNamed(context, '/solar-system');
+                    Navigator.pushNamed(context, '/learn');
                   },
                 ),
 

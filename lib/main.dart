@@ -5,6 +5,8 @@ import 'screens/login_screen.dart';
 import 'screens/planet_screen.dart';
 import 'screens/quiz_screen.dart';
 import 'screens/solar_system_screen.dart';
+import 'screens/learn_screeen.dart';
+import 'screens/learn_planets_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,6 +34,8 @@ class MyApp extends StatelessWidget {
         '/login': (context) => const LoginScreen(),
         '/home': (context) => const HomeScreen(),
         '/solar-system': (context) => const SolarSystemScreen(),
+        '/learn': (context) => const LearnScreen(),
+        '/learn-planets': (context) => const LearnPlanetsScreen(),
 
         '/planet': (context) {
           final args = ModalRoute.of(context)?.settings.arguments;
