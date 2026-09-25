@@ -18,9 +18,6 @@ class _LoginScreenState extends State<LoginScreen>
   bool _obscureText = true;
   bool _rememberMe = false;
 
-  // Variable de estado para alternar entre Modo Oscuro y Modo Claro
-  bool _isDarkMode = true;
-
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
 
@@ -73,7 +70,6 @@ class _LoginScreenState extends State<LoginScreen>
     }
   }
 
-  // Redirección y persistencia de sesión al entrar como invitado
   Future<void> _entrarComoInvitado() async {
     await _guardarSesion(esInvitado: true);
 
@@ -85,9 +81,12 @@ class _LoginScreenState extends State<LoginScreen>
   }
 
   void _showCustomSnackBar(String message, {bool isError = false}) {
+    // Detectamos el estado global del tema actual dentro del contexto
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     final snackBarBg = isError
         ? const Color(0xFFFF2A85)
-        : (_isDarkMode ? const Color(0xFF00D2FF) : const Color(0xFF6C5CE7));
+        : (isDarkMode ? const Color(0xFF00D2FF) : const Color(0xFF007ACC));
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -142,50 +141,42 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    final bgGradientColors = _isDarkMode
-        ? [
-            const Color(0xFF1B0B3B),
-            const Color(0xFF0D0628),
-            const Color(0xFF050212),
-          ]
-        : [
-            const Color(0xFFE2F1FF),
-            const Color(0xFFEAE5FF),
-            const Color(0xFFFCE4EC),
-          ];
+    // Sincronizado automáticamente con el tema global de la app
+    final bool isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
-    final cardBgColor = _isDarkMode
+    // Definición de colores dinámicos basados en el tema global
+    final List<Color> bgGradientColors = isDarkMode
+        ? const [Color(0xFF1B0B3B), Color(0xFF0D0628), Color(0xFF050212)]
+        : const [Color(0xFFF3EEFF), Color(0xFFE2D6FF), Color(0xFFD4C2FF)];
+
+    final cardBgColor = isDarkMode
         ? const Color(0xFF0E0728).withOpacity(0.85)
-        : Colors.white.withOpacity(0.92);
+        : Colors.white.withOpacity(0.9);
 
-    final cardBorderColor = _isDarkMode
+    final cardBorderColor = isDarkMode
         ? const Color(0xFF00D2FF).withOpacity(0.35)
-        : const Color(0xFF6C5CE7).withOpacity(0.35);
+        : const Color(0xFF8B129B).withOpacity(0.2);
 
-    final primaryAccent = _isDarkMode
+    final primaryAccent = isDarkMode
         ? const Color(0xFF00D2FF)
         : const Color(0xFF6C5CE7);
 
-    final textPrimary = _isDarkMode ? Colors.white : const Color(0xFF1E1B4B);
-    final textSecondary = _isDarkMode
-        ? Colors.white60
-        : const Color(0xFF5B5891);
+    final textPrimary = isDarkMode ? Colors.white : const Color(0xFF1B0B3B);
+    final textSecondary = isDarkMode ? Colors.white60 : Colors.black54;
 
-    final inputBgColor = _isDarkMode
+    final inputBgColor = isDarkMode
         ? const Color(0xFF140A34)
-        : const Color(0xFFF1F3F9);
+        : const Color(0xFFF0EBF8);
 
-    final inputBorderColor = _isDarkMode
+    final inputBorderColor = isDarkMode
         ? const Color(0xFF2E1A66)
-        : const Color(0xFFD1D5DB);
+        : const Color(0xFFD0C2F2);
 
-    final buttonGradient = _isDarkMode
-        ? [
-            const Color(0xFFFF2A85),
-            const Color(0xFF8B129B),
-            const Color(0xFF00D2FF),
-          ]
-        : [const Color(0xFF6C5CE7), const Color(0xFFFF2A85)];
+    const buttonGradient = [
+      Color(0xFFFF2A85),
+      Color(0xFF8B129B),
+      Color(0xFF00D2FF),
+    ];
 
     return Scaffold(
       body: AnimatedContainer(
@@ -199,10 +190,10 @@ class _LoginScreenState extends State<LoginScreen>
         ),
         child: Stack(
           children: [
-            // 1. Estrellas de fondo
+            // 1. Estrellas de fondo adaptadas al brillo global
             Positioned.fill(
               child: CustomPaint(
-                painter: SpaceStarsPainter(isDarkMode: _isDarkMode),
+                painter: SpaceStarsPainter(isDarkMode: isDarkMode),
               ),
             ),
 
@@ -230,7 +221,9 @@ class _LoginScreenState extends State<LoginScreen>
                             spreadRadius: 2,
                           ),
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
+                            color: Colors.black.withOpacity(
+                              isDarkMode ? 0.25 : 0.08,
+                            ),
                             blurRadius: 25,
                             offset: const Offset(0, 12),
                           ),
@@ -421,7 +414,7 @@ class _LoginScreenState extends State<LoginScreen>
                               height: 52,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                gradient: LinearGradient(
+                                gradient: const LinearGradient(
                                   colors: buttonGradient,
                                   begin: Alignment.centerLeft,
                                   end: Alignment.centerRight,
@@ -483,65 +476,6 @@ class _LoginScreenState extends State<LoginScreen>
                           ],
                         ),
                       ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-
-            // 3. Botón Flotante para cambiar Tema
-            Positioned(
-              top: 45,
-              right: 20,
-              child: SafeArea(
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _isDarkMode = !_isDarkMode;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 14,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: _isDarkMode
-                          ? const Color(0xFF140A34)
-                          : Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: cardBorderColor, width: 1.5),
-                      boxShadow: [
-                        BoxShadow(
-                          color: primaryAccent.withOpacity(0.3),
-                          blurRadius: 12,
-                          spreadRadius: 1,
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          _isDarkMode
-                              ? Icons.wb_sunny_rounded
-                              : Icons.nightlight_round,
-                          color: _isDarkMode
-                              ? const Color(0xFFFFD700)
-                              : const Color(0xFF6C5CE7),
-                          size: 18,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          _isDarkMode ? 'Modo Claro' : 'Modo Oscuro',
-                          style: TextStyle(
-                            color: textPrimary,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 12,
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                 ),
@@ -627,7 +561,11 @@ class SpaceStarsPainter extends CustomPainter {
       if (colorChoice == 2) starColor = const Color(0xFFFF2A85);
 
       final paint = Paint()
-        ..color = starColor.withOpacity(rand.nextDouble() * 0.5 + 0.2);
+        ..color = starColor.withOpacity(
+          isDarkMode
+              ? (rand.nextDouble() * 0.5 + 0.2)
+              : (rand.nextDouble() * 0.3 + 0.1),
+        );
       canvas.drawCircle(Offset(x, y), radius, paint);
     }
   }

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+// Asegúrate de importar main.dart para poder acceder al themeNotifier global
+import '../main.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -9,7 +11,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-  bool _isDarkMode = true; // Control del tema claro/oscuro
 
   // =====================================
   // PALETAS DE COLOR DINÁMICAS
@@ -53,24 +54,27 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Definición de colores adaptables al tema
-    final Color bgColor = _isDarkMode
+    // Verificamos si el modo oscuro está activo globalmente
+    final bool isDarkMode = themeNotifier.value == ThemeMode.dark;
+
+    // Definición de colores adaptables al tema global
+    final Color bgColor = isDarkMode
         ? const Color(0xFF0B0E14)
         : const Color(0xFFF1F5F9);
-    final Color textDark = _isDarkMode ? Colors.white : const Color(0xFF0F172A);
-    final Color textGray = _isDarkMode
+    final Color textDark = isDarkMode ? Colors.white : const Color(0xFF0F172A);
+    final Color textGray = isDarkMode
         ? const Color(0xFF94A3B8)
         : const Color(0xFF64748B);
-    final Color cardBgColor = _isDarkMode
+    final Color cardBgColor = isDarkMode
         ? const Color(0xFF131B29)
         : Colors.white;
-    final Color cardBorderColor = _isDarkMode
+    final Color cardBorderColor = isDarkMode
         ? const Color(0xFF1E293B)
         : const Color(0xFFE2E8F0);
-    final Color bottomNavBg = _isDarkMode
+    final Color bottomNavBg = isDarkMode
         ? const Color(0xFF0F172A)
         : Colors.white;
-    final Color primaryAccent = _isDarkMode
+    final Color primaryAccent = isDarkMode
         ? const Color(0xFF42A5F5)
         : const Color(0xFF1E88E5);
 
@@ -78,7 +82,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: bgColor,
 
       // =====================================
-      // APP BAR
+      // APP BAR (SIN BOTÓN DE TEMA)
       // =====================================
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -98,21 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         centerTitle: true,
         actions: [
-          // Botón para cambiar entre Modo Claro y Oscuro
-          IconButton(
-            icon: Icon(
-              _isDarkMode ? Icons.wb_sunny_rounded : Icons.nightlight_round,
-              color: _isDarkMode
-                  ? const Color(0xFFFFD700)
-                  : const Color(0xFF1E88E5),
-              size: 22,
-            ),
-            onPressed: () {
-              setState(() {
-                _isDarkMode = !_isDarkMode;
-              });
-            },
-          ),
           Padding(
             padding: const EdgeInsets.only(right: 12, left: 4),
             child: GestureDetector(
@@ -123,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 width: 38,
                 height: 38,
                 decoration: BoxDecoration(
-                  color: _isDarkMode
+                  color: isDarkMode
                       ? const Color(0xFF1E293B)
                       : const Color(0xFFE2E8F0),
                   shape: BoxShape.circle,
@@ -152,7 +141,7 @@ class _HomeScreenState extends State<HomeScreen> {
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
                 gradient: LinearGradient(
-                  colors: _isDarkMode
+                  colors: isDarkMode
                       ? [const Color(0xFF0F2B5C), const Color(0xFF15509E)]
                       : [const Color(0xFF1E88E5), const Color(0xFF42A5F5)],
                   begin: Alignment.centerLeft,
@@ -247,10 +236,11 @@ class _HomeScreenState extends State<HomeScreen> {
               childAspectRatio: 1.12,
               children: [
                 _buildCategoryCard(
+                  isDarkMode: isDarkMode,
                   title: 'Planetas',
                   subtitle: 'Explorar',
                   icon: Icons.public_rounded,
-                  color: _isDarkMode
+                  color: isDarkMode
                       ? const Color(0xFF1E3A5F)
                       : const Color(0xFFE3F2FD),
                   iconColor: const Color(0xFF42A5F5),
@@ -263,10 +253,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 _buildCategoryCard(
+                  isDarkMode: isDarkMode,
                   title: 'Quiz',
                   subtitle: 'Pon a prueba lo aprendi...',
                   icon: Icons.psychology_rounded,
-                  color: _isDarkMode
+                  color: isDarkMode
                       ? const Color(0xFF2D234A)
                       : const Color(0xFFF3E5F5),
                   iconColor: const Color(0xFFAB47BC),
@@ -279,10 +270,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 _buildCategoryCard(
+                  isDarkMode: isDarkMode,
                   title: 'Aprender',
                   subtitle: 'Contenido educativo',
                   icon: Icons.menu_book_rounded,
-                  color: _isDarkMode
+                  color: isDarkMode
                       ? const Color(0xFF183B4E)
                       : const Color(0xFFE0F7FA),
                   iconColor: const Color(0xFF29B6F6),
@@ -295,10 +287,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   },
                 ),
                 _buildCategoryCard(
+                  isDarkMode: isDarkMode,
                   title: 'Progreso',
                   subtitle: 'Mira tus avances',
                   icon: Icons.emoji_events_rounded,
-                  color: _isDarkMode
+                  color: isDarkMode
                       ? const Color(0xFF3E3218)
                       : const Color(0xFFFFF3E0),
                   iconColor: const Color(0xFFFFA726),
@@ -405,7 +398,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     Container(
                       padding: const EdgeInsets.all(9),
                       decoration: BoxDecoration(
-                        color: _isDarkMode
+                        color: isDarkMode
                             ? const Color(0xFF1E293B)
                             : const Color(0xFFF1F5F9),
                         borderRadius: BorderRadius.circular(12),
@@ -427,9 +420,10 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
 
       // =====================================
-      // BARRA INFERIOR (SIN FAVORITOS)
+      // BARRA INFERIOR
       // =====================================
       bottomNavigationBar: _buildBottomNavigationBar(
+        isDarkMode: isDarkMode,
         bottomNavBg: bottomNavBg,
         cardBorderColor: cardBorderColor,
         primaryAccent: primaryAccent,
@@ -442,6 +436,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // =====================================
 
   Widget _buildCategoryCard({
+    required bool isDarkMode,
     required String title,
     required String subtitle,
     required IconData icon,
@@ -464,7 +459,7 @@ class _HomeScreenState extends State<HomeScreen> {
           border: Border.all(color: cardBorderColor),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(_isDarkMode ? 0.2 : 0.05),
+              color: Colors.black.withOpacity(isDarkMode ? 0.2 : 0.05),
               blurRadius: 7,
               offset: const Offset(0, 3),
             ),
@@ -510,10 +505,11 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // =====================================
-  // BOTTOM NAVIGATION (4 ELEMENTOS)
+  // BOTTOM NAVIGATION
   // =====================================
 
   Widget _buildBottomNavigationBar({
+    required bool isDarkMode,
     required Color bottomNavBg,
     required Color cardBorderColor,
     required Color primaryAccent,
@@ -527,7 +523,7 @@ class _HomeScreenState extends State<HomeScreen> {
         border: Border(top: BorderSide(color: cardBorderColor)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(_isDarkMode ? 0.3 : 0.08),
+            color: Colors.black.withOpacity(isDarkMode ? 0.3 : 0.08),
             blurRadius: 12,
             offset: const Offset(0, -3),
           ),
@@ -537,24 +533,28 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           _buildNavItem(
+            isDarkMode: isDarkMode,
             index: 0,
             icon: Icons.home_rounded,
             label: 'Inicio',
             primaryAccent: primaryAccent,
           ),
           _buildNavItem(
+            isDarkMode: isDarkMode,
             index: 1,
             icon: Icons.public_rounded,
             label: 'Explorar',
             primaryAccent: primaryAccent,
           ),
           _buildNavItem(
+            isDarkMode: isDarkMode,
             index: 2,
             icon: Icons.psychology_rounded,
             label: 'Quiz',
             primaryAccent: primaryAccent,
           ),
           _buildNavItem(
+            isDarkMode: isDarkMode,
             index: 3,
             icon: Icons.person_rounded,
             label: 'Perfil',
@@ -570,13 +570,14 @@ class _HomeScreenState extends State<HomeScreen> {
   // =====================================
 
   Widget _buildNavItem({
+    required bool isDarkMode,
     required int index,
     required IconData icon,
     required String label,
     required Color primaryAccent,
   }) {
     final bool selected = _selectedIndex == index;
-    final Color unselectedColor = _isDarkMode
+    final Color unselectedColor = isDarkMode
         ? const Color(0xFF64748B)
         : const Color(0xFF94A3B8);
 
@@ -588,9 +589,7 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
         decoration: BoxDecoration(
           color: selected
-              ? (_isDarkMode
-                    ? const Color(0xFF1E3A5F)
-                    : const Color(0xFFE3F2FD))
+              ? (isDarkMode ? const Color(0xFF1E3A5F) : const Color(0xFFE3F2FD))
               : Colors.transparent,
           borderRadius: BorderRadius.circular(16),
         ),

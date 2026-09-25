@@ -235,7 +235,7 @@ class MyApp extends StatelessWidget {
             // =================================
             // PERFIL
             // =================================
-            '/profile': (context) => const ProfileScreen(q),
+            '/profile': (context) => const ProfileScreen(),
           },
         );
       },
