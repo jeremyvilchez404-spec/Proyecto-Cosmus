@@ -5,234 +5,302 @@ class LearnPlanetsScreen extends StatelessWidget {
   const LearnPlanetsScreen({super.key});
 
   final List<Map<String, dynamic>> planets = const [
-    {
-      'name': 'Mercurio',
-      'subtitle': 'El planeta más cercano al Sol',
-      'image': 'assets/imagenes/Mercuriot.png',
-      'color': Color.fromARGB(255, 255, 253, 253),
-      'icon': 'assets/imagenes/Mercuriot.png',
-      'description':
-      'Mercurio es el planeta más pequeño de nuestro sistema solar,  es apenas un poco más grande que la Luna de la tierra, sin embargo, mercurio no tiene luna.\n'
-      'Este pequeño planeta gira lentamente en comparación con la tierra, por lo que un día dura mucho tiempo, se necesitan 59 días terrestres para tener un día (o una rotación completa) en mercurio.\n\n'
-      'Sin embargo, ¡un año en mercurio pasa rápido! debido a que es el planeta más cercano al Sol, no se tarda mucho en dar una vuelta completa, mercurio completa una revolución alrededor del Sol en solo 88 días terrestres.\n\n'
-      'Si vivieras allí, ¡sería tu cumpleaños cada tres meses!Un día en mercurio no es como un día en la tierra, Para nosotros, el Sol sale y se pone todos los días, debido a que mercurio tiene una rotación lenta y un año corto, allí el Sol tarda mucho tiempo en salir y ponerse.\n '
-      '¡Mercurio solo tiene un amanecer cada 180 días terrestres!, No es loco?',
-      'distance': '57.9 millones de km',
-      'day': '58.6 días terrestres',
-      'year': '88 días terrestres',
-      'moons': '0',
-      'curiosities': [
-      'su atmosfera es muy delgada  y no lo protege',
-      'Es dificil de observar desde la tierra',
+  {
+    'name': 'Mercurio',
+    'subtitle': 'El planeta más cercano al Sol',
+    'image': 'assets/imagenes/Mercuriot.png',
+    'icon': 'assets/imagenes/Mercuriot.png',
+    'color': Color(0xFFBDBDBD),
+
+    'description':
+        'Mercurio es el planeta más pequeño del sistema solar y el más cercano al Sol. '
+        'Es un planeta rocoso, con una superficie cubierta de cráteres y una atmósfera extremadamente delgada.\n\n'
+        'Mercurio gira lentamente sobre su eje: tarda aproximadamente 59 días terrestres en completar una rotación. '
+        'Sin embargo, debido a la relación entre su rotación y su movimiento alrededor del Sol, un día solar completo '
+        '(de un amanecer al siguiente) dura aproximadamente 176 días terrestres.\n\n'
+        'Mercurio completa una vuelta alrededor del Sol en aproximadamente 88 días terrestres, '
+        'por lo que su año es el más corto de todos los planetas del sistema solar.\n\n'
+        'A pesar de ser el planeta más cercano al Sol, Mercurio no es el más caliente. '
+        'Venus alcanza temperaturas superficiales mayores debido a su densa atmósfera y al fuerte efecto invernadero.\n\n'
+        'Mercurio no tiene lunas ni anillos.',
+
+    'distance': '58 millones de km',
+    'day': '59 días terrestres',
+    'year': '88 días terrestres',
+    'moons': '0',
+
+    'curiosities': [
       'Es el planeta más cercano al Sol.',
-      'Es el planeta más pequeño del Sistema Solar.',
-      'Un año en Mercurio dura solo 88 días terrestres.',
-      'No es el más caliente: Aunque está más cerca del Sol, Venus es más caliente debido a su gruesa atmósfera que atrapa el calor',
-      'Venus se ve como un planeta muy activo. Tiene montañas y volcanes. Venus es similar a la Tierra, en tamaño. La Tierra es solo un poco más grande.',
-      'La fuerte gravedad del Sol impide que Mercurio conserve lunas a su alrededor.',
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=d6pNPnxp6PY',
-      'videoThumbnail': 'assets/imagenes/pantalla_mercurio.png',
-      'audio': 'assets/audios/Audio-Mercurio.mp3',
-      }, 
-    {
-      'name': 'Venus',
-      'subtitle': 'el segundo planeta del sistema solar y el más caliente de todos',
-      'icon': 'assets/imagenes/Venust.png',
-      'color': Color.fromARGB(255, 230, 86, 3),
-      'image': 'assets/imagenes/Venust.png',
-      'description':
-      'Aunque Venus no es el planeta más cercano al Sol, es el más caliente, tiene una atmósfera densa, llena de dióxido de carbono, que provoca el efecto invernadero, y de nubes compuestas de ácido sulfúrico, los gases atrapan el calor y mantienen a Venus bien calentito,\n\n'
-      'De hecho, hace tanto calor en Venus que metales como el plomo serían charcos de metal fundido.\n'
-      'Venus se ve como un planeta muy activo, tiene montañas y volcanes, venus es similar a la tierra, (en tamaño), la tierra es solo un poco más grande ,venus es poco común porque gira en dirección contraria a la de la tierra y la mayoría de los otros planetas.\n\n' 
-      'Su rotación es muy lenta, tarda alrededor de 243 días terrestres en girar solo una vez, debido a que está tan cerca del Sol, un año pasa muy rápido, venus tarda 225 días terrestres en dar toda la vuelta alrededor del Sol. Esto significa que, en Venus, un día es un poco más largo que un año.\n\n'
-      'Debido a que las longitudes del día y del año son similares, un día en Venus no es como un día en la Tierra. Aquí, en la Tierra, el Sol sale y se pone una vez por día. En Venus, el Sol sale cada 117 días terrestres. Así que el Sol sale dos veces por año, ¡aunque todavía sea el mismo día! Y dado que Venus rota hacia atrás, el Sol sale por el oeste y se pone en el este.\n'
-      'Al igual que Mercurio, Venus no tiene ninguna luna.', 
-      'distance': '57.9 millones de km',
-      'day': '243',
-      'year': '225',
-      'moons': '0',
-      'curiosities': [
-      'Un día dura más que un año. (• Rotación lenta: Venus tarda 243 días terrestres en girar sobre sí mismo una sola vez.Órbita rápida Tarda solo 225 días terrestres en dar una vuelta completa alrededor del Sol.)',
-      'Gira al revés',
-      'Lluvia que se evapora',
-      'Un nombre de diosa, (Mitología: Venus recibe su nombre de la diosa romana del amor y la belleza.)',
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=HNHZggkO-wo',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Venus.png',
-      'audio': 'assets/audios/Audio-Venus.mp3',
-      }, 
-    {
-      'name': 'Tierra',
-      'subtitle': 'Nuestro hogar en el universo',
-      'icon': 'assets/imagenes/Tierrat.png',
-      'color': Color(0xFF42A5F5),
-      'image': 'assets/imagenes/Tierrat.png',
-      'description'
-      :
-      'Nuestro hogar, el planeta Tierra, es un planeta terrestre y rocoso. Tiene una superficie sólida y activa, con montañas, valles, cañones, llanuras y mucho más. La Tierra es especial porque es un planeta océano, ya que el agua cubre el 70% de su superficie.\n\n'
-      'Nuestra atmósferaestá compuesta, en gran parte, por nitrógeno. También tiene mucho oxígeno, que nos permite respirar. Además, nos protege de los meteoroides que se acercan a la Tierra, la mayoría de los cuales se desintegran en nuestra atmósfera antes de llegar a la superficie en forma de meteoritos.\n\n'
-      'Es posible que, como se trata de nuestro hogar, pienses que lo sabemos todo sobre la Tierra. ¡La verdad es que no! Aún nos queda mucho por aprender sobre nuestro planeta. Actualmente, hay muchos satélites en órbita alrededor de la Tierra, tomando fotos y realizando mediciones. Esto nos permite saber más cosas sobre el clima, los océanos, la tierra, el cambio climático y muchos otros temas importantes.',
-      'distance: 149.6 millones de kilómetros'
-      'day': '24',
-      'year': '365',
-      'moons': '1',
-      'curiosities': [
-      'No es redonda: Tiene una forma irregular llamada geoide porque se ensancha en el ecuador y se aplana ligeramente en los polo.\n\n'
-      '• La Luna se aleja: El satélite natural se separa cada año de la Tierra a un ritmo aproximado de 4 centímetros por año.',
+      'Es el planeta más pequeño del sistema solar.',
+      'Su año dura solamente 88 días terrestres.',
+      'Una rotación de Mercurio dura aproximadamente 59 días terrestres.',
+      'Su día solar dura aproximadamente 176 días terrestres.',
+      'No tiene lunas.',
+      'No tiene anillos.',
+      'A pesar de estar más cerca del Sol, Venus es más caliente que Mercurio.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=d6pNPnxp6PY',
+    'videoThumbnail': 'assets/imagenes/pantalla_mercurio.png',
+    'audio': 'assets/audios/Audio-Mercurio.mp3',
+  },
+  {
+    'name': 'Venus',
+    'subtitle': 'El planeta más caliente del sistema solar',
+    'icon': 'assets/imagenes/Venust.png',
+    'color': Color(0xFFE65603),
+    'image': 'assets/imagenes/Venust.png',
 
-      'El verdadero pulmón: Los océanos producen entre el 50% y el 80% del oxígeno del planeta gracias al fitoplancton y las algas marinas.',
-      'El agua cubre más del 70% de la Tierra\n\n'
-      'En la Tierra, el agua se encuentra en estado sólido, líquido y gaseoso.'
-      'Además, cubre las tres cuartas partes de la superficie terrestre en forma de pantanos, lagos, ríos, mares y océanos.'
-      'Estos últimos contienen alrededor del 97% de toda el agua del planeta.',
-      
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Tierra.png',
-      'audio': 'assets/audios/Audio-Tierra.mp3',
-    },
-    {
-      'name': 'Marte',
-      'subtitle': 'El planeta rojo',
-      'icon': 'assets/imagenes/Martet.png',
-      'color': Color.fromARGB(255, 230, 32, 32),
-      'image': 'assets/imagenes/Martet.png',
-      'description'
-      :
-      'Marte es un mundo frío y desértico. La temperatura media en Marte es de -65 grados Celsius (-85 grados Fahrenheit), muy por debajo del punto de congelación. Marte tiene la mitad del tamaño de la Tierra. A veces es llamado el planeta rojo. Es rojo debido al hierro oxidado de su suelo.\n\n'
-      'Al igual que la Tierra, Marte tiene estaciones del año, casquetes polares, volcanes, cañones y tiempo meteorológico. Tiene una atmósfera muy delgada compuesta principalmente de dióxido de carbono, nitrógeno y argón. Las personas no podrían respirar el aire en Marte.'
-      'distance: 228 millones de kilómetros',
-      'day': '24,6 horas',
-      'year': '687 dias',
-      'moons': '2',
-      'curiosities': [
-      'Tormentas de polvo gigantescas\n\n'
-      '•Sufre las tormentas de polvo más grandes de todo el sistema solar.'
-      '•todo el planeta durante semanas o meses y bloquear la luz del sol.',
+    'description':
+        'Venus es el segundo planeta desde el Sol y tiene un tamaño muy parecido al de la Tierra. '
+        'Es un planeta rocoso, pero posee una atmósfera extremadamente densa compuesta principalmente por dióxido de carbono, '
+        'con nubes de ácido sulfúrico.\n\n'
+        'La enorme cantidad de dióxido de carbono provoca un intenso efecto invernadero que convierte a Venus '
+        'en el planeta más caliente del sistema solar. Las temperaturas de su superficie son suficientemente altas '
+        'como para fundir algunos metales.\n\n'
+        'Venus gira muy lentamente y en dirección contraria a la mayoría de los planetas. '
+        'Su rotación dura aproximadamente 243 días terrestres, mientras que completa una vuelta alrededor del Sol '
+        'en aproximadamente 225 días terrestres.\n\n'
+        'Por eso, un día de rotación en Venus dura más que un año venusiano. '
+        'Sin embargo, desde un amanecer hasta el siguiente transcurren aproximadamente 117 días terrestres.\n\n'
+        'Venus no tiene lunas ni anillos.',
 
-      'Dos lunas con forma de patata \n\n'
-      '•Tiene dos satélites naturales pequeños llamados Fobos y Deimos.'
-      '•No son redondos; tienen una forma irregular parecida a una patata.'
-      '•Fobos orbita tan rápido que sale y se pone dos veces al día, y se acerca cada vez más al planeta, por lo que podría desintegrarse en el futuro y formar un anillo.',
+    'distance': '108 millones de km',
+    'day': '243 días terrestres',
+    'year': '225 días terrestres',
+    'moons': '0',
 
-      'El gran cañón Valles Marineris\n\n'
-      '•Posee el sistema de cañones más grande del sistema sola'
-      '•El Valles Marineris se extiende a lo largo de unos 3.870 kilómetros'
-      '•Es más de 10 veces más largo que el Gran Cañón de la Tierra.',
-      
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
-      'videoThumbnail': 'assets/imagenes/Pantalla_marte.png',
-      'audio': 'assets/audios/Audio-Marte.mp3',
-    },
-    {
-      'name': 'Júpiter',
-      'subtitle': 'El planeta más grande',
-      'icon': 'assets/imagenes/Jupitert.png',
-      'color': Color.fromARGB(255, 247, 86, 11),
-      'image': 'assets/imagenes/Jupitert.png',
-      'description'
-      :
-      'Júpiter es el planeta más grande de nuestro sistema solar. Es parecido a una estrella, pero nunca tuvo la masa suficiente para comenzar a arder. Está cubierto de bandas de nubes arremolinadas. Tiene grandes tormentas como la Gran Mancha Roja, que existe desde hace cientos de años. Júpiter es un gigante gaseoso y no tiene una superficie sólida. Todavía no está claro si en el fondo Júpiter tiene un núcleo central de material sólido o si podría ser una sopa espesa, supercaliente y densa. Júpiter también tiene anillos, pero son demasiado tenues para verlos con claridad.\n\n'
-      '• Características principales'
-      '• Gigante gaseoso: No tiene una superficie sólida y está formado principalmente por hidrógeno y helio.'
-      '• Gran Mancha Roja: Es una tormenta gigante e histórica que es más grande que la Tierra.'
-      '• Lunas: Tiene 95 lunas reconocidas oficialmente, entre las que destacan las cuatro lunas galileanas descubiertas por Galileo Galilei: Ío, Europa, Ganímedes y Calisto. Ganímedes es el satélite natural más grande de todo el sistema solar.',
-      '• Gran tamaño: Su masa es más del doble que la de todos los demás planetas juntos.'
-      'distance: 228 millones de kilómetros'
-      'day': '10 horas',
-      'year': '11.8 años',
-      'moons': '95',
-      'curiosities': [
-      '•El día más rápido: Tarda solo unas 9,9 horas en dar una vuelta completa sobre su propio eje, lo que lo convierte en el día más corto del sistema solar..\n\n'
-      '•Auroras perpetuas: Tiene auroras boreales cientos de veces más energéticas que las de la Tierra y que nunca se detienen',
-      '•Anillos tenues: Posee un sistema de anillos compuestos de pequeñas partículas de polvo oscuro, difíciles de ver a simple vista',
+    'curiosities': [
+      'Es el planeta más caliente del sistema solar.',
+      'Su día de rotación dura más que su año.',
+      'Gira en dirección contraria a la mayoría de los planetas.',
+      'El Sol sale por el oeste y se pone por el este.',
+      'Su atmósfera es extremadamente densa.',
+      'Posee nubes de ácido sulfúrico.',
+      'No tiene lunas.',
+      'No tiene anillos.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=HNHZggkO-wo',
+    'videoThumbnail': 'assets/imagenes/Pantalla_Venus.png',
+    'audio': 'assets/audios/Audio-Venus.mp3',
+  },
+  {
+    'name': 'Tierra',
+    'subtitle': 'Nuestro hogar en el universo',
+    'icon': 'assets/imagenes/Tierrat.png',
+    'color': Color(0xFF42A5F5),
+    'image': 'assets/imagenes/Tierrat.png',
 
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=5ehFn46dAdc',
-      'videoThumbnail': 'assets/imagenes/Pantalla_jupiter.png',
-      'audio': 'assets/audios/Audio-Jupiter.mp3',
-    },
-    {
-      'name': 'Saturno',
-      'subtitle': 'El planeta de los anillos',
-      'icon': 'assets/imagenes/Saturnot.png',
-      'color': Color.fromARGB(255, 233, 158, 108),
-      'image': 'assets/imagenes/Saturnot.png',
-      'description'
-      :
-      'Saturno no es el único planeta que tiene anillos, pero definitivamente tiene los más bellos. Los anillos que vemos están compuestos por grupos de pequeños aros que rodean a Saturno. Están hechos de pedazos de hielo y roca. Como Júpiter, Saturno es una pelota de hidrógeno y helio, en gran parte.\n\n'
-      ''
-      'Estructura y superficie'
-      'Es un gigante de gas, como Júpiter. Está compuesto por hidrógeno y helio, sobre todo.'
-      'Tiene una atmósfera densa'
-      'Cuenta con un precioso grupo de siete anillos separados por espacio entre ellos.'
-      'Cuando Galileo Galilei vio a Saturno a través de un telescopio en el siglo XVII, no estaba seguro de lo que estaba viendo. Al principio, creyó que estaba mirando tres planetas, o un planeta con asas. Ahora, sabemos que esas "asas" eran los anillos de Saturno.',
-      'distance: 228 millones de kilómetros'
-      'day': '10,7 horas',
-      'year': '29 años',
-      'moons': '274',
-      'curiosities': [
-      'Anillos de hielo: Sus icónicos anillos están formados por fragmentos de hielo y roca que van desde tamaño microscópico hasta varios metros.\n\n'
-      'Días muy cortos: A pesar de tardar casi 29 años terrestres en dar la vuelta al Sol, gira tan rápido sobre su eje que un día dura solo 10.7 horas.'
-      'Tormenta hexagonal: En su polo norte existe una extraña tormenta permanente con una perfecta forma geométrica de seis lados',
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=HrFGmGr7KA0',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Saturno.png',
-      'audio': 'assets/audios/Audio-Saturno.mp3',
-    },
-    {
-      'name': 'Urano',
-      'subtitle': 'Un gigante de hielo',
-      'icon': 'assets/imagenes/Uranot.png',
-      'color': Color(0xFF4DD0E1),
-      'image': 'assets/imagenes/Uranot.png',
-      'description':
-      'Urano está compuesto de agua, metano y amoniaco sobre un pequeño centro rocoso. Su atmósfera está hecha de hidrógeno y helio, como Júpiter y Saturno, pero además contiene metano. El metano es lo que le da a Urano el color azul.\n\n'
-      'Urano también tiene anillos tenues, los anillos internos son angostos y oscuros, los anillos externos tienen colores vivos y son más fáciles de ver, como venus, urano rota en dirección opuesta a la de la mayoría de los otros planetas.\n'
-      'y a diferencia de cualquier otro planeta, urano rota de lado.',
-      'distance: 2.870 millones de kilómetros'
-      'day': '17 horas y 14 minutos',
-      'year': ' 84 años',
-      'moons': '28',
-      'curiosities': [
-      'Su eje de rotación está inclinado casi 97.8 grados, lo que significa que rota prácticamente acostado, como si rodara sobre su órbita, debido a un posible impacto gigante en su pasado.',
-      'Debido a su inclinación, cada polo pasa 42 años de luz solar continua y otros 42 años en completa oscuridad.',
-      'Es el planeta más frío: Su atmósfera registra temperaturas mínimas de hasta -224.2 °C, siendo la más gélida de todo el sistema solar, incluso más fría que la de Neptuno, que está más lejos',
-      'Solo una nave creada por el ser humano lo ha visitado de cerca: la sonda Voyager 2 de la NASA en el año 1986.',
-      'Color azul por el metano: Su atmósfera está compuesta de hidrógeno, helio y metano. Este último gas absorbe la luz roja y refleja el característico color azul verdoso del planeta',
-      ],
-      'videoUrl': 'https://www.youtube.com/watch?v=enkjdmFkgYk',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Urano.png',
-      'audio': 'assets/audios/Audio-Urano.mp3',
-    },
-    {
-      'name': 'Neptuno',
-      'subtitle': 'El planeta más lejano',
-      'icon': 'assets/imagenes/Neptunot.png',
-      'color': Color(0xFF5C6BC0),
-      'image': 'assets/imagenes/Neptunot.png',
-      'description':
-      'Neptuno es oscuro, frío y muy ventoso. Es el último planeta de nuestro sistema solar. Se encuentra a más de 30 veces la distancia de la Tierra al Sol. Neptuno es muy similar a Urano. Está formado por una densa niebla de agua, amoníaco y metano sobre un núcleo sólido del tamaño de la Tierra. Su atmósfera está compuesta de hidrógeno, helio y metano. El metano le da a Neptuno el mismo color azul que a Urano. Neptuno tiene seis anillos, pero son muy difíciles de ver.',
-      'distance: 4.500 millones de kilómetros'
-      'day': '16, horas',
-      'year': '165 años',
-      'moons': '16',
-      'curiosities': [
-      'Vientos extremos: Tiene los vientos más fuertes del sistema solar, los cuales pueden superar los 2.000 km/h.',
-      'Fue el primer planeta descubierto gracias a cálculos matemáticos antes de ser observado por un telescopio en 1846.',
-      'Órbita muy larga: Tarda 165 años terrestres en dar una vuelta completa alrededor del Sol',
+    'description':
+        'La Tierra es el tercer planeta desde el Sol y nuestro hogar. Es un planeta rocoso con una superficie sólida '
+        'formada por continentes, montañas, valles, llanuras y océanos.\n\n'
+        'Aproximadamente el 71 % de la superficie terrestre está cubierta por agua. '
+        'La Tierra posee una atmósfera rica en nitrógeno y oxígeno, que permite la existencia de la vida tal como la conocemos.\n\n'
+        'La Tierra tarda aproximadamente 24 horas en completar una rotación y alrededor de 365 días en completar '
+        'una vuelta alrededor del Sol.\n\n'
+        'Es el único planeta conocido que posee grandes cantidades de agua líquida estable en su superficie '
+        'y el único planeta donde se ha confirmado la existencia de vida.\n\n'
+        'La Tierra tiene una luna natural: la Luna.',
 
-      'No visible a simple vista: Es el único de los ocho planetas principales que no se puede ver desde la Tierra sin la ayuda de un telescopio.',
-      '•  Su atmósfera contiene metano, un gas que absorbe la luz roja y refleja el característico color azul del planeta.',
-      'La órbita de Tritón: Su luna más grande, Tritón, gira en dirección opuesta (retrógrada) a la rotación del planeta.',
-      ],
-      'videoUrl': 'hhttps://www.youtube.com/watch?v=boCOI-Rckp8',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Neptuno.png',
-      'audio': 'assets/audios/Audio-Neptuno.mp3',
-    },
-  ];
+    'distance': '150,2 millones de km',
+    'day': '24 horas',
+    'year': '365 días terrestres',
+    'moons': '1',
+
+    'curiosities': [
+      'Es el único planeta conocido que alberga vida.',
+      'Aproximadamente el 71 % de su superficie está cubierta por agua.',
+      'Tiene una atmósfera compuesta principalmente por nitrógeno y oxígeno.',
+      'La Tierra tiene una luna natural: la Luna.',
+      'La Luna se aleja de la Tierra aproximadamente 3,8 centímetros por año.',
+      'El agua terrestre existe en estado sólido, líquido y gaseoso.',
+      'La Tierra es el planeta rocoso más grande del sistema solar.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
+    'videoThumbnail': 'assets/imagenes/Pantalla_Tierra.png',
+    'audio': 'assets/audios/Audio-Tierra.mp3',
+  },
+  {
+    'name': 'Marte',
+    'subtitle': 'El planeta rojo',
+    'icon': 'assets/imagenes/Martet.png',
+    'color': Color(0xFFE62020),
+    'image': 'assets/imagenes/Martet.png',
+    'description':
+        'Marte es el cuarto planeta desde el Sol y es conocido como el planeta rojo debido al hierro oxidado '
+        'presente en sus rocas y polvo superficial.\n\n'
+        'Es un planeta rocoso y frío, aproximadamente la mitad del tamaño de la Tierra. '
+        'Su atmósfera es muy delgada y está compuesta principalmente por dióxido de carbono.\n\n'
+        'Marte tarda aproximadamente 24,6 horas en completar una rotación, por lo que la duración de su día '
+        'es muy parecida a la de la Tierra. Un día solar marciano recibe el nombre de sol.\n\n'
+        'Su año dura aproximadamente 687 días terrestres. Marte también presenta estaciones debido a la inclinación '
+        'de su eje de rotación.\n\n'
+        'Marte posee dos pequeñas lunas llamadas Fobos y Deimos.',
+
+    'distance': '227,9 millones de km',
+    'day': '24,6 horas',
+    'year': '687 días terrestres',
+    'moons': '2',
+    
+    'curiosities': [
+      'Es conocido como el planeta rojo.',
+      'Su color se debe principalmente al hierro oxidado de su superficie.',
+      'Tiene dos lunas: Fobos y Deimos.',
+      'Posee enormes tormentas de polvo que pueden cubrir grandes regiones del planeta.',
+      'Tiene Valles Marineris, uno de los sistemas de cañones más grandes conocidos del sistema solar.',
+      'Posee Olympus Mons, el volcán más grande conocido del sistema solar.',
+      'Un día marciano dura aproximadamente 24,6 horas.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
+    'videoThumbnail': 'assets/imagenes/Pantalla_marte.png',
+    'audio': 'assets/audios/Audio-Marte.mp3',
+  },
+  {
+    'name': 'Júpiter',
+    'subtitle': 'El planeta más grande del sistema solar',
+    'icon': 'assets/imagenes/Jupitert.png',
+    'color': Color(0xFFF7560B),
+    'image': 'assets/imagenes/Jupitert.png',
+    'description':
+        'Júpiter es el planeta más grande del sistema solar y el quinto planeta desde el Sol. '
+        'Es un gigante gaseoso compuesto principalmente por hidrógeno y helio.\n\n'
+        'Júpiter no posee una superficie sólida como la Tierra. Su atmósfera presenta bandas de nubes '
+        'y enormes tormentas, entre ellas la famosa Gran Mancha Roja.\n\n'
+        'Júpiter gira extremadamente rápido. Una rotación completa tarda aproximadamente 9,9 horas, '
+        'lo que convierte a Júpiter en el planeta con el día más corto del sistema solar.\n\n'
+        'A pesar de su rápida rotación, Júpiter tarda aproximadamente 12 años terrestres en completar una vuelta alrededor del Sol.\n\n'
+        'Actualmente NASA indica que Júpiter tiene 115 lunas reconocidas oficialmente. '
+        'Entre ellas destacan Ío, Europa, Ganímedes y Calisto, conocidas como las lunas galileanas.',
+
+    'distance': '778 millones de km',
+    'day': '9,9 horas',
+    'year': '11,86 años terrestres',
+    'moons': '115',
+
+    'curiosities': [
+      'Es el planeta más grande del sistema solar.',
+      'Tiene el día más corto de todos los planetas.',
+      'Una rotación dura aproximadamente 9,9 horas.',
+      'La Gran Mancha Roja es una enorme tormenta atmosférica.',
+      'Tiene 115 lunas reconocidas oficialmente por la IAU según NASA.',
+      'Ganímedes, una de sus lunas, es el satélite natural más grande del sistema solar.',
+      'Posee un sistema de anillos muy débiles.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=5ehFn46dAdc',
+    'videoThumbnail': 'assets/imagenes/Pantalla_jupiter.png',
+    'audio': 'assets/audios/Audio-Jupiter.mp3',
+  },
+  {
+    'name': 'Saturno',
+    'subtitle': 'El planeta de los impresionantes anillos',
+    'icon': 'assets/imagenes/Saturnot.png',
+    'color': Color(0xFFE99E6C),
+    'image': 'assets/imagenes/Saturnot.png',
+    'description':
+        'Saturno es el sexto planeta desde el Sol y el segundo planeta más grande del sistema solar. '
+        'Es un gigante gaseoso compuesto principalmente por hidrógeno y helio.\n\n'
+        'Es famoso por su espectacular sistema de anillos, formado principalmente por fragmentos de hielo y roca '
+        'de diferentes tamaños. Aunque otros planetas también poseen anillos, los de Saturno son los más destacados '
+        'y fáciles de observar.\n\n'
+        'Saturno gira rápidamente sobre su eje y completa una rotación en aproximadamente 10,7 horas. '
+        'Sin embargo, necesita aproximadamente 29,4 años terrestres para completar una vuelta alrededor del Sol.\n\n'
+        'Según NASA, Saturno tenía 274 lunas confirmadas en marzo de 2025, aunque el número puede cambiar '
+        'cuando se confirmen nuevos satélites.\n\n'
+        'Entre sus lunas más conocidas se encuentran Titán y Encélado.',
+
+    'distance': '1.400 millones de km',
+    'day': '10,7 horas',
+    'year': '29,4 años terrestres',
+    'moons': '274',
+
+    'curiosities': [
+      'Es el segundo planeta más grande del sistema solar.',
+      'Posee el sistema de anillos más espectacular del sistema solar.',
+      'Sus anillos están formados principalmente por hielo y roca.',
+      'Un día en Saturno dura aproximadamente 10,7 horas.',
+      'Un año en Saturno dura aproximadamente 29,4 años terrestres.',
+      'Tiene 274 lunas confirmadas según NASA en marzo de 2025.',
+      'Titán es la luna más grande de Saturno.',
+      'En el polo norte de Saturno existe una enorme estructura atmosférica con forma hexagonal.',
+    ],
+
+    'videoUrl': 'https://www.youtube.com/watch?v=HrFGmGr7KA0',
+    'videoThumbnail': 'assets/imagenes/Pantalla_Saturno.png',
+    'audio': 'assets/audios/Audio-Saturno.mp3',
+  },
+  {
+    'name': 'Urano',
+    'subtitle': 'Un gigante de hielo que gira de lado',
+    'icon': 'assets/imagenes/Uranot.png',
+    'color': Color(0xFF4DD0E1),
+    'image': 'assets/imagenes/Uranot.png',
+    'description':
+        'Urano es el séptimo planeta desde el Sol y uno de los dos gigantes de hielo del sistema solar. '
+        'Su composición es diferente a la de los gigantes gaseosos Júpiter y Saturno.\n\n'
+        'Su atmósfera está formada principalmente por hidrógeno y helio, además de metano. '
+        'El metano absorbe parte de la luz roja y contribuye al color azul verdoso característico de Urano.\n\n'
+        'Una de sus características más llamativas es su inclinación axial de aproximadamente 97,8 grados. '
+        'Por esta razón, Urano parece girar prácticamente de lado mientras recorre su órbita.\n\n'
+        'Urano tarda aproximadamente 17 horas en completar una rotación y unos 84 años terrestres '
+        'en completar una vuelta alrededor del Sol.\n\n'
+        'Urano tiene 28 lunas conocidas y también posee un sistema de anillos tenues.',
+
+    'distance': '2.900 millones de km',
+    'day': '17 horas',
+    'year': '84 años terrestres',
+    'moons': '28',
+
+    'curiosities': [
+      'Urano gira prácticamente de lado debido a su inclinación axial de aproximadamente 97,8 grados.',
+      'Tiene 28 lunas conocidas.',
+      'Posee un sistema de anillos tenues.',
+      'El metano de su atmósfera contribuye a su color azul verdoso.',
+      'Sus estaciones son extremas debido a su gran inclinación.',
+      'Cada estación dura aproximadamente 21 años terrestres.',
+      'Fue visitado de cerca por la Voyager 2 en 1986.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=enkjdmFkgYk',
+    'videoThumbnail': 'assets/imagenes/Pantalla_Urano.png',
+    'audio': 'assets/audios/Audio-Urano.mp3',
+  },
+  {
+    'name': 'Neptuno',
+    'subtitle': 'El planeta más lejano del sistema solar',
+    'icon': 'assets/imagenes/Neptunot.png',
+    'color': Color(0xFF5C6BC0),
+    'image': 'assets/imagenes/Neptunot.png',
+
+    'description':
+        'Neptuno es el octavo y más lejano de los ocho planetas del sistema solar. '
+        'Es un gigante de hielo, oscuro, frío y conocido por sus fuertes vientos.\n\n'
+        'Su atmósfera está compuesta principalmente por hidrógeno y helio, además de metano. '
+        'El metano contribuye a su característico color azul.\n\n'
+        'Neptuno gira rápidamente y tarda aproximadamente 16 horas en completar una rotación. '
+        'Sin embargo, debido a su enorme distancia del Sol, necesita aproximadamente 165 años terrestres '
+        'para completar una vuelta alrededor del Sol.\n\n'
+        'Neptuno tiene 16 lunas conocidas. La más grande es Tritón, que posee una órbita retrógrada, '
+        'es decir, se mueve en dirección opuesta a la rotación del planeta.\n\n'
+        'También posee anillos, aunque son mucho más débiles y difíciles de observar que los de Saturno.',
+
+    'distance': '4.500 millones de km',
+    'day': '16 horas',
+    'year': '165 años terrestres',
+    'moons': '16',
+
+    'curiosities': [
+      'Es el planeta más lejano del sistema solar.',
+      'Tiene algunos de los vientos más rápidos conocidos del sistema solar.',
+      'Tarda aproximadamente 165 años terrestres en completar una órbita.',
+      'Tiene 16 lunas conocidas.',
+      'Tritón es su luna más grande.',
+      'Tritón tiene una órbita retrógrada.',
+      'Posee anillos muy débiles.',
+      'Fue el primer planeta descubierto mediante predicciones matemáticas antes de su observación.',
+    ],
+    'videoUrl': 'https://www.youtube.com/watch?v=boCOI-Rckp8',
+    'videoThumbnail': 'assets/imagenes/Pantalla_Neptuno.png',
+    'audio': 'assets/audios/Audio-Neptuno.mp3',
+  },
+];
 
   @override
   Widget build(BuildContext context) {

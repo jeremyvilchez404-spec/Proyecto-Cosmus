@@ -591,16 +591,16 @@ class _InfoGrid extends StatelessWidget {
 
   String formatoDistancia(String value) {
     if (value == '57.9 millones de km') {
-      return '57.9 M km';
+      return '57.9 millones de km';
     }
 
     return value;
   }
 
   String formatoDia(String value) {
-    if (value == '58.6 días terrestres') {
-      return '58.6 días';
-    }
+    if (value == '58.6 días/años terrestres') {
+      return '58.6 días/años terrestres';
+  }   
 
     return value;
   }
