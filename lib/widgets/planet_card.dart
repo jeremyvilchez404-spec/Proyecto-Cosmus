@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class PlanetCard extends StatelessWidget {
   final String name;
   final String emoji;
+  final String image;
   final String description;
   final Color color;
   final VoidCallback onTap;
@@ -11,6 +12,7 @@ class PlanetCard extends StatelessWidget {
     super.key,
     required this.name,
     required this.emoji,
+    required this.image,
     required this.description,
     required this.color,
     required this.onTap,
@@ -27,13 +29,32 @@ class PlanetCard extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 32,
-                backgroundColor: color,
-                child: Text(
-                  emoji,
-                  style: const TextStyle(
-                    fontSize: 28,
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: color.withOpacity(0.15),
+                ),
+                child: ClipOval(
+                  child: Image.asset(
+                    image,
+                    width: 64,
+                    height: 64,
+                    fit: BoxFit.cover,
+
+                    // Si la imagen no existe,
+                    // muestra el emoji como respaldo.
+                    errorBuilder: (context, error, stackTrace) {
+                      return Center(
+                        child: Text(
+                          emoji,
+                          style: const TextStyle(
+                            fontSize: 28,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),

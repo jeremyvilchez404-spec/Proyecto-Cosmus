@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 class LearnCard extends StatelessWidget {
   final String title;
   final String description;
-  final IconData icon;
-  final Color iconColor;
+  final Widget icon;
   final VoidCallback onTap;
 
   const LearnCard({
@@ -12,7 +11,6 @@ class LearnCard extends StatelessWidget {
     required this.title,
     required this.description,
     required this.icon,
-    required this.iconColor,
     required this.onTap,
   });
 
@@ -35,14 +33,9 @@ class LearnCard extends StatelessWidget {
               width: 55,
               height: 55,
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.15),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 28,
-              ),
+              child: icon,
             ),
 
             const SizedBox(width: 15),

@@ -146,9 +146,15 @@ class LearnScreen extends StatelessWidget {
             LearnCard(
               title: 'Sistema Solar',
               description:
-                  'Conoce el Sol, los planetas y los cuerpos que forman nuestro vecindario cósmico.',
-              icon: Icons.public_rounded,
-              iconColor: const Color(0xFF42A5F5),
+              'Conoce el Sol, los planetas y los cuerpos que forman nuestro vecindario cósmico.',
+              icon: ClipOval(
+              child: Image.asset(
+              'assets/imagenes/icono_sol.png',
+              width: 55,
+              height: 55,
+              fit: BoxFit.cover,
+            ),
+          ),
               onTap: () {
                 Navigator.pushNamed(
                   context,
@@ -167,8 +173,14 @@ class LearnScreen extends StatelessWidget {
   title: 'Los Planetas',
   description:
       'Descubre las características, tamaños y curiosidades de cada planeta.',
-  icon: Icons.language_rounded,
-  iconColor: const Color(0xFFAB47BC),
+  icon: ClipOval(
+              child: Image.asset(
+              'assets/imagenes/icono_tierra.png',
+              width: 55,
+              height: 55,
+              fit: BoxFit.cover,
+            ),
+          ),
   onTap: () {
     Navigator.push(
       context,
@@ -181,94 +193,8 @@ class LearnScreen extends StatelessWidget {
 
             const SizedBox(height: 14),
 
-            // =========================================
-            // LA LUNA
-            // =========================================
-
-            LearnCard(
-              title: 'La Luna',
-              description:
-                  'Aprende sobre nuestro satélite natural, sus fases y sus características.',
-              icon: Icons.nightlight_round,
-              iconColor: const Color(0xFF90CAF9),
-              onTap: () {
-                _mostrarProximamente(context, 'La Luna');
-              },
-            ),
-
-            const SizedBox(height: 14),
-
-            // =========================================
-            // ESTRELLAS
-            // =========================================
-
-            LearnCard(
-              title: 'Las Estrellas',
-              description:
-                  'Conoce qué son las estrellas, cómo se forman y cómo evolucionan.',
-              icon: Icons.auto_awesome_rounded,
-              iconColor: const Color(0xFFFFD54F),
-              onTap: () {
-                _mostrarProximamente(context, 'Las Estrellas');
-              },
-            ),
-
-            const SizedBox(height: 14),
-
-            // =========================================
-            // UNIVERSO
-            // =========================================
-
-            LearnCard(
-              title: 'El Universo',
-              description:
-                  'Explora galaxias, nebulosas y otros fenómenos del universo.',
-              icon: Icons.blur_on_rounded,
-              iconColor: const Color(0xFF29B6F6),
-              onTap: () {
-                _mostrarProximamente(context, 'El Universo');
-              },
-            ),
-
-            const SizedBox(height: 14),
-
-            // =========================================
-            // EXPLORACIÓN ESPACIAL
-            // =========================================
-
-            LearnCard(
-              title: 'Exploración espacial',
-              description:
-                  'Descubre cómo la humanidad estudia y explora el espacio.',
-              icon: Icons.rocket_launch_rounded,
-              iconColor: const Color(0xFFFFA726),
-              onTap: () {
-                _mostrarProximamente(
-                  context,
-                  'Exploración espacial',
-                );
-              },
-            ),
           ],
         ),
-      ),
-    );
-  }
-
-  // =========================================
-  // MENSAJE TEMPORAL
-  // =========================================
-
-  void _mostrarProximamente(
-    BuildContext context,
-    String titulo,
-  ) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          '$titulo estará disponible próximamente.',
-        ),
-        behavior: SnackBarBehavior.floating,
       ),
     );
   }

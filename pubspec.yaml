@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/planetas/
     - assets/sonido_cosmos/
+    - assets/audios/
     - assets/images/
     - assets/imagenes/
     
