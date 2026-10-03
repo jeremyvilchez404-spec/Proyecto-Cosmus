@@ -7,10 +7,7 @@ import 'package:audioplayers/audioplayers.dart';
 class LearnPlanetDetailScreen extends StatefulWidget {
   final Map<String, dynamic> planet;
 
-  const LearnPlanetDetailScreen({
-    super.key,
-    required this.planet,
-  });
+  const LearnPlanetDetailScreen({super.key, required this.planet});
 
   @override
   State<LearnPlanetDetailScreen> createState() =>
@@ -75,23 +72,16 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
     // Si el planeta todavía no tiene audio
     if (audio == null || audio.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Audio próximamente disponible.'),
-        ),
+        const SnackBar(content: Text('Audio próximamente disponible.')),
       );
       return;
     }
 
     try {
       // Audioplayers necesita la ruta sin "assets/"
-      final String ruta = audio.replaceFirst(
-        'assets/',
-        '',
-      );
+      final String ruta = audio.replaceFirst('assets/', '');
 
-      await _audioPlayer.play(
-        AssetSource(ruta),
-      );
+      await _audioPlayer.play(AssetSource(ruta));
 
       setState(() {
         _audioReproduciendo = true;
@@ -100,9 +90,7 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No se pudo reproducir el audio.'),
-        ),
+        const SnackBar(content: Text('No se pudo reproducir el audio.')),
       );
     }
   }
@@ -116,9 +104,7 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
 
     if (videoUrl.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Video próximamente disponible.'),
-        ),
+        const SnackBar(content: Text('Video próximamente disponible.')),
       );
       return;
     }
@@ -126,17 +112,12 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
     final Uri url = Uri.parse(videoUrl);
 
     if (await canLaunchUrl(url)) {
-      await launchUrl(
-        url,
-        mode: LaunchMode.externalApplication,
-      );
+      await launchUrl(url, mode: LaunchMode.externalApplication);
     } else {
       if (!mounted) return;
 
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('No se pudo abrir el video.'),
-        ),
+        const SnackBar(content: Text('No se pudo abrir el video.')),
       );
     }
   }
@@ -152,27 +133,22 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
     final String subtitle = widget.planet['subtitle'] ?? '';
     final String description = widget.planet['description'] ?? '';
 
-    final String distance =
-        widget.planet['distance'] ?? 'No disponible';
+    final String distance = widget.planet['distance'] ?? 'No disponible';
 
-    final String day =
-        widget.planet['day'] ?? 'No disponible';
+    final String day = widget.planet['day'] ?? 'No disponible';
 
-    final String year =
-        widget.planet['year'] ?? 'No disponible';
+    final String year = widget.planet['year'] ?? 'No disponible';
 
-    final String moons =
-        widget.planet['moons'] ?? 'No disponible';
+    final String moons = widget.planet['moons'] ?? 'No disponible';
 
-    final List<String> curiosities =
-        List<String>.from(widget.planet['curiosities'] ?? []);
+    final List<String> curiosities = List<String>.from(
+      widget.planet['curiosities'] ?? [],
+    );
 
-    final Color color =
-        widget.planet['color'] ?? const Color(0xFF42A5F5);
+    final Color color = widget.planet['color'] ?? const Color(0xFF42A5F5);
 
     final String videoThumbnail =
-        widget.planet['videoThumbnail'] ??
-            'assets/planetas/cosmos.png';
+        widget.planet['videoThumbnail'] ?? 'assets/planetas/cosmos.png';
 
     return Scaffold(
       backgroundColor: const Color(0xFF070A12),
@@ -181,11 +157,9 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
-
             // ===================================================
             // APP BAR
             // ===================================================
-
             SliverAppBar(
               backgroundColor: const Color(0xFF070A12),
               surfaceTintColor: Colors.transparent,
@@ -193,10 +167,7 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
               pinned: true,
 
               leading: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.white,
-                ),
+                icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white),
                 onPressed: () {
                   Navigator.pop(context);
                 },
@@ -229,7 +200,6 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // PLANETA
             // ===================================================
-
             SliverToBoxAdapter(
               child: _PlanetHero(
                 animation: _animationController,
@@ -242,15 +212,9 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // NOMBRE
             // ===================================================
-
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.fromLTRB(
-                  24,
-                  8,
-                  24,
-                  20,
-                ),
+                padding: const EdgeInsets.fromLTRB(24, 8, 24, 20),
                 child: Column(
                   children: [
                     Text(
@@ -283,12 +247,9 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // DATOS
             // ===================================================
-
             SliverToBoxAdapter(
               child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: _InfoGrid(
                   distance: distance,
                   day: day,
@@ -302,7 +263,6 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // INFORMACIÓN
             // ===================================================
-
             SliverToBoxAdapter(
               child: _Section(
                 title: 'Información',
@@ -326,7 +286,6 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // CURIOSIDADES
             // ===================================================
-
             SliverToBoxAdapter(
               child: _Section(
                 title: 'Curiosidades',
@@ -345,10 +304,8 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
                     : Column(
                         children: curiosities
                             .map(
-                              (curiosity) => _Curiosity(
-                                text: curiosity,
-                                color: color,
-                              ),
+                              (curiosity) =>
+                                  _Curiosity(text: curiosity, color: color),
                             )
                             .toList(),
                       ),
@@ -358,7 +315,6 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // VIDEO
             // ===================================================
-
             SliverToBoxAdapter(
               child: _Section(
                 title: 'Aprende más',
@@ -377,7 +333,6 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
             // ===================================================
             // AUDIO
             // ===================================================
-
             SliverToBoxAdapter(
               child: _Section(
                 title: 'Escucha y aprende',
@@ -392,9 +347,7 @@ class _LearnPlanetDetailScreenState extends State<LearnPlanetDetailScreen>
               ),
             ),
 
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 35),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 35)),
           ],
         ),
       ),
@@ -428,7 +381,6 @@ class _PlanetHero extends StatelessWidget {
         alignment: Alignment.center,
 
         children: [
-
           // Brillo detrás del planeta
           Container(
             width: 250,
@@ -456,9 +408,7 @@ class _PlanetHero extends StatelessWidget {
               height: 110,
 
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white.withOpacity(.07),
-                ),
+                border: Border.all(color: Colors.white.withOpacity(.07)),
                 borderRadius: BorderRadius.circular(200),
               ),
             ),
@@ -470,10 +420,7 @@ class _PlanetHero extends StatelessWidget {
 
             builder: (context, child) {
               final double movimiento =
-                  math.sin(
-                    animation.value * math.pi * 2,
-                  ) *
-                  8;
+                  math.sin(animation.value * math.pi * 2) * 8;
 
               return Transform.translate(
                 offset: Offset(0, movimiento),
@@ -489,7 +436,6 @@ class _PlanetHero extends StatelessWidget {
               tag: 'planet-$name',
 
               child: image.isEmpty
-
                   // Si no existe imagen
                   ? Container(
                       width: 245,
@@ -500,13 +446,8 @@ class _PlanetHero extends StatelessWidget {
                         color: color.withOpacity(.25),
                       ),
 
-                      child: Icon(
-                        Icons.public,
-                        size: 90,
-                        color: color,
-                      ),
+                      child: Icon(Icons.public, size: 90, color: color),
                     )
-
                   // Imagen del planeta
                   : Image.asset(
                       image,
@@ -514,8 +455,7 @@ class _PlanetHero extends StatelessWidget {
                       height: 245,
                       fit: BoxFit.contain,
 
-                      errorBuilder:
-                          (context, error, stackTrace) {
+                      errorBuilder: (context, error, stackTrace) {
                         return Container(
                           width: 245,
                           height: 245,
@@ -600,16 +540,13 @@ class _InfoGrid extends StatelessWidget {
   String formatoDia(String value) {
     if (value == '58.6 días/años terrestres') {
       return '58.6 días/años terrestres';
-  }   
+    }
 
     return value;
   }
 
   String formatoAno(String value) {
-    return value.replaceAll(
-      ' 88',
-      'terrestres',
-    );
+    return value.replaceAll(' 88', 'terrestres');
   }
 
   @override
@@ -684,14 +621,11 @@ class _DataCard extends StatelessWidget {
         color: const Color(0xFF10141E),
         borderRadius: BorderRadius.circular(18),
 
-        border: Border.all(
-          color: Colors.white.withOpacity(.06),
-        ),
+        border: Border.all(color: Colors.white.withOpacity(.06)),
       ),
 
       child: Row(
         children: [
-
           Container(
             width: 40,
             height: 40,
@@ -701,32 +635,24 @@ class _DataCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
             ),
 
-            child: Icon(
-              icon,
-              size: 20,
-              color: color,
-            ),
+            child: Icon(icon, size: 20, color: color),
           ),
 
           const SizedBox(width: 11),
 
           Expanded(
             child: Column(
-              mainAxisAlignment:
-                  MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
 
-              crossAxisAlignment:
-                  CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
 
               children: [
-
                 Text(
                   title,
 
                   style: TextStyle(
                     fontSize: 11,
-                    color:
-                        Colors.white.withOpacity(.45),
+                    color: Colors.white.withOpacity(.45),
                   ),
                 ),
 
@@ -773,27 +699,15 @@ class _Section extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(
-        20,
-        28,
-        20,
-        0,
-      ),
+      padding: const EdgeInsets.fromLTRB(20, 28, 20, 0),
 
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-
           Row(
             children: [
-
-              Icon(
-                icon,
-                size: 19,
-                color: color,
-              ),
+              Icon(icon, size: 19, color: color),
 
               const SizedBox(width: 8),
 
@@ -826,19 +740,14 @@ class _Curiosity extends StatelessWidget {
   final String text;
   final Color color;
 
-  const _Curiosity({
-    required this.text,
-    required this.color,
-  });
+  const _Curiosity({required this.text, required this.color});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
 
-      margin: const EdgeInsets.only(
-        bottom: 10,
-      ),
+      margin: const EdgeInsets.only(bottom: 10),
 
       padding: const EdgeInsets.all(14),
 
@@ -846,22 +755,14 @@ class _Curiosity extends StatelessWidget {
         color: const Color(0xFF10141E),
         borderRadius: BorderRadius.circular(15),
 
-        border: Border.all(
-          color: Colors.white.withOpacity(.04),
-        ),
+        border: Border.all(color: Colors.white.withOpacity(.04)),
       ),
 
       child: Row(
-        crossAxisAlignment:
-            CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
 
         children: [
-
-          Icon(
-            Icons.star,
-            size: 17,
-            color: color,
-          ),
+          Icon(Icons.star, size: 17, color: color),
 
           const SizedBox(width: 10),
 
@@ -924,24 +825,18 @@ class _VideoCard extends StatelessWidget {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
 
-              colors: [
-                Colors.transparent,
-                Colors.black.withOpacity(.82),
-              ],
+              colors: [Colors.transparent, Colors.black.withOpacity(.82)],
             ),
           ),
 
           padding: const EdgeInsets.all(18),
 
           child: Column(
-            mainAxisAlignment:
-                MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.end,
 
-            crossAxisAlignment:
-                CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
 
             children: [
-
               Text(
                 'Conoce más sobre $name',
 
@@ -969,16 +864,12 @@ class _VideoCard extends StatelessWidget {
                 width: 45,
                 height: 45,
 
-                decoration:
-                    const BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   shape: BoxShape.circle,
                 ),
 
-                child: const Icon(
-                  Icons.play_arrow,
-                  color: Colors.black,
-                ),
+                child: const Icon(Icons.play_arrow, color: Colors.black),
               ),
             ],
           ),
@@ -1017,14 +908,11 @@ class _AudioCard extends StatelessWidget {
           color: const Color(0xFF10141E),
           borderRadius: BorderRadius.circular(20),
 
-          border: Border.all(
-            color: Colors.white.withOpacity(.06),
-          ),
+          border: Border.all(color: Colors.white.withOpacity(.06)),
         ),
 
         child: Row(
           children: [
-
             Container(
               width: 52,
               height: 52,
@@ -1035,9 +923,7 @@ class _AudioCard extends StatelessWidget {
               ),
 
               child: Icon(
-                reproduciendo
-                    ? Icons.pause_rounded
-                    : Icons.play_arrow_rounded,
+                reproduciendo ? Icons.pause_rounded : Icons.play_arrow_rounded,
 
                 color: color,
                 size: 30,
@@ -1060,10 +946,7 @@ class _AudioCard extends StatelessWidget {
               ),
             ),
 
-            Icon(
-              Icons.graphic_eq_rounded,
-              color: color,
-            ),
+            Icon(Icons.graphic_eq_rounded, color: color),
           ],
         ),
       ),

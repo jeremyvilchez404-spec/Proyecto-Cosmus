@@ -1,69 +1,175 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/planet_screen.dart';
-import 'screens/quiz_screen.dart';
 import 'screens/solar_system_screen.dart';
-import 'screens/learn_screeen.dart';
+import 'screens/profile_screen.dart';
+import 'screens/learn_screeen.dart'; // Corregido el nombre del archivo
 import 'screens/learn_planets_screen.dart';
 
-void main() {
-  runApp(const MyApp());
+// ===============================
+// PANTALLAS DEL QUIZ
+// ===============================
+import 'screens/quiz_screen.dart';
+import 'screens/quiz_category_screen.dart';
+import 'screens/quiz_question_screen.dart';
+
+// ==========================================
+// NOTIFICADOR GLOBAL DEL TEMA
+// ==========================================
+final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  final prefs = await SharedPreferences.getInstance();
+  final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+
+  runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
+// ==========================================
+// APP PRINCIPAL
+// ==========================================
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isLoggedIn;
+
+  const MyApp({super.key, required this.isLoggedIn});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'COSMUS',
+    return ValueListenableBuilder<ThemeMode>(
+      valueListenable: themeNotifier,
+      builder: (context, ThemeMode currentMode, child) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'COSMUS',
+          themeMode: currentMode,
 
-      theme: ThemeData(
-        brightness: Brightness.dark,
-        scaffoldBackgroundColor: const Color(0xFF040B1E),
-        useMaterial3: true,
-      ),
+          // ==================================
+          // TEMA CLARO
+          // ==================================
+          theme: ThemeData(
+            brightness: Brightness.light,
+            scaffoldBackgroundColor: const Color(0xFFF1F5F9),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFF1E88E5),
+              brightness: Brightness.light,
+            ),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              iconTheme: IconThemeData(color: Color(0xFF0F172A)),
+              titleTextStyle: TextStyle(
+                color: Color(0xFF0F172A),
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.5,
+              ),
+            ),
+            useMaterial3: true,
+          ),
 
-      // Inicia directamente en la pantalla de Login
-      initialRoute: '/login',
+          // ==================================
+          // TEMA OSCURO
+          // ==================================
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            scaffoldBackgroundColor: const Color(0xFF040B1E),
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: const Color(0xFF61DAFB),
+              brightness: Brightness.dark,
+            ),
+            appBarTheme: const AppBarTheme(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              iconTheme: IconThemeData(color: Colors.white),
+              titleTextStyle: TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.w800,
+                letterSpacing: 1.5,
+              ),
+            ),
+            useMaterial3: true,
+          ),
 
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/home': (context) => const HomeScreen(),
-        '/solar-system': (context) => const SolarSystemScreen(),
-        '/learn': (context) => const LearnScreen(),
-        '/learn-planets': (context) => const LearnPlanetsScreen(),
+          // ==================================
+          // RUTA INICIAL (Basada en sesión)
+          // ==================================
+          initialRoute: isLoggedIn ? '/home' : '/login',
 
-        '/planet': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments;
+          // ==================================
+          // RUTAS
+          // ==================================
+          routes: {
+            '/login': (context) => const LoginScreen(),
+            '/home': (context) => const HomeScreen(),
+            '/solar-system': (context) => const SolarSystemScreen(),
+            '/learn': (context) => const LearnScreen(),
+            '/learn-planets': (context) => const LearnPlanetsScreen(),
 
-          if (args is Map<String, dynamic>) {
-            return PlanetScreen(planet: args);
-          }
+            // PLANETA (Soporta argumentos en Map)
+            '/planet': (context) {
+              final args = ModalRoute.of(context)?.settings.arguments;
+              if (args is Map<String, dynamic>) {
+                return PlanetScreen(planet: args);
+              }
+              return const PlanetScreen();
+            },
 
-          return const PlanetScreen();
-        },
+            // QUIZ - SELECCIÓN PRINCIPAL
+            '/quiz': (context) {
+              final args = ModalRoute.of(context)?.settings.arguments;
+              final String planetName = args is String ? args : 'Tierra';
+              return QuizScreen(planetName: planetName);
+            },
 
-        '/quiz': (context) {
-          final args = ModalRoute.of(context)?.settings.arguments;
+            // QUIZ - CATEGORÍAS
+            '/quiz-category': (context) {
+              final args = ModalRoute.of(context)?.settings.arguments;
+              String planetName = 'Tierra';
 
-          // Extrae el nombre del planeta si se envía como String; usa 'Tierra' como valor por defecto
-          final String planetName = args is String ? args : 'Tierra';
+              if (args is String) {
+                planetName = args;
+              } else if (args is Map<String, dynamic>) {
+                planetName = args['planetName']?.toString() ?? 'Tierra';
+              }
 
-          return QuizScreen(planetName: planetName);
-        },
+              return QuizCategoryScreen(planetName: planetName);
+            },
 
-        '/profile': (context) =>
-            const PlaceholderScreen(title: 'Perfil', icon: Icons.person),
+            // QUIZ - PREGUNTAS
+            '/quiz-question': (context) {
+              final args = ModalRoute.of(context)?.settings.arguments;
+              String planetName = 'Tierra';
+              String category = 'General';
+
+              if (args is Map<String, dynamic>) {
+                planetName = args['planetName']?.toString() ?? 'Tierra';
+                category = args['category']?.toString() ?? 'General';
+              }
+
+              return QuizQuestionScreen(
+                planetName: planetName,
+                categoryName: category,
+              );
+            },
+
+            // PERFIL
+            '/profile': (context) => const ProfileScreen(),
+          },
+        );
       },
     );
   }
 }
 
-/// Pantalla temporal para rutas en desarrollo
+// ==========================================
+// PANTALLA PLACEHOLDER (Por si se usa en otras vistas)
+// ==========================================
 class PlaceholderScreen extends StatelessWidget {
   final String title;
   final IconData icon;

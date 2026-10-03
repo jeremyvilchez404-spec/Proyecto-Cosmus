@@ -1,17 +1,59 @@
 import 'package:flutter/material.dart';
+import '../main.dart'; // Importamos themeNotifier global
 import 'quiz_screen.dart';
 
-class PlanetScreen extends StatelessWidget {
+class PlanetScreen extends StatefulWidget {
   final Map<String, dynamic>? planet;
 
   const PlanetScreen({super.key, this.planet});
 
   @override
+  State<PlanetScreen> createState() => _PlanetScreenState();
+}
+
+class _PlanetScreenState extends State<PlanetScreen> {
+  @override
+  void initState() {
+    super.initState();
+    // Escuchar activamente cambios del tema
+    themeNotifier.addListener(_onThemeChanged);
+  }
+
+  @override
+  void dispose() {
+    themeNotifier.removeListener(_onThemeChanged);
+    super.dispose();
+  }
+
+  void _onThemeChanged() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final bool isDarkMode = themeNotifier.value == ThemeMode.dark;
+
+    // Paleta de colores reactiva al tema
+    final Color bgColor = isDarkMode
+        ? const Color(0xFF040B1E)
+        : const Color(0xFFF8FAFC);
+    final Color cardBg = isDarkMode ? const Color(0xFF0B193D) : Colors.white;
+    final Color cardBorder = isDarkMode
+        ? const Color(0xFF1B3266)
+        : const Color(0xFFE2E8F0);
+    final Color textPrimary = isDarkMode
+        ? Colors.white
+        : const Color(0xFF0F172A);
+    final Color textSecondary = isDarkMode
+        ? Colors.white70
+        : const Color(0xFF64748B);
+
     final args = ModalRoute.of(context)?.settings.arguments;
 
     final Map<String, dynamic> data =
-        planet ??
+        widget.planet ??
         (args is Map<String, dynamic>
             ? args
             : <String, dynamic>{
@@ -35,15 +77,16 @@ class PlanetScreen extends StatelessWidget {
         : Colors.blueAccent;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF050711),
-
+      backgroundColor: bgColor,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: bgColor,
+        foregroundColor: textPrimary,
         elevation: 0,
-
-        title: Text(name, style: const TextStyle(fontWeight: FontWeight.bold)),
+        title: Text(
+          name,
+          style: TextStyle(fontWeight: FontWeight.bold, color: textPrimary),
+        ),
       ),
-
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(24),
@@ -51,7 +94,7 @@ class PlanetScreen extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
 
-              // PLANETA
+              // PLANETA DESTELLO / EMOJI
               Container(
                 width: 190,
                 height: 190,
@@ -90,59 +133,89 @@ class PlanetScreen extends StatelessWidget {
               Text(
                 description,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
-                  color: Colors.white70,
+                  color: textSecondary,
                   height: 1.5,
                 ),
               ),
 
               const SizedBox(height: 35),
 
-              // INFORMACIÓN
+              // TARJETA DE INFORMACIÓN DE LOS ASTROS
               _buildInfoCard(
                 title: 'Información del astro',
+                cardBg: cardBg,
+                cardBorder: cardBorder,
+                titleColor: textPrimary,
                 children: [
                   _buildRow(
                     Icons.public,
                     'Distancia al Sol',
                     data['distance']?.toString() ?? 'No disponible',
+                    textPrimary,
+                    textSecondary,
                   ),
-
                   _buildRow(
                     Icons.nightlight_round,
                     'Número de lunas',
                     data['moons']?.toString() ?? 'No disponible',
+                    textPrimary,
+                    textSecondary,
                   ),
-
                   _buildRow(
                     Icons.access_time,
                     'Duración del día',
                     data['dayLength']?.toString() ?? 'No disponible',
+                    textPrimary,
+                    textSecondary,
                   ),
-
                   _buildRow(
                     Icons.thermostat,
                     'Temperatura media',
                     data['temp']?.toString() ?? 'No disponible',
+                    textPrimary,
+                    textSecondary,
                   ),
                 ],
               ),
 
               const SizedBox(height: 25),
 
-              // BOTÓN VOLVER
+              // BOTÓN DE ACCESO AL QUIZ DIRECTO DEL PLANETA
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/quiz', arguments: name);
+                  },
+                  icon: const Icon(Icons.quiz),
+                  label: Text('Hacer Quiz de $name'),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFFE83E8C),
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 15),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: 12),
+
+              // BOTÓN VOLVER
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton.icon(
                   onPressed: () {
                     Navigator.pop(context);
                   },
                   icon: const Icon(Icons.arrow_back),
                   label: const Text('Volver al sistema solar'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: accentColor,
-                    foregroundColor: Colors.white,
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: accentColor,
+                    side: BorderSide(color: accentColor),
                     padding: const EdgeInsets.symmetric(vertical: 15),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(14),
@@ -160,56 +233,60 @@ class PlanetScreen extends StatelessWidget {
   Widget _buildInfoCard({
     required String title,
     required List<Widget> children,
+    required Color cardBg,
+    required Color cardBorder,
+    required Color titleColor,
   }) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(18),
+      padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(0.06),
-        borderRadius: BorderRadius.circular(18),
-        border: Border.all(color: Colors.white.withOpacity(0.08)),
+        color: cardBg,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: cardBorder),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: titleColor,
               fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
-
           const SizedBox(height: 15),
-
           ...children,
         ],
       ),
     );
   }
 
-  Widget _buildRow(IconData icon, String title, String value) {
+  Widget _buildRow(
+    IconData icon,
+    String title,
+    String value,
+    Color textPrimary,
+    Color textSecondary,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: Row(
         children: [
-          Icon(icon, color: Colors.white54, size: 20),
-
+          Icon(icon, color: textSecondary, size: 20),
           const SizedBox(width: 12),
-
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(color: Colors.white60, fontSize: 14),
+              style: TextStyle(color: textSecondary, fontSize: 14),
             ),
           ),
-
           Text(
             value,
             textAlign: TextAlign.right,
-            style: const TextStyle(
-              color: Colors.white,
+            style: TextStyle(
+              color: textPrimary,
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),

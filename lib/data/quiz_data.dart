@@ -1,379 +1,468 @@
 import '../models/quiz_question.dart';
 
 class QuizData {
-  static const Map<String, List<QuizQuestion>> quizzes = {
-    'Mercurio': [
-      QuizQuestion(
-        question: '¿Cuál es el planeta más cercano al Sol?',
-        options: ['Venus', 'Marte', 'Mercurio', 'Tierra'],
-        correctAnswer: 2,
-        explanation: 'Mercurio es el planeta más cercano al Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Cuál es el planeta más pequeño del Sistema Solar?',
-        options: ['Marte', 'Mercurio', 'Venus', 'Neptuno'],
-        correctAnswer: 1,
-        explanation: 'Mercurio es el planeta más pequeño del Sistema Solar.',
-      ),
-      QuizQuestion(
-        question:
-            '¿Cuánto tarda aproximadamente Mercurio en dar una vuelta al Sol?',
-        options: ['24 días', '88 días', '365 días', '687 días'],
-        correctAnswer: 1,
-        explanation:
-            'Mercurio tarda aproximadamente 88 días terrestres en completar una órbita.',
-      ),
-      QuizQuestion(
-        question: '¿Cuántas lunas tiene Mercurio?',
-        options: ['Una', 'Dos', 'Muchas', 'Ninguna'],
-        correctAnswer: 3,
-        explanation: 'Mercurio no tiene lunas.',
-      ),
-      QuizQuestion(
-        question: '¿Mercurio es un planeta rocoso?',
-        options: ['Sí', 'No', 'Es gaseoso', 'Es de hielo'],
-        correctAnswer: 0,
-        explanation:
-            'Mercurio es uno de los planetas rocosos del Sistema Solar.',
-      ),
-    ],
+  static const Map<String, Map<String, List<QuizQuestion>>> quizzes = {
+    // ============================================================
+    // MERCURIO
+    // ============================================================
+    'Mercurio': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Cuál es el planeta más cercano al Sol?',
+          options: ['Venus', 'Marte', 'Mercurio', 'Tierra'],
+          correctAnswer: 2,
+          explanation: 'Mercurio es el planeta más cercano al Sol.',
+        ),
+        QuizQuestion(
+          question: '¿Cuál es el planeta más pequeño del Sistema Solar?',
+          options: ['Marte', 'Mercurio', 'Venus', 'Urano'],
+          correctAnswer: 1,
+          explanation: 'Mercurio es el planeta más pequeño del Sistema Solar.',
+        ),
+        QuizQuestion(
+          question:
+              '¿Cuánto tarda aproximadamente Mercurio en completar una órbita?',
+          options: ['88 días', '365 días', '225 días', '687 días'],
+          correctAnswer: 0,
+          explanation:
+              'Mercurio tarda aproximadamente 88 días terrestres en orbitar el Sol.',
+        ),
+      ],
 
-    'Venus': [
-      QuizQuestion(
-        question: '¿Cuál es el segundo planeta desde el Sol?',
-        options: ['Marte', 'Venus', 'Tierra', 'Mercurio'],
-        correctAnswer: 1,
-        explanation: 'Venus es el segundo planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Cuál es el planeta más caliente del Sistema Solar?',
-        options: ['Mercurio', 'Marte', 'Venus', 'Tierra'],
-        correctAnswer: 2,
-        explanation: 'Venus es el planeta más caliente del Sistema Solar.',
-      ),
-      QuizQuestion(
-        question: '¿Cuántas lunas tiene Venus?',
-        options: ['Una', 'Dos', 'Muchas', 'Ninguna'],
-        correctAnswer: 3,
-        explanation: 'Venus no tiene lunas.',
-      ),
-      QuizQuestion(
-        question: '¿A qué planeta se parece Venus en tamaño?',
-        options: ['Júpiter', 'La Tierra', 'Neptuno', 'Mercurio'],
-        correctAnswer: 1,
-        explanation: 'Venus tiene un tamaño parecido al de la Tierra.',
-      ),
-      QuizQuestion(
-        question: '¿Venus es un planeta rocoso?',
-        options: ['Sí', 'No', 'Es gaseoso', 'Es de hielo'],
-        correctAnswer: 0,
-        explanation: 'Venus es un planeta rocoso.',
-      ),
-    ],
+      'Superficie': [
+        QuizQuestion(
+          question: '¿Cómo es principalmente la superficie de Mercurio?',
+          options: [
+            'Cubierta de océanos',
+            'Rocosa y llena de cráteres',
+            'Cubierta de hielo',
+            'Formada principalmente por gas',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Mercurio tiene una superficie rocosa con numerosos cráteres.',
+        ),
+      ],
 
-    'Tierra': [
-      QuizQuestion(
-        question: '¿Qué posición ocupa la Tierra desde el Sol?',
-        options: ['Primera', 'Segunda', 'Tercera', 'Cuarta'],
-        correctAnswer: 2,
-        explanation: 'La Tierra es el tercer planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Cómo se llama el satélite natural de la Tierra?',
-        options: ['Europa', 'Luna', 'Titán', 'Fobos'],
-        correctAnswer: 1,
-        explanation: 'La Luna es el satélite natural de la Tierra.',
-      ),
-      QuizQuestion(
-        question: '¿En qué planeta conocemos que existe vida?',
-        options: ['Marte', 'Venus', 'Tierra', 'Júpiter'],
-        correctAnswer: 2,
-        explanation:
-            'La Tierra es el único planeta donde conocemos que existe vida.',
-      ),
-      QuizQuestion(
-        question: '¿La Tierra es un planeta rocoso?',
-        options: ['Sí', 'No', 'Es gaseoso', 'Es de hielo'],
-        correctAnswer: 0,
-        explanation: 'La Tierra es un planeta rocoso.',
-      ),
-      QuizQuestion(
-        question:
-            '¿Cuánto tarda aproximadamente la Tierra en dar una vuelta al Sol?',
-        options: ['24 horas', '88 días', '365 días', '687 días'],
-        correctAnswer: 2,
-        explanation:
-            'La Tierra tarda aproximadamente 365 días en completar una órbita.',
-      ),
-    ],
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Mercurio tiene lunas naturales?',
+          options: ['Sí, una', 'Sí, dos', 'Sí, muchas', 'No'],
+          correctAnswer: 3,
+          explanation: 'Mercurio no posee lunas naturales conocidas.',
+        ),
+      ],
+    },
 
-    'Marte': [
-      QuizQuestion(
-        question: '¿Qué posición ocupa Marte desde el Sol?',
-        options: ['Segunda', 'Tercera', 'Cuarta', 'Quinta'],
-        correctAnswer: 2,
-        explanation: 'Marte es el cuarto planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿De qué color suele verse Marte?',
-        options: ['Azul', 'Rojo', 'Verde', 'Amarillo'],
-        correctAnswer: 1,
-        explanation: 'Marte es conocido como el planeta rojo.',
-      ),
-      QuizQuestion(
-        question: '¿Cómo se conoce comúnmente a Marte?',
-        options: [
-          'El planeta azul',
-          'El planeta gigante',
-          'El planeta rojo',
-          'El planeta de los anillos',
-        ],
-        correctAnswer: 2,
-        explanation:
-            'Marte es conocido como el planeta rojo por su apariencia rojiza.',
-      ),
-      QuizQuestion(
-        question: '¿Cuántas lunas tiene Marte?',
-        options: ['Ninguna', 'Una', 'Dos', 'Ocho'],
-        correctAnswer: 2,
-        explanation: 'Marte tiene dos lunas: Fobos y Deimos.',
-      ),
-      QuizQuestion(
-        question: '¿Marte es un planeta rocoso?',
-        options: ['Sí', 'No', 'Es gaseoso', 'Es una estrella'],
-        correctAnswer: 0,
-        explanation: 'Marte es un planeta rocoso.',
-      ),
-    ],
+    // ============================================================
+    // VENUS
+    // ============================================================
+    'Venus': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Cuál es el segundo planeta desde el Sol?',
+          options: ['Mercurio', 'Venus', 'Tierra', 'Marte'],
+          correctAnswer: 1,
+          explanation: 'Venus es el segundo planeta desde el Sol.',
+        ),
+        QuizQuestion(
+          question:
+              '¿Cuál es aproximadamente el tamaño de Venus comparado con la Tierra?',
+          options: [
+            'Mucho más pequeño',
+            'Similar',
+            'El doble',
+            'Mucho más grande',
+          ],
+          correctAnswer: 1,
+          explanation: 'Venus tiene un tamaño similar al de la Tierra.',
+        ),
+      ],
 
-    'Júpiter': [
-      QuizQuestion(
-        question: '¿Qué posición ocupa Júpiter desde el Sol?',
-        options: ['Cuarta', 'Quinta', 'Sexta', 'Séptima'],
-        correctAnswer: 1,
-        explanation: 'Júpiter es el quinto planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Cuál es el planeta más grande del Sistema Solar?',
-        options: ['Saturno', 'Neptuno', 'Júpiter', 'Urano'],
-        correctAnswer: 2,
-        explanation: 'Júpiter es el planeta más grande del Sistema Solar.',
-      ),
-      QuizQuestion(
-        question: '¿Qué tipo de planeta es Júpiter?',
-        options: [
-          'Planeta rocoso',
-          'Gigante gaseoso',
-          'Gigante de hielo',
-          'Estrella',
-        ],
-        correctAnswer: 1,
-        explanation: 'Júpiter es un gigante gaseoso.',
-      ),
-      QuizQuestion(
-        question: '¿Qué característica famosa tiene Júpiter?',
-        options: [
-          'Una gran mancha roja',
-          'Un gran océano',
-          'Un solo anillo',
-          'Una gran montaña blanca',
-        ],
-        correctAnswer: 0,
-        explanation:
-            'Júpiter tiene una enorme tormenta conocida como la Gran Mancha Roja.',
-      ),
-      QuizQuestion(
-        question: '¿Júpiter es más grande que la Tierra?',
-        options: ['Sí', 'No', 'Tienen el mismo tamaño', 'Es más pequeño'],
-        correctAnswer: 0,
-        explanation: 'Júpiter es mucho más grande que la Tierra.',
-      ),
-    ],
+      'Atmósfera': [
+        QuizQuestion(
+          question: '¿Cómo es la atmósfera de Venus?',
+          options: [
+            'Muy delgada',
+            'Muy densa',
+            'No tiene atmósfera',
+            'Está formada principalmente por oxígeno',
+          ],
+          correctAnswer: 1,
+          explanation: 'Venus posee una atmósfera muy densa.',
+        ),
+      ],
 
-    'Saturno': [
-      QuizQuestion(
-        question: '¿Qué posición ocupa Saturno desde el Sol?',
-        options: ['Quinta', 'Sexta', 'Séptima', 'Octava'],
-        correctAnswer: 1,
-        explanation: 'Saturno es el sexto planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Por qué es famoso Saturno?',
-        options: [
-          'Por sus grandes anillos',
-          'Por ser rojo',
-          'Por no tener atmósfera',
-          'Por estar cerca del Sol',
-        ],
-        correctAnswer: 0,
-        explanation:
-            'Saturno es famoso por su espectacular sistema de anillos.',
-      ),
-      QuizQuestion(
-        question: '¿Qué tipo de planeta es Saturno?',
-        options: [
-          'Planeta rocoso',
-          'Gigante gaseoso',
-          'Gigante de hielo',
-          'Estrella',
-        ],
-        correctAnswer: 1,
-        explanation: 'Saturno es un gigante gaseoso.',
-      ),
-      QuizQuestion(
-        question: '¿Saturno es más grande que la Tierra?',
-        options: ['Sí', 'No', 'Son iguales', 'Es más pequeño'],
-        correctAnswer: 0,
-        explanation: 'Saturno es mucho más grande que la Tierra.',
-      ),
-      QuizQuestion(
-        question: '¿Cuál es el segundo planeta más grande del Sistema Solar?',
-        options: ['Marte', 'Venus', 'Saturno', 'Mercurio'],
-        correctAnswer: 2,
-        explanation:
-            'Saturno es el segundo planeta más grande del Sistema Solar.',
-      ),
-    ],
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Venus tiene lunas?',
+          options: ['Sí, una', 'Sí, dos', 'Sí, tres', 'No'],
+          correctAnswer: 3,
+          explanation: 'Venus no tiene lunas naturales conocidas.',
+        ),
+      ],
+    },
 
-    'Urano': [
-      QuizQuestion(
-        question: '¿Qué posición ocupa Urano desde el Sol?',
-        options: ['Sexta', 'Séptima', 'Octava', 'Quinta'],
-        correctAnswer: 1,
-        explanation: 'Urano es el séptimo planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Qué tipo de planeta es Urano?',
-        options: [
-          'Planeta rocoso',
-          'Gigante de hielo',
-          'Estrella',
-          'Planeta terrestre',
-        ],
-        correctAnswer: 1,
-        explanation:
-            'Urano es uno de los dos gigantes de hielo del Sistema Solar.',
-      ),
-      QuizQuestion(
-        question: '¿Qué característica especial tiene Urano?',
-        options: [
-          'Gira prácticamente de lado',
-          'No gira',
-          'Está cerca del Sol',
-          'No tiene atmósfera',
-        ],
-        correctAnswer: 0,
-        explanation:
-            'Urano tiene una inclinación extrema y parece girar de lado.',
-      ),
-      QuizQuestion(
-        question: '¿Urano tiene anillos?',
-        options: ['Sí', 'No', 'Solo uno', 'No se sabe'],
-        correctAnswer: 0,
-        explanation: 'Urano tiene un sistema de anillos.',
-      ),
-      QuizQuestion(
-        question: '¿Urano es más grande que la Tierra?',
-        options: ['Sí', 'No', 'Son iguales', 'Es más pequeño'],
-        correctAnswer: 0,
-        explanation: 'Urano es mucho más grande que la Tierra.',
-      ),
-    ],
+    // ============================================================
+    // TIERRA
+    // ============================================================
+    'Tierra': {
+      'Características': [
+        QuizQuestion(
+          question: '¿En qué posición se encuentra la Tierra respecto al Sol?',
+          options: ['Primera', 'Segunda', 'Tercera', 'Cuarta'],
+          correctAnswer: 2,
+          explanation: 'La Tierra es el tercer planeta desde el Sol.',
+        ),
+        QuizQuestion(
+          question: '¿Cuál es aproximadamente la duración de un año terrestre?',
+          options: ['24 horas', '88 días', '365 días', '687 días'],
+          correctAnswer: 2,
+          explanation:
+              'La Tierra tarda aproximadamente 365 días en completar una vuelta al Sol.',
+        ),
+      ],
 
-    'Neptuno': [
-      QuizQuestion(
-        question: '¿Qué posición ocupa Neptuno desde el Sol?',
-        options: ['Sexta', 'Séptima', 'Octava', 'Quinta'],
-        correctAnswer: 2,
-        explanation: 'Neptuno es el octavo planeta desde el Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Cuál es el planeta más lejano del Sol?',
-        options: ['Saturno', 'Urano', 'Neptuno', 'Júpiter'],
-        correctAnswer: 2,
-        explanation: 'Neptuno es el planeta más lejano del Sol.',
-      ),
-      QuizQuestion(
-        question: '¿Qué tipo de planeta es Neptuno?',
-        options: [
-          'Planeta rocoso',
-          'Gigante de hielo',
-          'Estrella',
-          'Planeta terrestre',
-        ],
-        correctAnswer: 1,
-        explanation: 'Neptuno es un gigante de hielo.',
-      ),
-      QuizQuestion(
-        question: '¿De qué color suele verse Neptuno?',
-        options: ['Azul', 'Rojo', 'Amarillo', 'Verde'],
-        correctAnswer: 0,
-        explanation: 'Neptuno presenta un característico color azul.',
-      ),
-      QuizQuestion(
-        question: '¿Neptuno es más grande que la Tierra?',
-        options: ['Sí', 'No', 'Son iguales', 'Es más pequeño'],
-        correctAnswer: 0,
-        explanation: 'Neptuno es más grande que la Tierra.',
-      ),
-    ],
+      'Fauna': [
+        QuizQuestion(
+          question: '¿Cuál de estos animales es un mamífero?',
+          options: ['Tiburón', 'Águila', 'Delfín', 'Cocodrilo'],
+          correctAnswer: 2,
+          explanation: 'El delfín es un mamífero marino.',
+        ),
+        QuizQuestion(
+          question: '¿Cuál es el animal terrestre más grande?',
+          options: ['Jirafa', 'Elefante africano', 'Rinoceronte', 'Hipopótamo'],
+          correctAnswer: 1,
+          explanation:
+              'El elefante africano es el animal terrestre más grande.',
+        ),
+      ],
 
-    'Sol': [
-      QuizQuestion(
-        question: '¿Qué es el Sol?',
-        options: [
-          'Un planeta gaseoso',
-          'Una estrella',
-          'Un satélite natural',
-          'Un cometa',
-        ],
-        correctAnswer: 1,
-        explanation:
-            'El Sol es la estrella situada en el centro del Sistema Solar.',
-      ),
-      QuizQuestion(
-        question: '¿Qué posición ocupa el Sol en nuestro sistema planetario?',
-        options: [
-          'Está al final',
-          'En el centro',
-          'Gira con la Tierra',
-          'En la orilla',
-        ],
-        correctAnswer: 1,
-        explanation:
-            'El Sol se encuentra en el centro del Sistema Solar y todos los planetas orbitan a su alrededor.',
-      ),
-      QuizQuestion(
-        question: '¿De qué está compuesto principalmente el Sol?',
-        options: [
-          'Roca y agua',
-          'Hierro y níquel',
-          'Hidrógeno y helio',
-          'Oxígeno y nitrógeno',
-        ],
-        correctAnswer: 2,
-        explanation:
-            'El Sol es una gran bola de plasma formada principalmente por hidrógeno y helio.',
-      ),
-      QuizQuestion(
-        question: '¿El Sol produce su propia luz y calor?',
-        options: ['Sí', 'No', 'Solo refleja la luz', 'Solo durante el día'],
-        correctAnswer: 0,
-        explanation:
-            'El Sol genera su propia luz y energía mediante la fusión nuclear en su núcleo.',
-      ),
-      QuizQuestion(
-        question: '¿Qué es el Sol en comparación con la Tierra?',
-        options: [
-          'Mucho más pequeño',
-          'Del mismo tamaño',
-          'Mucho más grande',
-          'Un poco más pequeño',
-        ],
-        correctAnswer: 2,
-        explanation:
-            'El Sol es gigantesco; cabrían más de un millón de Tierras dentro de él.',
-      ),
-    ],
+      'Flora': [
+        QuizQuestion(
+          question:
+              '¿Qué proceso utilizan las plantas para producir su alimento?',
+          options: ['Digestión', 'Fotosíntesis', 'Evaporación', 'Condensación'],
+          correctAnswer: 1,
+          explanation:
+              'Las plantas producen su alimento mediante la fotosíntesis.',
+        ),
+      ],
+
+      'Luna': [
+        QuizQuestion(
+          question: '¿Cuál es el satélite natural de la Tierra?',
+          options: ['Europa', 'Titán', 'La Luna', 'Fobos'],
+          correctAnswer: 2,
+          explanation: 'La Luna es el satélite natural de la Tierra.',
+        ),
+        QuizQuestion(
+          question: '¿La Luna es un planeta?',
+          options: ['Sí', 'No', 'Solo algunas veces', 'Es una estrella'],
+          correctAnswer: 1,
+          explanation: 'La Luna es un satélite natural, no un planeta.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question:
+              '¿Qué porcentaje aproximado de la superficie terrestre está cubierta por agua?',
+          options: ['10%', '30%', '71%', '95%'],
+          correctAnswer: 2,
+          explanation:
+              'Aproximadamente el 71% de la superficie terrestre está cubierta por agua.',
+        ),
+      ],
+    },
+
+    // ============================================================
+    // MARTE
+    // ============================================================
+    'Marte': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Qué posición ocupa Marte desde el Sol?',
+          options: ['Segundo', 'Tercero', 'Cuarto', 'Quinto'],
+          correctAnswer: 2,
+          explanation: 'Marte es el cuarto planeta desde el Sol.',
+        ),
+        QuizQuestion(
+          question: '¿Por qué Marte es conocido como el planeta rojo?',
+          options: [
+            'Por sus océanos',
+            'Por el hierro oxidado de su superficie',
+            'Por sus anillos',
+            'Por sus volcanes azules',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'El óxido de hierro presente en su superficie le da su apariencia rojiza.',
+        ),
+      ],
+
+      'Lunas': [
+        QuizQuestion(
+          question: '¿Cuántas lunas conocidas tiene Marte?',
+          options: ['Una', 'Dos', 'Cuatro', 'Ninguna'],
+          correctAnswer: 1,
+          explanation: 'Marte tiene dos lunas: Fobos y Deimos.',
+        ),
+      ],
+
+      'Superficie': [
+        QuizQuestion(
+          question: '¿Cómo es principalmente la superficie de Marte?',
+          options: [
+            'Rocosa',
+            'Completamente líquida',
+            'Gaseosa',
+            'Cubierta completamente de hielo',
+          ],
+          correctAnswer: 0,
+          explanation:
+              'Marte posee una superficie rocosa y presenta volcanes, valles y cráteres.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Cómo se llaman las dos lunas de Marte?',
+          options: [
+            'Europa y Titán',
+            'Fobos y Deimos',
+            'Ío y Calisto',
+            'Tritón y Miranda',
+          ],
+          correctAnswer: 1,
+          explanation: 'Las lunas de Marte se llaman Fobos y Deimos.',
+        ),
+      ],
+    },
+
+    // ============================================================
+    // JÚPITER
+    // ============================================================
+    'Júpiter': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Cuál es el planeta más grande del Sistema Solar?',
+          options: ['Saturno', 'Tierra', 'Júpiter', 'Neptuno'],
+          correctAnswer: 2,
+          explanation: 'Júpiter es el planeta más grande del Sistema Solar.',
+        ),
+        QuizQuestion(
+          question: '¿Qué tipo de planeta es Júpiter?',
+          options: ['Rocoso', 'Gigante gaseoso', 'Planeta enano', 'Satélite'],
+          correctAnswer: 1,
+          explanation: 'Júpiter es un gigante gaseoso.',
+        ),
+      ],
+
+      'Lunas': [
+        QuizQuestion(
+          question: '¿Cuál de estas es una luna de Júpiter?',
+          options: ['Europa', 'Fobos', 'Luna', 'Caronte'],
+          correctAnswer: 0,
+          explanation: 'Europa es una de las lunas de Júpiter.',
+        ),
+      ],
+
+      'Gran Mancha Roja': [
+        QuizQuestion(
+          question: '¿Qué es la Gran Mancha Roja de Júpiter?',
+          options: [
+            'Un océano',
+            'Una tormenta gigante',
+            'Un volcán',
+            'Una luna',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'La Gran Mancha Roja es una enorme tormenta en la atmósfera de Júpiter.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Júpiter tiene anillos?',
+          options: ['No', 'Sí', 'Solo uno', 'Solo durante el verano'],
+          correctAnswer: 1,
+          explanation:
+              'Júpiter posee un sistema de anillos, aunque son poco visibles.',
+        ),
+      ],
+    },
+
+    // ============================================================
+    // SATURNO
+    // ============================================================
+    'Saturno': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Por qué es conocido Saturno?',
+          options: [
+            'Por sus grandes anillos',
+            'Por ser el planeta más pequeño',
+            'Por no tener atmósfera',
+            'Por ser el más cercano al Sol',
+          ],
+          correctAnswer: 0,
+          explanation:
+              'Saturno destaca por su impresionante sistema de anillos.',
+        ),
+      ],
+
+      'Anillos': [
+        QuizQuestion(
+          question:
+              '¿De qué están formados principalmente los anillos de Saturno?',
+          options: [
+            'De fuego',
+            'De rocas y partículas de hielo',
+            'De agua líquida',
+            'De gas caliente',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Los anillos están formados principalmente por partículas de hielo y roca.',
+        ),
+      ],
+
+      'Lunas': [
+        QuizQuestion(
+          question: '¿Cuál de estas es una luna de Saturno?',
+          options: ['Titán', 'Europa', 'Fobos', 'Luna'],
+          correctAnswer: 0,
+          explanation: 'Titán es una de las lunas más conocidas de Saturno.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Saturno es un planeta gigante?',
+          options: ['Sí', 'No', 'Es un planeta enano', 'Es una estrella'],
+          correctAnswer: 0,
+          explanation: 'Saturno es un gigante gaseoso.',
+        ),
+      ],
+    },
+
+    // ============================================================
+    // URANO
+    // ============================================================
+    'Urano': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Qué posición ocupa Urano desde el Sol?',
+          options: ['Sexta', 'Séptima', 'Octava', 'Quinta'],
+          correctAnswer: 1,
+          explanation: 'Urano es el séptimo planeta desde el Sol.',
+        ),
+      ],
+
+      'Atmósfera': [
+        QuizQuestion(
+          question: '¿Qué elemento contribuye al color azul verdoso de Urano?',
+          options: ['Metano', 'Hierro', 'Oxígeno líquido', 'Carbono sólido'],
+          correctAnswer: 0,
+          explanation:
+              'El metano de su atmósfera absorbe luz roja y contribuye a su color azul verdoso.',
+        ),
+      ],
+
+      'Lunas': [
+        QuizQuestion(
+          question: '¿Urano posee lunas?',
+          options: ['Sí', 'No', 'Solo una', 'Solo dos'],
+          correctAnswer: 0,
+          explanation: 'Urano posee numerosas lunas conocidas.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Qué característica especial tiene la rotación de Urano?',
+          options: [
+            'Gira casi de lado',
+            'No gira',
+            'Gira en sentido contrario al Sol',
+            'No tiene movimiento',
+          ],
+          correctAnswer: 0,
+          explanation:
+              'Urano tiene una inclinación axial extrema y parece girar de lado.',
+        ),
+      ],
+    },
+
+    // ============================================================
+    // NEPTUNO
+    // ============================================================
+    'Neptuno': {
+      'Características': [
+        QuizQuestion(
+          question: '¿Cuál es el planeta más alejado del Sol?',
+          options: ['Urano', 'Saturno', 'Neptuno', 'Júpiter'],
+          correctAnswer: 2,
+          explanation: 'Neptuno es el octavo y más distante planeta del Sol.',
+        ),
+      ],
+
+      'Atmósfera': [
+        QuizQuestion(
+          question: '¿Qué característica destaca en la atmósfera de Neptuno?',
+          options: [
+            'Vientos muy rápidos',
+            'Ausencia total de gases',
+            'Océanos de agua líquida',
+            'Temperaturas similares a la Tierra',
+          ],
+          correctAnswer: 0,
+          explanation:
+              'Neptuno presenta algunos de los vientos más rápidos del Sistema Solar.',
+        ),
+      ],
+
+      'Lunas': [
+        QuizQuestion(
+          question: '¿Cuál es la luna más grande de Neptuno?',
+          options: ['Titán', 'Tritón', 'Europa', 'Fobos'],
+          correctAnswer: 1,
+          explanation: 'Tritón es la luna más grande de Neptuno.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿Qué tipo de planeta es Neptuno?',
+          options: [
+            'Planeta rocoso',
+            'Gigante de hielo',
+            'Planeta enano',
+            'Estrella',
+          ],
+          correctAnswer: 1,
+          explanation: 'Neptuno es clasificado como un gigante de hielo.',
+        ),
+      ],
+    },
   };
+
+  // ============================================================
+  // CATEGORÍAS
+  // ============================================================
+
+  static List<String> getCategories(String planet) {
+    return quizzes[planet]?.keys.toList() ?? [];
+  }
+
+  // ============================================================
+  // PREGUNTAS
+  // ============================================================
+
+  static List<QuizQuestion> getQuestions(String planet, String category) {
+    return quizzes[planet]?[category] ?? [];
+  }
 }
