@@ -21,11 +21,23 @@ class QuizData {
         ),
         QuizQuestion(
           question:
-              '¿Cuánto tarda aproximadamente Mercurio en completar una órbita?',
+              '¿Cuánto tarda aproximadamente Mercurio en completar una órbita (su año)?',
           options: ['88 días', '365 días', '225 días', '687 días'],
           correctAnswer: 0,
           explanation:
-              'Mercurio tarda aproximadamente 88 días terrestres en orbitar el Sol.',
+              'Mercurio completa una vuelta alrededor del Sol en aproximadamente 88 días terrestres.',
+        ),
+        QuizQuestion(
+          question: '¿Cuál es la distancia aproximada de Mercurio al Sol?',
+          options: [
+            '58 millones de km',
+            '108 millones de km',
+            '150 millones de km',
+            '778 millones de km',
+          ],
+          correctAnswer: 0,
+          explanation:
+              'La distancia de Mercurio al Sol es de 58 millones de km.',
         ),
       ],
 
@@ -34,22 +46,53 @@ class QuizData {
           question: '¿Cómo es principalmente la superficie de Mercurio?',
           options: [
             'Cubierta de océanos',
-            'Rocosa y llena de cráteres',
+            'Rocosa y cubierta de cráteres',
             'Cubierta de hielo',
             'Formada principalmente por gas',
           ],
           correctAnswer: 1,
           explanation:
-              'Mercurio tiene una superficie rocosa con numerosos cráteres.',
+              'Mercurio es un planeta rocoso, con una superficie cubierta de cráteres y una atmósfera extremadamente delgada.',
+        ),
+        QuizQuestion(
+          question:
+              '¿Cuánto dura aproximadamente un día solar completo en Mercurio (de un amanecer al siguiente)?',
+          options: [
+            '24 horas',
+            '59 días terrestres',
+            '176 días terrestres',
+            '365 días',
+          ],
+          correctAnswer: 2,
+          explanation:
+              'Debido a su rotación y órbita, un día solar completo dura aproximadamente 176 días terrestres.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
-          question: '¿Mercurio tiene lunas naturales?',
-          options: ['Sí, una', 'Sí, dos', 'Sí, muchas', 'No'],
+          question: '¿Mercurio tiene lunas naturales o anillos?',
+          options: [
+            'Sí, tiene una luna y anillos',
+            'Tiene dos lunas',
+            'Tiene muchos anillos',
+            'No tiene lunas ni anillos',
+          ],
           correctAnswer: 3,
-          explanation: 'Mercurio no posee lunas naturales conocidas.',
+          explanation: 'Mercurio no tiene lunas ni anillos.',
+        ),
+        QuizQuestion(
+          question:
+              'A pesar de estar más cerca del Sol, ¿por qué Mercurio no es el planeta más caliente?',
+          options: [
+            'Porque está muy lejos',
+            'Porque Venus alcanza mayores temperaturas por su efecto invernadero',
+            'Porque tiene hielo permanente',
+            'Porque su atmósfera de oxígeno lo enfría',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Venus alcanza temperaturas superficiales mayores debido a su densa atmósfera y al fuerte efecto invernadero.',
         ),
       ],
     },
@@ -70,35 +113,75 @@ class QuizData {
               '¿Cuál es aproximadamente el tamaño de Venus comparado con la Tierra?',
           options: [
             'Mucho más pequeño',
-            'Similar',
-            'El doble',
+            'Muy parecido al de la Tierra',
+            'El doble de grande',
             'Mucho más grande',
           ],
           correctAnswer: 1,
-          explanation: 'Venus tiene un tamaño similar al de la Tierra.',
+          explanation: 'Venus tiene un tamaño muy parecido al de la Tierra.',
+        ),
+        QuizQuestion(
+          question: '¿Cuál es el planeta más caliente del Sistema Solar?',
+          options: ['Mercurio', 'Venus', 'Júpiter', 'Marte'],
+          correctAnswer: 1,
+          explanation:
+              'El intenso efecto invernadero provocado por el dióxido de carbono convierte a Venus en el planeta más caliente.',
         ),
       ],
 
       'Atmósfera': [
         QuizQuestion(
-          question: '¿Cómo es la atmósfera de Venus?',
+          question:
+              '¿Cómo está compuesta principalmente la atmósfera de Venus?',
           options: [
-            'Muy delgada',
-            'Muy densa',
-            'No tiene atmósfera',
-            'Está formada principalmente por oxígeno',
+            'Oxígeno y nitrógeno',
+            'Dióxido de carbono con nubes de ácido sulfúrico',
+            'Hidrógeno y helio',
+            'Metano puro',
           ],
           correctAnswer: 1,
-          explanation: 'Venus posee una atmósfera muy densa.',
+          explanation:
+              'Venus posee una atmósfera extremadamente densa compuesta principalmente por dióxido de carbono y nubes de ácido sulfúrico.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
-          question: '¿Venus tiene lunas?',
-          options: ['Sí, una', 'Sí, dos', 'Sí, tres', 'No'],
+          question:
+              '¿Qué particularidad tiene la dirección de rotación de Venus?',
+          options: [
+            'Gira en la misma dirección que la Tierra',
+            'No gira sobre su eje',
+            'Gira en dirección contraria a la mayoría de los planetas',
+            'Gira extremadamente rápido',
+          ],
+          correctAnswer: 2,
+          explanation:
+              'Venus gira muy lentamente y en dirección contraria a la mayoría de los planetas.',
+        ),
+        QuizQuestion(
+          question: '¿Venus tiene lunas o anillos?',
+          options: [
+            'Sí, una luna',
+            'Sí, dos lunas',
+            'Sí, un anillo',
+            'No tiene lunas ni anillos',
+          ],
           correctAnswer: 3,
-          explanation: 'Venus no tiene lunas naturales conocidas.',
+          explanation: 'Venus no tiene lunas ni anillos.',
+        ),
+        QuizQuestion(
+          question:
+              '¿Cómo es la duración del día de rotación en Venus comparado con su año?',
+          options: [
+            'Su día dura menos que su año',
+            'Su día de rotación dura más que su año venusiano',
+            'Duración exacta de 24 horas',
+            'Tardan exactamente lo mismo',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Su rotación dura 243 días terrestres y su año 225 días, por lo que un día de rotación dura más que su año.',
         ),
       ],
     },
@@ -119,60 +202,61 @@ class QuizData {
           options: ['24 horas', '88 días', '365 días', '687 días'],
           correctAnswer: 2,
           explanation:
-              'La Tierra tarda aproximadamente 365 días en completar una vuelta al Sol.',
+              'La Tierra tarda alrededor de 365 días en completar una vuelta alrededor del Sol.',
         ),
-      ],
-
-      'Fauna': [
-        QuizQuestion(
-          question: '¿Cuál de estos animales es un mamífero?',
-          options: ['Tiburón', 'Águila', 'Delfín', 'Cocodrilo'],
-          correctAnswer: 2,
-          explanation: 'El delfín es un mamífero marino.',
-        ),
-        QuizQuestion(
-          question: '¿Cuál es el animal terrestre más grande?',
-          options: ['Jirafa', 'Elefante africano', 'Rinoceronte', 'Hipopótamo'],
-          correctAnswer: 1,
-          explanation:
-              'El elefante africano es el animal terrestre más grande.',
-        ),
-      ],
-
-      'Flora': [
         QuizQuestion(
           question:
-              '¿Qué proceso utilizan las plantas para producir su alimento?',
-          options: ['Digestión', 'Fotosíntesis', 'Evaporación', 'Condensación'],
+              '¿Cuánto tarda la Tierra en completar una rotación sobre su eje?',
+          options: ['12 horas', '24 horas', '48 horas', '365 días'],
           correctAnswer: 1,
           explanation:
-              'Las plantas producen su alimento mediante la fotosíntesis.',
+              'La Tierra tarda aproximadamente 24 horas en completar una rotación.',
         ),
       ],
 
-      'Luna': [
+      'Superficie y Agua': [
         QuizQuestion(
-          question: '¿Cuál es el satélite natural de la Tierra?',
-          options: ['Europa', 'Titán', 'La Luna', 'Fobos'],
+          question:
+              '¿Qué porcentaje aproximado de la superficie terrestre está cubierto por agua?',
+          options: ['50%', '61%', '71%', '90%'],
           correctAnswer: 2,
-          explanation: 'La Luna es el satélite natural de la Tierra.',
+          explanation:
+              'Aproximadamente el 71% de la superficie terrestre está cubierta por agua.',
         ),
         QuizQuestion(
-          question: '¿La Luna es un planeta?',
-          options: ['Sí', 'No', 'Solo algunas veces', 'Es una estrella'],
-          correctAnswer: 1,
-          explanation: 'La Luna es un satélite natural, no un planeta.',
+          question:
+              '¿Cómo está compuesta principalmente la atmósfera de la Tierra?',
+          options: [
+            'Dióxido de carbono y ácido sulfúrico',
+            'Hidrógeno y helio',
+            'Nitrógeno y oxígeno',
+            'Metano y amoníaco',
+          ],
+          correctAnswer: 2,
+          explanation:
+              'La Tierra posee una atmósfera rica en nitrógeno y oxígeno que permite la vida.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
+          question: '¿Cuántas lunas naturales tiene la Tierra?',
+          options: ['Ninguna', 'Una', 'Dos', 'Muchas'],
+          correctAnswer: 1,
+          explanation: 'La Tierra tiene una luna natural: la Luna.',
+        ),
+        QuizQuestion(
           question:
-              '¿Qué porcentaje aproximado de la superficie terrestre está cubierta por agua?',
-          options: ['10%', '30%', '71%', '95%'],
+              '¿Qué la hace única en el Sistema Solar según la información?',
+          options: [
+            'Es el planeta más grande',
+            'Es el único con anillos visibles',
+            'Es el único planeta conocido con grandes cantidades de agua líquida y vida',
+            'Tiene dos soles',
+          ],
           correctAnswer: 2,
           explanation:
-              'Aproximadamente el 71% de la superficie terrestre está cubierta por agua.',
+              'Es el único planeta conocido que posee grandes cantidades de agua líquida estable y vida.',
         ),
       ],
     },
@@ -191,52 +275,62 @@ class QuizData {
         QuizQuestion(
           question: '¿Por qué Marte es conocido como el planeta rojo?',
           options: [
-            'Por sus océanos',
-            'Por el hierro oxidado de su superficie',
-            'Por sus anillos',
-            'Por sus volcanes azules',
+            'Por sus grandes océanos de lava',
+            'Por el hierro oxidado presente en sus rocas y polvo superficial',
+            'Por su cercanía al Sol',
+            'Por su atmósfera de fuego',
           ],
           correctAnswer: 1,
           explanation:
-              'El óxido de hierro presente en su superficie le da su apariencia rojiza.',
+              'Se le llama así debido al hierro oxidado presente en sus rocas y polvo superficial.',
         ),
-      ],
-
-      'Lunas': [
         QuizQuestion(
-          question: '¿Cuántas lunas conocidas tiene Marte?',
-          options: ['Una', 'Dos', 'Cuatro', 'Ninguna'],
+          question: '¿Cómo se le llama a un día solar marciano?',
+          options: ['Ciclo', 'Sol', 'Jornada', 'Rot'],
           correctAnswer: 1,
-          explanation: 'Marte tiene dos lunas: Fobos y Deimos.',
+          explanation: 'Un día solar marciano recibe el nombre de sol.',
         ),
       ],
 
-      'Superficie': [
+      'Lunas y Superficie': [
         QuizQuestion(
-          question: '¿Cómo es principalmente la superficie de Marte?',
+          question: '¿Cómo se llaman las dos pequeñas lunas de Marte?',
           options: [
-            'Rocosa',
-            'Completamente líquida',
-            'Gaseosa',
-            'Cubierta completamente de hielo',
+            'Europa y Calisto',
+            'Titán y Encélado',
+            'Fobos y Deimos',
+            'Tritón y Miranda',
           ],
-          correctAnswer: 0,
+          correctAnswer: 2,
           explanation:
-              'Marte posee una superficie rocosa y presenta volcanes, valles y cráteres.',
+              'Marte posee dos pequeñas lunas llamadas Fobos y Deimos.',
+        ),
+        QuizQuestion(
+          question: '¿Cuánto dura aproximadamente un año en Marte?',
+          options: [
+            '365 días terrestres',
+            '687 días terrestres',
+            '88 días terrestres',
+            '12 años',
+          ],
+          correctAnswer: 1,
+          explanation: 'Su año dura aproximadamente 687 días terrestres.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
-          question: '¿Cómo se llaman las dos lunas de Marte?',
+          question:
+              '¿Cuál es el nombre del volcán más grande conocido del Sistema Solar ubicado en Marte?',
           options: [
-            'Europa y Titán',
-            'Fobos y Deimos',
-            'Ío y Calisto',
-            'Tritón y Miranda',
+            'Monte Everest',
+            'Olympus Mons',
+            'Valles Marineris',
+            'Mauna Kea',
           ],
           correctAnswer: 1,
-          explanation: 'Las lunas de Marte se llaman Fobos y Deimos.',
+          explanation:
+              'Marte posee Olympus Mons, el volcán más grande conocido del sistema solar.',
         ),
       ],
     },
@@ -250,47 +344,73 @@ class QuizData {
           question: '¿Cuál es el planeta más grande del Sistema Solar?',
           options: ['Saturno', 'Tierra', 'Júpiter', 'Neptuno'],
           correctAnswer: 2,
-          explanation: 'Júpiter es el planeta más grande del Sistema Solar.',
+          explanation:
+              'Júpiter es el planeta más grande del sistema solar y el quinto desde el Sol.',
         ),
         QuizQuestion(
-          question: '¿Qué tipo de planeta es Júpiter?',
-          options: ['Rocoso', 'Gigante gaseoso', 'Planeta enano', 'Satélite'],
-          correctAnswer: 1,
-          explanation: 'Júpiter es un gigante gaseoso.',
-        ),
-      ],
-
-      'Lunas': [
-        QuizQuestion(
-          question: '¿Cuál de estas es una luna de Júpiter?',
-          options: ['Europa', 'Fobos', 'Luna', 'Caronte'],
-          correctAnswer: 0,
-          explanation: 'Europa es una de las lunas de Júpiter.',
-        ),
-      ],
-
-      'Gran Mancha Roja': [
-        QuizQuestion(
-          question: '¿Qué es la Gran Mancha Roja de Júpiter?',
+          question: '¿Qué tipo de cuerpo celeste es Júpiter?',
           options: [
-            'Un océano',
-            'Una tormenta gigante',
-            'Un volcán',
-            'Una luna',
+            'Planeta rocoso',
+            'Gigante gaseoso',
+            'Gigante de hielo',
+            'Planeta enano',
           ],
           correctAnswer: 1,
           explanation:
-              'La Gran Mancha Roja es una enorme tormenta en la atmósfera de Júpiter.',
+              'Es un gigante gaseoso compuesto principalmente por hidrógeno y helio.',
+        ),
+        QuizQuestion(
+          question: '¿Cuánto dura una rotación completa en Júpiter (su día)?',
+          options: ['9,9 horas', '24 horas', '10,7 horas', '59 días'],
+          correctAnswer: 0,
+          explanation:
+              'Una rotación completa tarda aproximadamente 9,9 horas, siendo el día más corto del sistema solar.',
+        ),
+      ],
+
+      'Lunas y Tormentas': [
+        QuizQuestion(
+          question: '¿Qué es la Gran Mancha Roja de Júpiter?',
+          options: [
+            'Un cráter gigante',
+            'Un volcán activo',
+            'Una enorme tormenta atmosférica',
+            'Un lago de lava',
+          ],
+          correctAnswer: 2,
+          explanation:
+              'La atmósfera de Júpiter presenta bandas de nubes y enormes tormentas, entre ellas la Gran Mancha Roja.',
+        ),
+        QuizQuestion(
+          question:
+              'Según los datos de la NASA, ¿cuántas lunas reconocidas oficialmente tiene Júpiter?',
+          options: ['1', '12', '79', '115'],
+          correctAnswer: 3,
+          explanation:
+              'Actualmente la NASA indica que Júpiter tiene 115 lunas reconocidas oficialmente.',
+        ),
+        QuizQuestion(
+          question: '¿Cómo se llaman las lunas más destacadas de Júpiter?',
+          options: [
+            'Lunas galileanas (Ío, Europa, Ganímedes y Calisto)',
+            'Fobos y Deimos',
+            'Titán y Encélado',
+            'Tritón y Proteo',
+          ],
+          correctAnswer: 0,
+          explanation:
+              'Destacan Ío, Europa, Ganímedes y Calisto, conocidas como las lunas galileanas.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
-          question: '¿Júpiter tiene anillos?',
-          options: ['No', 'Sí', 'Solo uno', 'Solo durante el verano'],
-          correctAnswer: 1,
+          question:
+              '¿Cuál es el satélite natural más grande del Sistema Solar?',
+          options: ['La Luna', 'Titán', 'Ganímedes', 'Europa'],
+          correctAnswer: 2,
           explanation:
-              'Júpiter posee un sistema de anillos, aunque son poco visibles.',
+              'Ganímedes, una de las lunas de Júpiter, es el satélite natural más grande del sistema solar.',
         ),
       ],
     },
@@ -301,50 +421,76 @@ class QuizData {
     'Saturno': {
       'Características': [
         QuizQuestion(
-          question: '¿Por qué es conocido Saturno?',
-          options: [
-            'Por sus grandes anillos',
-            'Por ser el planeta más pequeño',
-            'Por no tener atmósfera',
-            'Por ser el más cercano al Sol',
-          ],
-          correctAnswer: 0,
-          explanation:
-              'Saturno destaca por su impresionante sistema de anillos.',
-        ),
-      ],
-
-      'Anillos': [
-        QuizQuestion(
           question:
-              '¿De qué están formados principalmente los anillos de Saturno?',
+              '¿Qué posición ocupa Saturno desde el Sol y qué lugar en tamaño ocupa?',
           options: [
-            'De fuego',
-            'De rocas y partículas de hielo',
-            'De agua líquida',
-            'De gas caliente',
+            'Séptimo planeta y el más pequeño',
+            'Sexto planeta y el segundo más grande del sistema solar',
+            'Quinto planeta y el primero en tamaño',
+            'Octavo planeta y gigante de hielo',
           ],
           correctAnswer: 1,
           explanation:
-              'Los anillos están formados principalmente por partículas de hielo y roca.',
+              'Saturno es el sexto planeta desde el Sol y el segundo planeta más grande del sistema solar.',
+        ),
+        QuizQuestion(
+          question:
+              '¿De qué están formados principalmente los famosos anillos de Saturno?',
+          options: [
+            'Gas y fuego',
+            'Fragmentos de hielo y roca',
+            'Puro metal líquido',
+            'Polvo estelar magnético',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Sus anillos están formados principalmente por fragmentos de hielo y roca de diferentes tamaños.',
         ),
       ],
 
-      'Lunas': [
+      'Rotación y Lunas': [
         QuizQuestion(
-          question: '¿Cuál de estas es una luna de Saturno?',
-          options: ['Titán', 'Europa', 'Fobos', 'Luna'],
-          correctAnswer: 0,
-          explanation: 'Titán es una de las lunas más conocidas de Saturno.',
+          question: '¿Cuánto dura un día en Saturno (su rotación)?',
+          options: ['9,9 horas', '10,7 horas', '17 horas', '24 horas'],
+          correctAnswer: 1,
+          explanation:
+              'Saturno completa una rotación en aproximadamente 10,7 horas.',
+        ),
+        QuizQuestion(
+          question:
+              '¿Cuántas lunas confirmadas tenía Saturno según el reporte de la NASA en marzo de 2025?',
+          options: ['15', '82', '115', '274'],
+          correctAnswer: 3,
+          explanation:
+              'Según NASA, Saturno tenía 274 lunas confirmadas en marzo de 2025.',
+        ),
+        QuizQuestion(
+          question: '¿Cuáles son dos de las lunas más conocidas de Saturno?',
+          options: [
+            'Fobos y Deimos',
+            'Titán y Encélado',
+            'Ío y Europa',
+            'Tritón y Miranda',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Entre sus lunas más conocidas se encuentran Titán y Encélado.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
-          question: '¿Saturno es un planeta gigante?',
-          options: ['Sí', 'No', 'Es un planeta enano', 'Es una estrella'],
-          correctAnswer: 0,
-          explanation: 'Saturno es un gigante gaseoso.',
+          question:
+              '¿Qué estructura inusual existe en el polo norte de Saturno?',
+          options: [
+            'Una tormenta cuadrada',
+            'Una enorme estructura atmosférica con forma hexagonal',
+            'Un anillo interior brillante',
+            'Un cráter de impacto gigante',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'En el polo norte de Saturno existe una enorme estructura atmosférica con forma hexagonal.',
         ),
       ],
     },
@@ -355,44 +501,64 @@ class QuizData {
     'Urano': {
       'Características': [
         QuizQuestion(
-          question: '¿Qué posición ocupa Urano desde el Sol?',
-          options: ['Sexta', 'Séptima', 'Octava', 'Quinta'],
-          correctAnswer: 1,
-          explanation: 'Urano es el séptimo planeta desde el Sol.',
+          question: '¿Qué tipo de planeta es Urano?',
+          options: [
+            'Planeta rocoso',
+            'Gigante gaseoso',
+            'Gigante de hielo',
+            'Planeta enano',
+          ],
+          correctAnswer: 2,
+          explanation:
+              'Urano es el séptimo planeta desde el Sol y uno de los dos gigantes de hielo del sistema solar.',
         ),
-      ],
-
-      'Atmósfera': [
         QuizQuestion(
-          question: '¿Qué elemento contribuye al color azul verdoso de Urano?',
-          options: ['Metano', 'Hierro', 'Oxígeno líquido', 'Carbono sólido'],
+          question:
+              '¿Qué elemento químico en su atmósfera absorbe luz roja y le da su color azul verdoso?',
+          options: ['Metano', 'Helio', 'Oxígeno', 'Amoníaco'],
           correctAnswer: 0,
           explanation:
-              'El metano de su atmósfera absorbe luz roja y contribuye a su color azul verdoso.',
+              'El metano absorbe parte de la luz roja y contribuye al color azul verdoso característico de Urano.',
         ),
       ],
 
-      'Lunas': [
+      'Inclinación y Lunas': [
         QuizQuestion(
-          question: '¿Urano posee lunas?',
-          options: ['Sí', 'No', 'Solo una', 'Solo dos'],
-          correctAnswer: 0,
-          explanation: 'Urano posee numerosas lunas conocidas.',
+          question:
+              '¿Cuál es la inclinación axial de Urano que lo hace girar de lado?',
+          options: ['23,5 grados', '45 grados', '97,8 grados', '180 grados'],
+          correctAnswer: 2,
+          explanation:
+              'Urano tiene una inclinación axial de aproximadamente 97,8 grados y parece girar prácticamente de lado.',
+        ),
+        QuizQuestion(
+          question: '¿Cuántas lunas conocidas tiene Urano?',
+          options: ['16', '28', '115', '274'],
+          correctAnswer: 1,
+          explanation:
+              'Urano tiene 28 lunas conocidas y un sistema de anillos tenues.',
+        ),
+        QuizQuestion(
+          question: '¿Cuánto dura un año en Urano?',
+          options: [
+            '29,4 años terrestres',
+            '84 años terrestres',
+            '165 años terrestres',
+            '12 años terrestres',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Urano tarda unos 84 años terrestres en completar una vuelta alrededor del Sol.',
         ),
       ],
 
       'Curiosidades': [
         QuizQuestion(
-          question: '¿Qué característica especial tiene la rotación de Urano?',
-          options: [
-            'Gira casi de lado',
-            'No gira',
-            'Gira en sentido contrario al Sol',
-            'No tiene movimiento',
-          ],
-          correctAnswer: 0,
+          question: '¿Qué nave espacial visitó de cerca a Urano en 1986?',
+          options: ['Voyager 1', 'Voyager 2', 'Cassini', 'New Horizons'],
+          correctAnswer: 1,
           explanation:
-              'Urano tiene una inclinación axial extrema y parece girar de lado.',
+              'Urano fue visitado de cerca por la sonda Voyager 2 en 1986.',
         ),
       ],
     },
@@ -403,48 +569,69 @@ class QuizData {
     'Neptuno': {
       'Características': [
         QuizQuestion(
-          question: '¿Cuál es el planeta más alejado del Sol?',
+          question:
+              '¿Cuál es el octavo y más lejano de los ocho planetas del Sistema Solar?',
           options: ['Urano', 'Saturno', 'Neptuno', 'Júpiter'],
           correctAnswer: 2,
-          explanation: 'Neptuno es el octavo y más distante planeta del Sol.',
-        ),
-      ],
-
-      'Atmósfera': [
-        QuizQuestion(
-          question: '¿Qué característica destaca en la atmósfera de Neptuno?',
-          options: [
-            'Vientos muy rápidos',
-            'Ausencia total de gases',
-            'Océanos de agua líquida',
-            'Temperaturas similares a la Tierra',
-          ],
-          correctAnswer: 0,
           explanation:
-              'Neptuno presenta algunos de los vientos más rápidos del Sistema Solar.',
+              'Neptuno es el octavo y más lejano de los ocho planetas del sistema solar.',
         ),
-      ],
-
-      'Lunas': [
-        QuizQuestion(
-          question: '¿Cuál es la luna más grande de Neptuno?',
-          options: ['Titán', 'Tritón', 'Europa', 'Fobos'],
-          correctAnswer: 1,
-          explanation: 'Tritón es la luna más grande de Neptuno.',
-        ),
-      ],
-
-      'Curiosidades': [
         QuizQuestion(
           question: '¿Qué tipo de planeta es Neptuno?',
           options: [
             'Planeta rocoso',
             'Gigante de hielo',
-            'Planeta enano',
-            'Estrella',
+            'Gigante gaseoso',
+            'Estrella enana',
           ],
           correctAnswer: 1,
-          explanation: 'Neptuno es clasificado como un gigante de hielo.',
+          explanation:
+              'Es un gigante de hielo, oscuro, frío y conocido por sus fuertes vientos.',
+        ),
+        QuizQuestion(
+          question:
+              '¿Cuánto tarda Neptuno en completar una vuelta alrededor del Sol?',
+          options: [
+            '84 años terrestres',
+            '165 años terrestres',
+            '365 años terrestres',
+            '12 años terrestres',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Neptuno necesita aproximadamente 165 años terrestres para completar una órbita.',
+        ),
+      ],
+
+      'Lunas y Atmósfera': [
+        QuizQuestion(
+          question:
+              '¿Cómo se llama la luna más grande de Neptuno que posee órbita retrógrada?',
+          options: ['Titán', 'Tritón', 'Europa', 'Ganímedes'],
+          correctAnswer: 1,
+          explanation:
+              'La más grande es Tritón, que posee una órbita retrógrada (se mueve en dirección opuesta a la rotación del planeta).',
+        ),
+        QuizQuestion(
+          question: '¿Cuántas lunas conocidas tiene Neptuno?',
+          options: ['8', '16', '28', '274'],
+          correctAnswer: 1,
+          explanation: 'Neptuno tiene 16 lunas conocidas.',
+        ),
+      ],
+
+      'Curiosidades': [
+        QuizQuestion(
+          question: '¿De qué forma particular fue descubierto Neptuno?',
+          options: [
+            'Por casualidad con un telescopio casero',
+            'Mediante predicciones matemáticas antes de su observación visual',
+            'Visto por primera vez desde la Luna',
+            'Detectado por sondas espaciales automáticas',
+          ],
+          correctAnswer: 1,
+          explanation:
+              'Neptuno fue el primer planeta descubierto mediante predicciones matemáticas antes de su observación.',
         ),
       ],
     },
