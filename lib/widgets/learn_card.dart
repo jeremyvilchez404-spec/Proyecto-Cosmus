@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 
 class LearnCard extends StatelessWidget {
@@ -16,15 +17,40 @@ class LearnCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bool isDarkMode =
+        Theme.of(context).brightness == Brightness.dark;
+
+    final Color cardColor = isDarkMode
+        ? const Color(0xFF131B29)
+        : Colors.white;
+
+    final Color borderColor = isDarkMode
+        ? const Color(0xFF1E293B)
+        : const Color(0xFFE2E8F0);
+
+    final Color titleColor = isDarkMode
+        ? Colors.white
+        : const Color(0xFF0F172A);
+
+    final Color descriptionColor = isDarkMode
+        ? const Color(0xFF94A3B8)
+        : const Color(0xFF64748B);
+
+    final Color arrowBackground = isDarkMode
+        ? const Color(0xFF1E293B)
+        : const Color(0xFFEAF2FC);
+
+    const Color arrowColor = Color(0xFF42A5F5);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: const Color(0xFF131B29),
+          color: cardColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: const Color(0xFF1E293B),
+            color: borderColor,
           ),
         ),
         child: Row(
@@ -46,8 +72,8 @@ class LearnCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: TextStyle(
+                      color: titleColor,
                       fontSize: 16,
                       fontWeight: FontWeight.w800,
                     ),
@@ -57,8 +83,8 @@ class LearnCard extends StatelessWidget {
 
                   Text(
                     description,
-                    style: const TextStyle(
-                      color: Color(0xFF94A3B8),
+                    style: TextStyle(
+                      color: descriptionColor,
                       fontSize: 12,
                       height: 1.3,
                     ),
@@ -72,12 +98,12 @@ class LearnCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: const Color(0xFF1E293B),
+                color: arrowBackground,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(
                 Icons.arrow_forward_ios_rounded,
-                color: Color(0xFF42A5F5),
+                color: arrowColor,
                 size: 14,
               ),
             ),

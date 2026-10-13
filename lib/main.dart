@@ -23,11 +23,16 @@ final ValueNotifier<ThemeMode> themeNotifier = ValueNotifier(ThemeMode.dark);
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   final prefs = await SharedPreferences.getInstance();
-  final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+final bool isLoggedIn = prefs.getBool('isLoggedIn') ?? false;
+// Cargar el modo de apariencia guardado
+final bool isDarkMode = prefs.getBool('isDarkMode') ?? true;
 
-  runApp(MyApp(isLoggedIn: isLoggedIn));
+themeNotifier.value = isDarkMode
+    ? ThemeMode.dark
+    : ThemeMode.light;
+
+runApp(MyApp(isLoggedIn: isLoggedIn));
 }
 
 // ==========================================

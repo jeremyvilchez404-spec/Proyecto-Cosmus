@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'learn_planet_detail_screen.dart';
 
@@ -36,8 +37,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'No tiene anillos.',
         'A pesar de estar más cerca del Sol, Venus es más caliente que Mercurio.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=d6pNPnxp6PY',
-      'videoThumbnail': 'assets/imagenes/pantalla_mercurio.png',
+      'galleryImages': [
+        'assets/galeria/Mercurio.png',
+        'assets/galeria/Mercurio2.png',
+        'assets/galeria/Mercurio3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Conoce más sobre Mercurio',
+          'url': 'https://www.youtube.com/watch?v=ITW78ELNCGI',
+          'thumbnail': 'assets/url/Mercurio.png',
+        },
+        {
+          'title': 'Imagenes reales de mercurio',
+          'url': 'https://www.youtube.com/watch?v=O2YLkQXRU2M&t=109s',
+          'thumbnail': 'assets/url/Mercurio2.png',
+        },
+        {
+          'title': 'Datos sobre mercurio',
+          'url': 'https://www.youtube.com/watch?v=EB1iZr33vJg',
+          'thumbnail': 'assets/url/Mercurio3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Mercurio.mp3',
     },
     {
@@ -73,8 +94,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'No tiene lunas.',
         'No tiene anillos.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=HNHZggkO-wo',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Venus.png',
+      'galleryImages': [
+        'assets/galeria/Venus.png',
+        'assets/galeria/Venus2.png',
+        'assets/galeria/Venus3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Conoce más sobre Venus',
+          'url': 'https://www.youtube.com/watch?v=fTT6TAF3-E8',
+          'thumbnail': 'assets/url/Venus.png',
+        },
+        {
+          'title': 'La atmósfera de Venus',
+          'url': 'https://www.youtube.com/watch?v=JdGq3iqzs1k',
+          'thumbnail': 'assets/url/Venus2.png',
+        },
+        {
+          'title': '¿Que encontro la nasa sobre venus?',
+          'url': 'https://www.youtube.com/watch?v=SOH8cszz8Vw',
+          'thumbnail': 'assets/url/Venus3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Venus.mp3',
     },
     {
@@ -106,8 +147,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'El agua terrestre existe en estado sólido, líquido y gaseoso.',
         'La Tierra es el planeta rocoso más grande del sistema solar.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Tierra.png',
+      'galleryImages': [
+        'assets/galeria/Tierra.png',
+        'assets/galeria/Tierra2.png',
+        'assets/galeria/Tierra3.png',
+      ],
+      'videos': [
+        {
+          'title': '¿Como es el planeta Tierra?',
+          'url': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
+          'thumbnail': 'assets/url/Tierra.png',
+        },
+        {
+          'title': 'La Tierra vista desde el espacio',
+          'url': 'https://www.youtube.com/watch?v=56DTbNgv16A&list=RD56DTbNgv16A&start_radio=1',
+          'thumbnail': 'assets/url/Tierra2.png',
+        },
+        {
+          'title': 'Evolucion del Planeta Tierra',
+          'url': 'https://www.youtube.com/watch?v=XrA5qcs31iw',
+          'thumbnail': 'assets/url/Tierra3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Tierra.mp3',
     },
     {
@@ -139,8 +200,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'Posee Olympus Mons, el volcán más grande conocido del sistema solar.',
         'Un día marciano dura aproximadamente 24,6 horas.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=cf7cPLdI0hk',
-      'videoThumbnail': 'assets/imagenes/Pantalla_marte.png',
+      'galleryImages': [
+        'assets/galeria/Marte.png',
+        'assets/galeria/Marte2.png',
+        'assets/galeria/Marte3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Conoce más sobre Marte',
+          'url': 'https://www.youtube.com/watch?v=HKwIUGjxfLk',
+          'thumbnail': 'assets/url/Marte.png',
+        },
+        {
+          'title': 'Lo que no sabes sobre marte',
+          'url': 'https://www.youtube.com/watch?v=iE1yzjCsat0',
+          'thumbnail': 'assets/url/Marte2.png',
+        },
+        {
+          'title': '¿Vida en Marte?',
+          'url': 'https://www.youtube.com/watch?v=bcAfE7j7IWQ&t=253s',
+          'thumbnail': 'assets/url/Marte3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Marte.mp3',
     },
     {
@@ -172,8 +253,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'Ganímedes, una de sus lunas, es el satélite natural más grande del sistema solar.',
         'Posee un sistema de anillos muy débiles.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=5ehFn46dAdc',
-      'videoThumbnail': 'assets/imagenes/Pantalla_jupiter.png',
+      'galleryImages': [
+        'assets/galeria/Jupiter.png',
+        'assets/galeria/Jupiter2.png',
+        'assets/galeria/Jupiter3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Lo que no sabes sobre Jupiter',
+          'url': 'https://www.youtube.com/watch?v=xxjIxMeFULk',
+          'thumbnail': 'assets/url/Jupiter.png',
+        },
+        {
+          'title': '¿Como es jupiter por dentro?',
+          'url': 'https://www.youtube.com/watch?v=oQ5_zyTwxgI',
+          'thumbnail': 'assets/url/Jupiter2.png',
+        },
+        {
+          'title': 'Jupiter es un planeta aterrador...',
+          'url': 'https://www.youtube.com/watch?v=ttsXP1KnLr0',
+          'thumbnail': 'assets/url/Jupiter3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Jupiter.mp3',
     },
     {
@@ -207,8 +308,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'Titán es la luna más grande de Saturno.',
         'En el polo norte de Saturno existe una enorme estructura atmosférica con forma hexagonal.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=HrFGmGr7KA0',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Saturno.png',
+      'galleryImages': [
+        'assets/galeria/Saturno.png',
+        'assets/galeria/Saturno2.png',
+        'assets/galeria/Saturno3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Lo aterrador que puede llegar hacer Saturno..',
+          'url': 'https://www.youtube.com/watch?v=rK5XAJq_yCM&t=292s',
+          'thumbnail': 'assets/url/Saturno.png',
+        },
+        {
+          'title': 'Los anillos de Saturno',
+          'url': 'https://www.youtube.com/watch?v=VOPVVRDmLD8',
+          'thumbnail': 'assets/url/Saturno2.png',
+        },
+        {
+          'title': 'caracteristicas de Saturno',
+          'url': 'https://www.youtube.com/watch?v=HrFGmGr7KA0',
+          'thumbnail': 'assets/url/Saturno3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Saturno.mp3',
     },
     {
@@ -240,8 +361,28 @@ class LearnPlanetsScreen extends StatelessWidget {
         'Cada estación dura aproximadamente 21 años terrestres.',
         'Fue visitado de cerca por la Voyager 2 en 1986.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=enkjdmFkgYk',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Urano.png',
+      'galleryImages': [
+        'assets/galeria/Urano.png',
+        'assets/galeria/Urano2.png',
+        'assets/galeria/Urano3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Urano Documental',
+          'url': 'https://www.youtube.com/watch?v=enkjdmFkgYk',
+          'thumbnail': 'assets/url/Urano.png',
+        },
+        {
+          'title': '¿Por qué Urano gira lento?',
+          'url': 'https://www.youtube.com/watch?v=qJUuvPhgW08',
+          'thumbnail': 'assets/url/Urano2.png',
+        },
+        {
+          'title': 'Curiosidades de Urano',
+          'url': 'https://www.youtube.com/watch?v=BEvvUlY5RsU',
+          'thumbnail': 'assets/url/Urano3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Urano.mp3',
     },
     {
@@ -275,27 +416,58 @@ class LearnPlanetsScreen extends StatelessWidget {
         'Posee anillos muy débiles.',
         'Fue el primer planeta descubierto mediante predicciones matemáticas antes de su observación.',
       ],
-      'videoUrl': 'https://www.youtube.com/watch?v=boCOI-Rckp8',
-      'videoThumbnail': 'assets/imagenes/Pantalla_Neptuno.png',
+      'galleryImages': [
+        'assets/galeria/Neptuno.png',
+        'assets/galeria/Neptuno2.png',
+        'assets/galeria/Neptuno3.png',
+      ],
+      'videos': [
+        {
+          'title': 'Conoce más sobre Neptuno',
+          'url': 'https://www.youtube.com/watch?v=boCOI-Rckp8',
+          'thumbnail': 'assets/url/Neptuno.png',
+        },
+        {
+          'title': 'Datos Neptuno',
+          'url': 'https://www.youtube.com/watch?v=xCwCMoqBrZY',
+          'thumbnail': 'assets/url/Neptuno2.png',
+        },
+        {
+          'title': '¿Neptuno es peligroso?',
+          'url': 'https://www.youtube.com/watch?v=3GcGHXpLidY',
+          'thumbnail': 'assets/url/Neptuno3.png',
+        },
+      ],
       'audio': 'assets/audios/Audio-Neptuno.mp3',
     },
   ];
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final bool isDark =
+        Theme.of(context).brightness == Brightness.dark;
+
+    final Color backgroundColor = isDark
+        ? const Color(0xFF0B0E14)
+        : const Color(0xFFF8FAFC);
+
+    final Color primaryTextColor = isDark
+        ? Colors.white
+        : const Color(0xFF0F172A);
+
+    final Color secondaryTextColor = isDark
+        ? const Color(0xFF94A3B8)
+        : const Color(0xFF64748B);
 
     return Scaffold(
-      backgroundColor: isDark
-          ? const Color(0xFF0B0E14)
-          : const Color(0xFFF8FAFC),
+      backgroundColor: backgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: isDark ? Colors.white : const Color(0xFF0F172A),
+            color: primaryTextColor,
           ),
           onPressed: () {
             Navigator.pop(context);
@@ -304,7 +476,7 @@ class LearnPlanetsScreen extends StatelessWidget {
         title: Text(
           'Los Planetas',
           style: TextStyle(
-            color: isDark ? Colors.white : const Color(0xFF0F172A),
+            color: primaryTextColor,
             fontSize: 20,
             fontWeight: FontWeight.w800,
           ),
@@ -321,7 +493,10 @@ class LearnPlanetsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(22),
               decoration: BoxDecoration(
                 gradient: const LinearGradient(
-                  colors: [Color(0xFF0F2B5C), Color(0xFF15509E)],
+                  colors: [
+                    Color(0xFF0F2B5C),
+                    Color(0xFF15509E),
+                  ],
                   begin: Alignment.centerLeft,
                   end: Alignment.centerRight,
                 ),
@@ -350,21 +525,30 @@ class LearnPlanetsScreen extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(height: 28),
+
             Text(
               'Explora cada planeta',
               style: TextStyle(
-                color: isDark ? Colors.white : const Color(0xFF0F172A),
+                color: primaryTextColor,
                 fontSize: 19,
                 fontWeight: FontWeight.w800,
               ),
             ),
+
             const SizedBox(height: 7),
-            const Text(
+
+            Text(
               'Selecciona un planeta para comenzar a aprender.',
-              style: TextStyle(color: Color(0xFF94A3B8), fontSize: 13),
+              style: TextStyle(
+                color: secondaryTextColor,
+                fontSize: 13,
+              ),
             ),
+
             const SizedBox(height: 18),
+
             ...planets.map(
               (planet) => Padding(
                 padding: const EdgeInsets.only(bottom: 14),
@@ -415,15 +599,33 @@ class _PlanetCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color cardColor =
+        isDark ? const Color(0xFF131B29) : Colors.white;
+
+    final Color borderColor = isDark
+        ? const Color(0xFF1E293B)
+        : const Color(0xFFE2E8F0);
+
+    final Color titleColor =
+        isDark ? Colors.white : const Color(0xFF0F172A);
+
+    final Color subtitleColor = isDark
+        ? const Color(0xFF94A3B8)
+        : const Color(0xFF64748B);
+
+    final Color arrowBackground = isDark
+        ? const Color(0xFF1E293B)
+        : const Color(0xFFF1F5F9);
+
     return GestureDetector(
       onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(17),
         decoration: BoxDecoration(
-          color: isDark ? const Color(0xFF131B29) : Colors.white,
+          color: cardColor,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0),
+            color: borderColor,
           ),
           boxShadow: isDark
               ? []
@@ -451,12 +653,18 @@ class _PlanetCard extends StatelessWidget {
                   height: 60,
                   fit: BoxFit.cover,
                   errorBuilder: (context, error, stackTrace) {
-                    return Icon(Icons.public, color: color, size: 32);
+                    return Icon(
+                      Icons.public,
+                      color: color,
+                      size: 32,
+                    );
                   },
                 ),
               ),
             ),
+
             const SizedBox(width: 15),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -464,16 +672,18 @@ class _PlanetCard extends StatelessWidget {
                   Text(
                     name,
                     style: TextStyle(
-                      color: isDark ? Colors.white : const Color(0xFF0F172A),
+                      color: titleColor,
                       fontSize: 17,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
+
                   const SizedBox(height: 5),
+
                   Text(
                     subtitle,
-                    style: const TextStyle(
-                      color: Color(0xFF94A3B8),
+                    style: TextStyle(
+                      color: subtitleColor,
                       fontSize: 12,
                       height: 1.3,
                     ),
@@ -481,13 +691,13 @@ class _PlanetCard extends StatelessWidget {
                 ],
               ),
             ),
+
             const SizedBox(width: 10),
+
             Container(
               padding: const EdgeInsets.all(9),
               decoration: BoxDecoration(
-                color: isDark
-                    ? const Color(0xFF1E293B)
-                    : const Color(0xFFF1F5F9),
+                color: arrowBackground,
                 borderRadius: BorderRadius.circular(10),
               ),
               child: const Icon(

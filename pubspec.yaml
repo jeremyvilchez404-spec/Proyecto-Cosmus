@@ -35,3 +35,6 @@ flutter:
     - assets/audios/
     - assets/images/
     - assets/imagenes/
+    - assets/decoraciones/
+    - assets/galeria/
+    - assets/url/

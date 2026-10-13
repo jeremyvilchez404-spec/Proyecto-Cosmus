@@ -175,11 +175,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     trailing: Switch(
                       value: isDarkMode,
                       activeColor: const Color(0xFFE83E8C),
-                      onChanged: (value) {
-                        themeNotifier.value = value
-                            ? ThemeMode.dark
-                            : ThemeMode.light;
-                      },
+                      onChanged: (value) async {
+                     // Cambiar el tema de toda la aplicación
+                      themeNotifier.value = value
+                    ? ThemeMode.dark 
+                    : ThemeMode.light;
+
+                    // Guardar la preferencia
+                        final prefs = await SharedPreferences.getInstance();
+                        await prefs.setBool('isDarkMode', value);
+},
                     ),
                   ),
                   Divider(color: cardBorder, height: 1),

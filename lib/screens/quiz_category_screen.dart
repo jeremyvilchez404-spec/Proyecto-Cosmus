@@ -1,19 +1,44 @@
+
 import 'package:flutter/material.dart';
 
 import '../data/quiz_data.dart';
 import '../main.dart';
-import 'quiz_question_screen.dart';
 
 class QuizCategoryScreen extends StatefulWidget {
   final String planetName;
 
-  const QuizCategoryScreen({super.key, required this.planetName});
+  const QuizCategoryScreen({
+    super.key,
+    required this.planetName,
+  });
 
   @override
-  State<QuizCategoryScreen> createState() => _QuizCategoryScreenState();
+  State<QuizCategoryScreen> createState() =>
+      _QuizCategoryScreenState();
 }
 
 class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
+  // Las mismas imágenes de planetas utilizadas en Aprender.
+  // Comprueba que las rutas coincidan con las de tu proyecto.
+  static const Map<String, String> planetImages = {
+    'Mercurio': 'assets/imagenes/Mercuriot.png',
+    'Venus': 'assets/imagenes/Venust.png',
+    'Tierra': 'assets/imagenes/Tierrat.png',
+    'Marte': 'assets/imagenes/Martet.png',
+    'Júpiter': 'assets/imagenes/Jupitert.png',
+    'Saturno': 'assets/imagenes/Saturnot.png',
+    'Urano': 'assets/imagenes/Uranot.png',
+    'Neptuno': 'assets/imagenes/Neptunot.png',
+  };
+
+  // Rutas preparadas para agregar tus imágenes más adelante.
+  // Si un archivo todavía no existe, se mostrará el icono provisional.
+  static const Map<String, String> categoryImages = {
+    'Características': 'assets/decoraciones/Caracteristicas.png',
+    'Superficie': 'assets/decoraciones/Superficie.png',
+    'Curiosidades': 'assets/decoraciones/Curiosidades.png',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -55,49 +80,12 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
     }
   }
 
-  String getPlanetSymbol() {
-    switch (widget.planetName) {
-      case 'Mercurio':
-        return '☿';
-      case 'Venus':
-        return '♀';
-      case 'Tierra':
-        return '⊕';
-      case 'Marte':
-        return '♂';
-      case 'Júpiter':
-        return '♃';
-      case 'Saturno':
-        return '♄';
-      case 'Urano':
-        return '♅';
-      case 'Neptuno':
-        return '♆';
-      default:
-        return '●';
-    }
-  }
-
   IconData getCategoryIcon(String category) {
     switch (category) {
       case 'Características':
         return Icons.public_rounded;
-      case 'Fauna':
-        return Icons.pets_rounded;
-      case 'Flora':
-        return Icons.eco_rounded;
-      case 'Luna':
-        return Icons.nightlight_round;
-      case 'Lunas':
-        return Icons.brightness_3_rounded;
       case 'Superficie':
         return Icons.terrain_rounded;
-      case 'Atmósfera':
-        return Icons.air_rounded;
-      case 'Anillos':
-        return Icons.radio_button_unchecked_rounded;
-      case 'Gran Mancha Roja':
-        return Icons.blur_circular_rounded;
       case 'Curiosidades':
         return Icons.auto_awesome_rounded;
       default:
@@ -109,22 +97,8 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
     switch (category) {
       case 'Características':
         return 'Conoce sus principales características';
-      case 'Fauna':
-        return 'Descubre los animales del planeta';
-      case 'Flora':
-        return 'Aprende sobre plantas y vegetación';
-      case 'Luna':
-        return 'Conoce nuestro satélite natural';
-      case 'Lunas':
-        return 'Descubre sus satélites naturales';
       case 'Superficie':
         return 'Explora su superficie y composición';
-      case 'Atmósfera':
-        return 'Aprende sobre su atmósfera';
-      case 'Anillos':
-        return 'Descubre sus impresionantes anillos';
-      case 'Gran Mancha Roja':
-        return 'Conoce esta enorme tormenta';
       case 'Curiosidades':
         return 'Datos interesantes y sorprendentes';
       default:
@@ -133,23 +107,118 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
   }
 
   void openCategory(String category) {
-    // Usamos la ruta nombrada '/quiz-question' tal como está definida en el main.dart
     Navigator.pushNamed(
       context,
       '/quiz-question',
-      arguments: {'planetName': widget.planetName, 'category': category},
+      arguments: {
+        'planetName': widget.planetName,
+        'category': category,
+      },
     );
   }
 
-  Widget buildCategoryCard(String category, bool isDarkMode) {
+  // Imagen circular del planeta seleccionado.
+  Widget buildPlanetImage(Color planetColor) {
+    final String? imagePath = planetImages[widget.planetName];
+
+    return Container(
+      width: 62,
+      height: 62,
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: planetColor.withOpacity(0.15),
+        border: Border.all(
+          color: planetColor,
+          width: 1.5,
+        ),
+      ),
+      child: ClipOval(
+        child: imagePath == null
+            ? Icon(
+                Icons.public_rounded,
+                color: planetColor,
+                size: 32,
+              )
+            : Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Icon(
+                    Icons.public_rounded,
+                    color: planetColor,
+                    size: 32,
+                  );
+                },
+              ),
+      ),
+    );
+  }
+
+  // Imagen de cada categoría.
+  // Si todavía no existe, se muestra el icono provisional.
+  Widget buildCategoryImage(
+    String category,
+    Color planetColor,
+    bool isDarkMode,
+  ) {
+    final String? imagePath = categoryImages[category];
+
+    return Container(
+      width: 48,
+      height: 48,
+      padding: const EdgeInsets.all(2),
+      decoration: BoxDecoration(
+        color: planetColor.withOpacity(0.12),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(10),
+        child: imagePath == null
+            ? Icon(
+                getCategoryIcon(category),
+                color: planetColor,
+                size: 25,
+              )
+            : Image.asset(
+                imagePath,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    color: isDarkMode
+                        ? const Color(0xFF15264A)
+                        : const Color(0xFFF1F5F9),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      getCategoryIcon(category),
+                      color: planetColor,
+                      size: 25,
+                    ),
+                  );
+                },
+              ),
+      ),
+    );
+  }
+
+  Widget buildCategoryCard(
+    String category,
+    bool isDarkMode,
+  ) {
     final Color planetColor = getPlanetColor();
-    final Color cardBg = isDarkMode ? const Color(0xFF0B193D) : Colors.white;
+
+    final Color cardBg = isDarkMode
+        ? const Color(0xFF0B193D)
+        : Colors.white;
+
     final Color borderColor = isDarkMode
         ? const Color(0xFF1B3266)
         : const Color(0xFFE2E8F0);
+
     final Color textPrimary = isDarkMode
         ? Colors.white
         : const Color(0xFF0F172A);
+
     final Color textSecondary = isDarkMode
         ? Colors.white54
         : const Color(0xFF64748B);
@@ -174,18 +243,10 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
         ),
         child: Row(
           children: [
-            Container(
-              width: 45,
-              height: 45,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                color: planetColor.withOpacity(0.14),
-              ),
-              child: Icon(
-                getCategoryIcon(category),
-                color: planetColor,
-                size: 24,
-              ),
+            buildCategoryImage(
+              category,
+              planetColor,
+              isDarkMode,
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -203,7 +264,10 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
                   const SizedBox(height: 3),
                   Text(
                     getCategoryDescription(category),
-                    style: TextStyle(color: textSecondary, fontSize: 12),
+                    style: TextStyle(
+                      color: textSecondary,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
@@ -223,19 +287,23 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = themeNotifier.value == ThemeMode.dark;
+    final bool isDarkMode =
+        themeNotifier.value == ThemeMode.dark;
+
     final Color bgColor = isDarkMode
         ? const Color(0xFF040B1E)
         : const Color(0xFFF8FAFC);
+
     final Color textPrimary = isDarkMode
         ? Colors.white
         : const Color(0xFF0F172A);
+
     final Color textSecondary = isDarkMode
         ? Colors.white60
         : const Color(0xFF64748B);
-    final Color planetColor = getPlanetColor();
 
-    final List<String> categories = QuizData.getCategories(widget.planetName);
+    final List<String> categories =
+        QuizData.getCategories(widget.planetName);
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -245,7 +313,10 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
         foregroundColor: textPrimary,
         title: Text(
           widget.planetName,
-          style: TextStyle(color: textPrimary, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       body: SafeArea(
@@ -256,25 +327,7 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
             children: [
               Row(
                 children: [
-                  Container(
-                    width: 58,
-                    height: 58,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: planetColor.withOpacity(0.15),
-                      border: Border.all(color: planetColor, width: 1.5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        getPlanetSymbol(),
-                        style: TextStyle(
-                          color: planetColor,
-                          fontSize: 29,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
+                  buildPlanetImage(getPlanetColor()),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(
@@ -291,7 +344,10 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
                         const SizedBox(height: 3),
                         Text(
                           'Selecciona un tema',
-                          style: TextStyle(color: textSecondary, fontSize: 13),
+                          style: TextStyle(
+                            color: textSecondary,
+                            fontSize: 13,
+                          ),
                         ),
                       ],
                     ),
@@ -313,7 +369,9 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
                     ? Center(
                         child: Text(
                           'No hay categorías disponibles.',
-                          style: TextStyle(color: textSecondary),
+                          style: TextStyle(
+                            color: textSecondary,
+                          ),
                         ),
                       )
                     : ListView.builder(
