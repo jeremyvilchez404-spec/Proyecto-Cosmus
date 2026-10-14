@@ -1,7 +1,9 @@
+
 import 'dart:math' as math;
 import 'dart:ui';
-import 'package:flutter/material.dart';
+
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/material.dart';
 
 class SolarSystemScreen extends StatefulWidget {
   const SolarSystemScreen({super.key});
@@ -11,7 +13,7 @@ class SolarSystemScreen extends StatefulWidget {
 }
 
 class _SolarSystemScreenState extends State<SolarSystemScreen>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   late final TransformationController _transformationController;
   late final AnimationController _animationController;
 
@@ -22,6 +24,13 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
   int _selectedPlanetIndex = 0;
   double _angleOffset = 0.0;
 
+  bool _musicShouldResume = false;
+  bool _musicStarted = false;
+  bool _isAppInBackground = false;
+
+  static const double _mapSize = 1150.0;
+  static const double _mapCenter = _mapSize / 2;
+
   final List<Map<String, dynamic>> planetas = [
     {
       'name': 'Sol',
@@ -29,8 +38,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'radius': 0.0,
       'speed': 0.0,
       'size': 92.0,
-      'description':
-          'La estrella central y motor de nuestro Sistema Solar.',
+      'description': 'La estrella central y motor de nuestro Sistema Solar.',
       'distance': '0 km',
       'moons': '8 planetas',
       'dayLength': '25–35 días',
@@ -44,8 +52,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 4.15,
       'size': 25.0,
       'initialAngle': 0.2,
-      'description':
-          'El planeta más pequeño y cercano al Sol.',
+      'description': 'El planeta más pequeño y cercano al Sol.',
       'distance': '57.9 millones km',
       'moons': '0',
       'dayLength': '58.6 días',
@@ -59,8 +66,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 3.25,
       'size': 34.0,
       'initialAngle': 1.3,
-      'description':
-          'El planeta más caliente del Sistema Solar.',
+      'description': 'El planeta más caliente del Sistema Solar.',
       'distance': '108.2 millones km',
       'moons': '0',
       'dayLength': '243 días',
@@ -74,8 +80,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 2.55,
       'size': 38.0,
       'initialAngle': 2.3,
-      'description':
-          'Nuestro hogar y el único mundo conocido con vida.',
+      'description': 'Nuestro hogar y el único mundo conocido con vida.',
       'distance': '149.6 millones km',
       'moons': '1',
       'dayLength': '24 horas',
@@ -89,8 +94,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 2.05,
       'size': 31.0,
       'initialAngle': 3.2,
-      'description':
-          'El planeta rojo, con desiertos y volcanes gigantes.',
+      'description': 'El planeta rojo, con desiertos y volcanes gigantes.',
       'distance': '227.9 millones km',
       'moons': '2',
       'dayLength': '24 h 37 min',
@@ -104,8 +108,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 1.25,
       'size': 64.0,
       'initialAngle': 4.0,
-      'description':
-          'El planeta más grande del Sistema Solar.',
+      'description': 'El planeta más grande del Sistema Solar.',
       'distance': '778.5 millones km',
       'moons': '95+',
       'dayLength': '9 h 56 min',
@@ -135,8 +138,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 0.68,
       'size': 48.0,
       'initialAngle': 5.7,
-      'description':
-          'Un gigante helado que gira inclinado de lado.',
+      'description': 'Un gigante helado que gira inclinado de lado.',
       'distance': '2,871 millones km',
       'moons': '27',
       'dayLength': '17 h 14 min',
@@ -150,8 +152,7 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
       'speed': 0.52,
       'size': 46.0,
       'initialAngle': 6.1,
-      'description':
-          'El planeta más distante y azotado por fuertes vientos.',
+      'description': 'El planeta más distante y azotado por fuertes vientos.',
       'distance': '4,495 millones km',
       'moons': '14',
       'dayLength': '16 h 6 min',
@@ -176,57 +177,121 @@ class _SolarSystemScreenState extends State<SolarSystemScreen>
   ];
 
   @override
-void initState() {
-  super.initState();
+  void initState() {
+    super.initState();
 
-  _transformationController = TransformationController();
+    WidgetsBinding.instance.addObserver(this);
 
-  _animationController = AnimationController(
-    vsync: this,
-    duration: const Duration(milliseconds: 16),
-  );
+    _transformationController = TransformationController();
 
-  _animationController.addListener(() {
-    if (!_isPlaying) return;
-
-    setState(() {
-      _angleOffset += 0.004 * _simulationSpeed;
-    });
-  });
-
-  _animationController.repeat();
-
-  _iniciarMusica();
-}
-
-Future<void> _iniciarMusica() async {
-  try {
-    await _audioPlayer.setReleaseMode(ReleaseMode.loop);
-    await _audioPlayer.setVolume(0.75);
-
-    await _audioPlayer.play(
-      AssetSource('sonido_cosmos/sonido.mp3'),
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 16),
     );
-  } catch (e) {
-    debugPrint('Error al reproducir música: $e');
+
+    _animationController.addListener(() {
+      if (!_isPlaying || _isAppInBackground || !mounted) return;
+
+      setState(() {
+        _angleOffset += 0.004 * _simulationSpeed;
+      });
+    });
+
+    _animationController.repeat();
+
+    _iniciarMusica();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _resetView();
+      }
+    });
   }
-}
+
+  // Música de fondo.
+  Future<void> _iniciarMusica() async {
+    try {
+      await _audioPlayer.setReleaseMode(ReleaseMode.loop);
+      await _audioPlayer.setVolume(0.75);
+
+      if (_isAppInBackground || !mounted) return;
+
+      await _audioPlayer.play(
+        AssetSource('sonido_cosmos/sonido.mp3'),
+      );
+
+      _musicStarted = true;
+    } catch (e) {
+      debugPrint('Error al reproducir música: $e');
+    }
+  }
+
+  // Pausa la música al salir de la aplicación y la reanuda al regresar.
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused ||
+        state == AppLifecycleState.hidden ||
+        state == AppLifecycleState.detached) {
+      _isAppInBackground = true;
+      _musicShouldResume = _musicStarted;
+
+      if (_musicStarted) {
+        _audioPlayer.pause();
+      }
+    } else if (state == AppLifecycleState.resumed) {
+      _isAppInBackground = false;
+
+      if (_musicShouldResume && mounted) {
+        _audioPlayer.resume();
+      }
+    }
+  }
 
   @override
-void dispose() {
-  _audioPlayer.stop();
-  _audioPlayer.dispose();
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    _animationController.dispose();
+    _transformationController.dispose();
+    _audioPlayer.dispose();
+    super.dispose();
+  }
 
-  _transformationController.dispose();
-  _animationController.dispose();
-
-  super.dispose();
-}
-
+  // Ajusta el mapa al espacio disponible y centra el Sol.
   void _resetView() {
-    setState(() {
-      _transformationController.value = Matrix4.identity();
-    });
+    if (!mounted) return;
+
+    final media = MediaQuery.of(context);
+    final screenWidth = media.size.width;
+    final screenHeight = media.size.height;
+
+    final safeTop = media.padding.top;
+    final safeBottom = media.padding.bottom;
+
+    final availableWidth = screenWidth - 28.0;
+    final availableHeight =
+        screenHeight - safeTop - safeBottom - 270.0;
+
+    const double systemRadius = 555.0;
+
+    final fitScale = math.min(
+      availableWidth / (systemRadius * 2),
+      availableHeight / (systemRadius * 2),
+    );
+
+    final scale = fitScale.clamp(0.12, 1.0).toDouble();
+
+    final targetCenterX = screenWidth / 2;
+    final targetCenterY =
+        safeTop + 75.0 +
+        (screenHeight - safeTop - safeBottom - 200.0) / 2;
+
+    final translateX = targetCenterX - _mapCenter * scale;
+    final translateY = targetCenterY - _mapCenter * scale;
+
+    _transformationController.value = Matrix4.identity()
+      ..translate(translateX, translateY)
+      ..scale(scale);
   }
 
   void _zoomIn() {
@@ -234,12 +299,8 @@ void dispose() {
     final scale = current.getMaxScaleOnAxis();
 
     if (scale < 3.0) {
-      setState(() {
-        _transformationController.value =
-            current.multiplied(
-          Matrix4.diagonal3Values(1.2, 1.2, 1.0),
-        );
-      });
+      _transformationController.value =
+          current.clone()..scale(1.2);
     }
   }
 
@@ -248,12 +309,8 @@ void dispose() {
     final scale = current.getMaxScaleOnAxis();
 
     if (scale > 0.45) {
-      setState(() {
-        _transformationController.value =
-            current.multiplied(
-          Matrix4.diagonal3Values(0.83, 0.83, 1.0),
-        );
-      });
+      _transformationController.value =
+          current.clone()..scale(0.83);
     }
   }
 
@@ -278,19 +335,17 @@ void dispose() {
     Map<String, dynamic> planet,
     Offset center,
   ) {
-    final double radius = planet['radius'] as double;
+    final radius = (planet['radius'] as num).toDouble();
 
     if (radius == 0) {
       return center;
     }
 
-    final double speed = planet['speed'] as double;
+    final speed = (planet['speed'] as num).toDouble();
+    final initialAngle =
+        ((planet['initialAngle'] as num?) ?? 0.0).toDouble();
 
-    final double initialAngle =
-        (planet['initialAngle'] as double?) ?? 0.0;
-
-    final double angle =
-        initialAngle + (_angleOffset * speed);
+    final angle = initialAngle + (_angleOffset * speed);
 
     return Offset(
       center.dx + radius * math.cos(angle),
@@ -300,8 +355,6 @@ void dispose() {
 
   @override
   Widget build(BuildContext context) {
-    const double mapSize = 1150.0;
-
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -310,11 +363,7 @@ void dispose() {
             child: Image.asset(
               'assets/planetas/cosmos.png',
               fit: BoxFit.cover,
-              errorBuilder: (
-                context,
-                error,
-                stackTrace,
-              ) {
+              errorBuilder: (context, error, stackTrace) {
                 return Container(
                   color: const Color(0xFF02030A),
                 );
@@ -339,97 +388,81 @@ void dispose() {
 
           Positioned.fill(
             child: InteractiveViewer(
-              transformationController:
-                  _transformationController,
-              minScale: 0.35,
+              transformationController: _transformationController,
+              minScale: 0.12,
               maxScale: 3.5,
-              boundaryMargin:
-                  const EdgeInsets.all(600),
+              boundaryMargin: const EdgeInsets.all(600),
               panEnabled: true,
               scaleEnabled: true,
               child: SizedBox(
-                width: mapSize,
-                height: mapSize,
-                child: LayoutBuilder(
-                  builder: (context, constraints) {
-                    final center = Offset(
-                      mapSize / 2,
-                      mapSize / 2,
-                    );
-
-                    return Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned.fill(
-                          child: CustomPaint(
-                            painter: OrbitPainter(
-                              planetas: planetas,
-                              center: center,
-                            ),
+                width: _mapSize,
+                height: _mapSize,
+                child: Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    Positioned.fill(
+                      child: CustomPaint(
+                        painter: OrbitPainter(
+                          planetas: planetas,
+                          center: const Offset(
+                            _mapCenter,
+                            _mapCenter,
                           ),
                         ),
+                      ),
+                    ),
 
-                        ...planetas
-                            .asMap()
-                            .entries
-                            .map((entry) {
-                          final index = entry.key;
-                          final planet = entry.value;
+                    ...planetas.asMap().entries.map((entry) {
+                      final index = entry.key;
+                      final planet = entry.value;
 
-                          final position =
-                              _planetPosition(
-                            planet,
-                            center,
-                          );
+                      final position = _planetPosition(
+                        planet,
+                        const Offset(_mapCenter, _mapCenter),
+                      );
 
-                          final bool selected =
-                              index ==
-                                  _selectedPlanetIndex;
+                      final selected = index == _selectedPlanetIndex;
+                      final size = (planet['size'] as num).toDouble();
+                      final hasRings = planet['rings'] == true;
 
-                          final double size =
-                              planet['size'] as double;
+                      final widgetSize =
+                          hasRings ? size * 1.75 : size + 12.0;
 
-                          return Positioned(
-                            left:
-                                position.dx - size / 2,
-                            top:
-                                position.dy - size / 2,
-                            child: _PlanetWidget(
-                              planet: planet,
-                              size: size,
-                              selected: selected,
-                              onTap: () {
-                                setState(() {
-                                  _selectedPlanetIndex =
-                                      index;
-                                });
-                              },
-                              onDoubleTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  '/planet',
-                                  arguments: planet,
-                                );
-                              },
-                            ),
-                          );
-                        }),
-                      ],
-                    );
-                  },
+                      return Positioned(
+                        left: position.dx - widgetSize / 2,
+                        top: position.dy - widgetSize / 2,
+                        width: widgetSize,
+                        height: widgetSize,
+                        child: _PlanetWidget(
+                          planet: planet,
+                          size: size,
+                          selected: selected,
+                          onTap: () {
+                            setState(() {
+                              _selectedPlanetIndex = index;
+                            });
+                          },
+                          onDoubleTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              '/planet',
+                              arguments: planet,
+                            );
+                          },
+                        ),
+                      );
+                    }),
+                  ],
                 ),
               ),
             ),
           ),
 
           _buildTopBar(context),
-
           _buildZoomControls(),
-
+          _buildSpeedControl(),
           _buildSelectedPlanetInfo(),
-
           _buildBottomControls(),
-
           _buildPlanetSelector(),
         ],
       ),
@@ -443,8 +476,7 @@ void dispose() {
       right: 0,
       child: Container(
         padding: EdgeInsets.only(
-          top:
-              MediaQuery.of(context).padding.top + 8,
+          top: MediaQuery.of(context).padding.top + 8,
           left: 12,
           right: 12,
           bottom: 18,
@@ -461,32 +493,14 @@ void dispose() {
         ),
         child: Row(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                color:
-                    Colors.black.withOpacity(0.45),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color:
-                      Colors.white.withOpacity(0.15),
-                ),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                ),
-                onPressed: () =>
-                    Navigator.pop(context),
-              ),
+            _topBarButton(
+              Icons.arrow_back,
+              () => Navigator.pop(context),
             ),
-
             const SizedBox(width: 12),
-
             const Expanded(
               child: Column(
-                crossAxisAlignment:
-                    CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     'COSMUS',
@@ -508,32 +522,15 @@ void dispose() {
                 ],
               ),
             ),
-
-            Container(
-              decoration: BoxDecoration(
-                color:
-                    Colors.black.withOpacity(0.45),
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color:
-                      Colors.white.withOpacity(0.15),
-                ),
-              ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.info_outline,
-                  color: Colors.white,
-                ),
-                onPressed: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/planet',
-                    arguments:
-                        planetas[
-                            _selectedPlanetIndex],
-                  );
-                },
-              ),
+            _topBarButton(
+              Icons.info_outline,
+              () {
+                Navigator.pushNamed(
+                  context,
+                  '/planet',
+                  arguments: planetas[_selectedPlanetIndex],
+                );
+              },
             ),
           ],
         ),
@@ -541,11 +538,26 @@ void dispose() {
     );
   }
 
+  Widget _topBarButton(IconData icon, VoidCallback onPressed) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.45),
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Colors.white.withOpacity(0.15),
+        ),
+      ),
+      child: IconButton(
+        icon: Icon(icon, color: Colors.white),
+        onPressed: onPressed,
+      ),
+    );
+  }
+
   Widget _buildZoomControls() {
     return Positioned(
-      right: 16,
-      top:
-          MediaQuery.of(context).size.height * 0.23,
+      right: 12,
+      top: MediaQuery.of(context).size.height * 0.23,
       child: Column(
         children: [
           _floatingButton(
@@ -579,17 +591,14 @@ void dispose() {
       message: tooltip ?? '',
       child: Container(
         decoration: BoxDecoration(
-          color:
-              Colors.black.withOpacity(0.65),
+          color: Colors.black.withOpacity(0.65),
           shape: BoxShape.circle,
           border: Border.all(
-            color:
-                Colors.white.withOpacity(0.18),
+            color: Colors.white.withOpacity(0.18),
           ),
           boxShadow: [
             BoxShadow(
-              color:
-                  Colors.black.withOpacity(0.35),
+              color: Colors.black.withOpacity(0.35),
               blurRadius: 10,
             ),
           ],
@@ -606,67 +615,134 @@ void dispose() {
     );
   }
 
+  // Control compacto de velocidad en la esquina derecha.
+  Widget _buildSpeedControl() {
+    return Positioned(
+      right: 12,
+      top: MediaQuery.of(context).padding.top + 60,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(14),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+          child: Container(
+            width: 116,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 9,
+              vertical: 8,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.black.withOpacity(0.72),
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(
+                color: Colors.white.withOpacity(0.15),
+              ),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    const Icon(
+                      Icons.speed,
+                      color: Colors.white70,
+                      size: 15,
+                    ),
+                    const SizedBox(width: 5),
+                    const Expanded(
+                      child: Text(
+                        'Velocidad',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${_simulationSpeed.toStringAsFixed(1)}x',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 28,
+                  child: SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      trackHeight: 2,
+                      thumbShape: const RoundSliderThumbShape(
+                        enabledThumbRadius: 5,
+                      ),
+                      overlayShape: const RoundSliderOverlayShape(
+                        overlayRadius: 10,
+                      ),
+                    ),
+                    child: Slider(
+                      value: _simulationSpeed,
+                      min: 0.1,
+                      max: 5.0,
+                      activeColor: Colors.blueAccent,
+                      inactiveColor: Colors.white24,
+                      padding: EdgeInsets.zero,
+                      onChanged: (value) {
+                        setState(() {
+                          _simulationSpeed = value;
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _buildSelectedPlanetInfo() {
-    final planet =
-        planetas[_selectedPlanetIndex];
+    final planet = planetas[_selectedPlanetIndex];
 
     return Positioned(
-      left: 16,
-      top:
-          MediaQuery.of(context).size.height * 0.17,
+      left: 12,
+      top: MediaQuery.of(context).size.height * 0.17,
       child: ClipRRect(
-        borderRadius:
-            BorderRadius.circular(18),
+        borderRadius: BorderRadius.circular(18),
         child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 12,
-            sigmaY: 12,
-          ),
+          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
           child: Container(
-            width: 190,
-            padding:
-                const EdgeInsets.all(13),
+            width: 180,
+            padding: const EdgeInsets.all(11),
             decoration: BoxDecoration(
-              color:
-                  Colors.black.withOpacity(0.48),
-              borderRadius:
-                  BorderRadius.circular(18),
+              color: Colors.black.withOpacity(0.48),
+              borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color:
-                    Colors.white.withOpacity(0.12),
+                color: Colors.white.withOpacity(0.12),
               ),
             ),
             child: Row(
               children: [
-                _circleImage(
-                  planet['image'],
-                  42,
-                ),
-
-                const SizedBox(width: 10),
-
+                _circleImage(planet['image'] as String, 38),
+                const SizedBox(width: 9),
                 Expanded(
                   child: Column(
-                    crossAxisAlignment:
-                        CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        planet['name'],
-                        style:
-                            const TextStyle(
+                        planet['name'] as String,
+                        style: const TextStyle(
                           color: Colors.white,
-                          fontSize: 15,
-                          fontWeight:
-                              FontWeight.bold,
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
                       const SizedBox(height: 3),
                       const Text(
                         'Toca para seleccionar',
-                        style:
-                            TextStyle(
-                          color:
-                              Colors.white54,
+                        style: TextStyle(
+                          color: Colors.white54,
                           fontSize: 9,
                         ),
                       ),
@@ -681,182 +757,69 @@ void dispose() {
     );
   }
 
+  // Se conservan los botones inferiores, sin la barra de velocidad.
   Widget _buildBottomControls() {
     return Positioned(
       left: 14,
       right: 14,
       bottom: 105,
       child: ClipRRect(
-        borderRadius:
-            BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(18),
         child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 12,
-            sigmaY: 12,
-          ),
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
           child: Container(
-            padding:
-                const EdgeInsets.fromLTRB(
-              16,
-              13,
-              16,
-              13,
-            ),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color:
-                  Colors.black.withOpacity(0.62),
-              borderRadius:
-                  BorderRadius.circular(20),
+              color: Colors.black.withOpacity(0.62),
+              borderRadius: BorderRadius.circular(18),
               border: Border.all(
-                color:
-                    Colors.white.withOpacity(0.12),
+                color: Colors.white.withOpacity(0.12),
               ),
             ),
-            child: Column(
+            child: Row(
               children: [
-                Row(
-                  children: [
-                    const Icon(
-                      Icons.speed,
-                      color: Colors.white70,
+                Expanded(
+                  child: ElevatedButton.icon(
+                    onPressed: _togglePlayPause,
+                    icon: Icon(
+                      _isPlaying ? Icons.pause : Icons.play_arrow,
                       size: 18,
                     ),
-
-                    const SizedBox(width: 8),
-
-                    const Text(
-                      'Velocidad',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 12,
-                        fontWeight:
-                            FontWeight.w500,
+                    label: Text(
+                      _isPlaying ? 'Pausar' : 'Reanudar',
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF315BE8),
+                      foregroundColor: Colors.white,
+                      elevation: 0,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 11,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-
-                    const Spacer(),
-
-                    Container(
-                      padding:
-                          const EdgeInsets
-                              .symmetric(
-                        horizontal: 9,
-                        vertical: 4,
-                      ),
-                      decoration:
-                          BoxDecoration(
-                        color: Colors.white
-                            .withOpacity(0.08),
-                        borderRadius:
-                            BorderRadius
-                                .circular(8),
-                      ),
-                      child: Text(
-                        '${_simulationSpeed.toStringAsFixed(1)}x',
-                        style:
-                            const TextStyle(
-                          color: Colors.white,
-                          fontWeight:
-                              FontWeight.bold,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-
-                Slider(
-                  value: _simulationSpeed,
-                  min: 0.1,
-                  max: 5.0,
-                  onChanged: (value) {
-                    setState(() {
-                      _simulationSpeed =
-                          value;
-                    });
-                  },
-                ),
-
-                Row(
-                  children: [
-                    Expanded(
-                      child:
-                          ElevatedButton.icon(
-                        onPressed:
-                            _togglePlayPause,
-                        icon: Icon(
-                          _isPlaying
-                              ? Icons.pause
-                              : Icons.play_arrow,
-                          size: 18,
-                        ),
-                        label: Text(
-                          _isPlaying
-                              ? 'Pausar'
-                              : 'Reanudar',
-                        ),
-                        style:
-                            ElevatedButton
-                                .styleFrom(
-                          backgroundColor:
-                              const Color(
-                                  0xFF315BE8),
-                          foregroundColor:
-                              Colors.white,
-                          elevation: 0,
-                          padding:
-                              const EdgeInsets
-                                  .symmetric(
-                            vertical: 11,
-                          ),
-                          shape:
-                              RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius
-                                    .circular(12),
-                          ),
-                        ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: OutlinedButton.icon(
+                    onPressed: _resetSimulation,
+                    icon: const Icon(Icons.refresh, size: 18),
+                    label: const Text('Reiniciar'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.white,
+                      side: BorderSide(
+                        color: Colors.white.withOpacity(0.18),
+                      ),
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 11,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-
-                    const SizedBox(width: 10),
-
-                    Expanded(
-                      child:
-                          OutlinedButton.icon(
-                        onPressed:
-                            _resetSimulation,
-                        icon: const Icon(
-                          Icons.refresh,
-                          size: 18,
-                        ),
-                        label: const Text(
-                            'Reiniciar'),
-                        style:
-                            OutlinedButton
-                                .styleFrom(
-                          foregroundColor:
-                              Colors.white,
-                          side: BorderSide(
-                            color: Colors.white
-                                .withOpacity(
-                                    0.18),
-                          ),
-                          padding:
-                              const EdgeInsets
-                                  .symmetric(
-                            vertical: 11,
-                          ),
-                          shape:
-                              RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius
-                                    .circular(12),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ],
             ),
@@ -874,27 +837,17 @@ void dispose() {
       child: SizedBox(
         height: 78,
         child: ListView.builder(
-          scrollDirection:
-              Axis.horizontal,
-          padding:
-              const EdgeInsets.symmetric(
-            horizontal: 12,
-          ),
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 12),
           itemCount: planetas.length,
-          itemBuilder:
-              (context, index) {
-            final planet =
-                planetas[index];
-
-            final selected =
-                index ==
-                    _selectedPlanetIndex;
+          itemBuilder: (context, index) {
+            final planet = planetas[index];
+            final selected = index == _selectedPlanetIndex;
 
             return GestureDetector(
               onTap: () {
                 setState(() {
-                  _selectedPlanetIndex =
-                      index;
+                  _selectedPlanetIndex = index;
                 });
               },
               onDoubleTap: () {
@@ -905,71 +858,41 @@ void dispose() {
                 );
               },
               child: AnimatedContainer(
-                duration:
-                    const Duration(
-                  milliseconds: 180,
-                ),
+                duration: const Duration(milliseconds: 180),
                 width: 68,
-                margin:
-                    const EdgeInsets
-                        .symmetric(
-                  horizontal: 4,
-                ),
-                padding:
-                    const EdgeInsets
-                        .symmetric(
-                  vertical: 7,
-                ),
-                decoration:
-                    BoxDecoration(
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                padding: const EdgeInsets.symmetric(vertical: 7),
+                decoration: BoxDecoration(
                   color: selected
-                      ? Colors.white
-                          .withOpacity(0.13)
-                      : Colors.black
-                          .withOpacity(0.52),
-                  borderRadius:
-                      BorderRadius
-                          .circular(15),
+                      ? Colors.white.withOpacity(0.13)
+                      : Colors.black.withOpacity(0.52),
+                  borderRadius: BorderRadius.circular(15),
                   border: Border.all(
                     color: selected
                         ? Colors.blueAccent
-                        : Colors.white
-                            .withOpacity(
-                                0.10),
-                    width:
-                        selected ? 1.7 : 1,
+                        : Colors.white.withOpacity(0.10),
+                    width: selected ? 1.7 : 1,
                   ),
                 ),
                 child: Column(
-                  mainAxisAlignment:
-                      MainAxisAlignment
-                          .center,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _circleImage(
-                      planet['image'],
-                      selected
-                          ? 38
-                          : 34,
+                      planet['image'] as String,
+                      selected ? 38 : 34,
                     ),
-
-                    const SizedBox(
-                        height: 4),
-
+                    const SizedBox(height: 4),
                     Text(
-                      planet['name'],
+                      planet['name'] as String,
                       style: TextStyle(
-                        color: selected
-                            ? Colors.white
-                            : Colors.white70,
+                        color: selected ? Colors.white : Colors.white70,
                         fontSize: 9,
                         fontWeight: selected
                             ? FontWeight.bold
                             : FontWeight.normal,
                       ),
                       maxLines: 1,
-                      overflow:
-                          TextOverflow
-                              .ellipsis,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ],
                 ),
@@ -981,20 +904,15 @@ void dispose() {
     );
   }
 
-  Widget _circleImage(
-    String path,
-    double size,
-  ) {
+  Widget _circleImage(String path, double size) {
     return Container(
       width: size,
       height: size,
-      decoration:
-          BoxDecoration(
+      decoration: BoxDecoration(
         shape: BoxShape.circle,
         boxShadow: [
           BoxShadow(
-            color: Colors.white
-                .withOpacity(0.08),
+            color: Colors.white.withOpacity(0.08),
             blurRadius: 7,
           ),
         ],
@@ -1005,22 +923,15 @@ void dispose() {
           width: size,
           height: size,
           fit: BoxFit.cover,
-          errorBuilder:
-              (context, error, stackTrace) {
+          errorBuilder: (context, error, stackTrace) {
             return Container(
-              width: size,
-              height: size,
-              decoration:
-                  const BoxDecoration(
-                shape:
-                    BoxShape.circle,
-                color:
-                    Colors.white10,
+              decoration: const BoxDecoration(
+                shape: BoxShape.circle,
+                color: Colors.white10,
               ),
               child: const Icon(
                 Icons.public,
-                color:
-                    Colors.white38,
+                color: Colors.white38,
                 size: 20,
               ),
             );
@@ -1031,8 +942,7 @@ void dispose() {
   }
 }
 
-class _PlanetWidget
-    extends StatelessWidget {
+class _PlanetWidget extends StatelessWidget {
   final Map<String, dynamic> planet;
   final double size;
   final bool selected;
@@ -1049,50 +959,31 @@ class _PlanetWidget
 
   @override
   Widget build(BuildContext context) {
-    final bool isSun =
-        planet['name'] == 'Sol';
-
-    final bool hasRings =
-        planet['rings'] == true;
+    final isSun = planet['name'] == 'Sol';
+    final hasRings = planet['rings'] == true;
 
     return GestureDetector(
       onTap: onTap,
       onDoubleTap: onDoubleTap,
-      child: SizedBox(
-        width: hasRings
-            ? size * 1.75
-            : size + 12,
-        height: hasRings
-            ? size * 1.75
-            : size + 12,
+      child: SizedBox.expand(
         child: Stack(
-          alignment:
-              Alignment.center,
-          clipBehavior:
-              Clip.none,
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
           children: [
             if (isSun)
               Container(
                 width: size * 1.8,
                 height: size * 1.8,
-                decoration:
-                    BoxDecoration(
-                  shape:
-                      BoxShape.circle,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors
-                          .orange
-                          .withOpacity(
-                              0.30),
+                      color: Colors.orange.withOpacity(0.30),
                       blurRadius: 55,
                       spreadRadius: 15,
                     ),
                     BoxShadow(
-                      color: Colors
-                          .amber
-                          .withOpacity(
-                              0.35),
+                      color: Colors.amber.withOpacity(0.35),
                       blurRadius: 28,
                       spreadRadius: 5,
                     ),
@@ -1104,29 +995,17 @@ class _PlanetWidget
               Transform.rotate(
                 angle: -0.30,
                 child: Container(
-                  width:
-                      size * 1.75,
-                  height:
-                      size * 0.62,
-                  decoration:
-                      BoxDecoration(
-                    border:
-                        Border.all(
-                      color: Colors
-                          .amber
-                          .shade200
-                          .withOpacity(
-                              0.75),
+                  width: size * 1.75,
+                  height: size * 0.62,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.amber.shade200.withOpacity(0.75),
                       width: 5,
                     ),
-                    shape:
-                        BoxShape.circle,
+                    shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
-                        color: Colors
-                            .amber
-                            .withOpacity(
-                                0.25),
+                        color: Colors.amber.withOpacity(0.25),
                         blurRadius: 8,
                       ),
                     ],
@@ -1135,34 +1014,18 @@ class _PlanetWidget
               ),
 
             AnimatedContainer(
-              duration:
-                  const Duration(
-                milliseconds: 180,
-              ),
-              width: selected
-                  ? size + 8
-                  : size,
-              height: selected
-                  ? size + 8
-                  : size,
-              decoration:
-                  BoxDecoration(
-                shape:
-                    BoxShape.circle,
+              duration: const Duration(milliseconds: 180),
+              width: selected ? size + 8 : size,
+              height: selected ? size + 8 : size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
                 border: selected
-                    ? Border.all(
-                        color:
-                            Colors.white,
-                        width: 2.5,
-                      )
+                    ? Border.all(color: Colors.white, width: 2.5)
                     : null,
                 boxShadow: [
                   if (selected)
                     BoxShadow(
-                      color: Colors
-                          .white
-                          .withOpacity(
-                              0.45),
+                      color: Colors.white.withOpacity(0.45),
                       blurRadius: 15,
                       spreadRadius: 2,
                     ),
@@ -1170,32 +1033,21 @@ class _PlanetWidget
               ),
               child: ClipOval(
                 child: Image.asset(
-                  planet['image'],
+                  planet['image'] as String,
                   width: size,
                   height: size,
                   fit: BoxFit.cover,
-                  errorBuilder:
-                      (
-                    context,
-                    error,
-                    stackTrace,
-                  ) {
+                  errorBuilder: (context, error, stackTrace) {
+                    final color = planet['color'] as Color;
+
                     return Container(
-                      decoration:
-                          BoxDecoration(
-                        shape:
-                            BoxShape
-                                .circle,
-                        color: planet[
-                                'color']
-                            .withOpacity(
-                                0.4),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: color.withOpacity(0.4),
                       ),
-                      child:
-                          const Icon(
+                      child: const Icon(
                         Icons.public,
-                        color:
-                            Colors.white,
+                        color: Colors.white,
                       ),
                     );
                   },
@@ -1209,11 +1061,8 @@ class _PlanetWidget
   }
 }
 
-class OrbitPainter
-    extends CustomPainter {
-  final List<Map<String, dynamic>>
-      planetas;
-
+class OrbitPainter extends CustomPainter {
+  final List<Map<String, dynamic>> planetas;
   final Offset center;
 
   OrbitPainter({
@@ -1222,52 +1071,31 @@ class OrbitPainter
   });
 
   @override
-  void paint(
-    Canvas canvas,
-    Size size,
-  ) {
+  void paint(Canvas canvas, Size size) {
     final orbitPaint = Paint()
-      ..style =
-          PaintingStyle.stroke
+      ..style = PaintingStyle.stroke
       ..strokeWidth = 1.1
-      ..color =
-          Colors.white.withOpacity(
-              0.22);
+      ..color = Colors.white.withOpacity(0.22);
 
     final glowPaint = Paint()
-      ..style =
-          PaintingStyle.stroke
+      ..style = PaintingStyle.stroke
       ..strokeWidth = 3
-      ..color = Colors.blueAccent
-          .withOpacity(0.025);
+      ..color = Colors.blueAccent.withOpacity(0.025);
 
-    for (final planet
-        in planetas) {
-      final double radius =
-          planet['radius'] as double;
+    for (final planet in planetas) {
+      final radius = (planet['radius'] as num).toDouble();
 
       if (radius <= 0) continue;
 
-      canvas.drawCircle(
-        center,
-        radius,
-        glowPaint,
-      );
-
-      canvas.drawCircle(
-        center,
-        radius,
-        orbitPaint,
-      );
+      canvas.drawCircle(center, radius, glowPaint);
+      canvas.drawCircle(center, radius, orbitPaint);
     }
 
     final centerGlow = Paint()
       ..shader = RadialGradient(
         colors: [
-          Colors.orange
-              .withOpacity(0.16),
-          Colors.orange
-              .withOpacity(0.04),
+          Colors.orange.withOpacity(0.16),
+          Colors.orange.withOpacity(0.04),
           Colors.transparent,
         ],
       ).createShader(
@@ -1277,18 +1105,12 @@ class OrbitPainter
         ),
       );
 
-    canvas.drawCircle(
-      center,
-      125,
-      centerGlow,
-    );
+    canvas.drawCircle(center, 125, centerGlow);
   }
 
   @override
-  bool shouldRepaint(
-    covariant OrbitPainter
-        oldDelegate,
-  ) {
-    return true;
+  bool shouldRepaint(covariant OrbitPainter oldDelegate) {
+    return oldDelegate.center != center ||
+        oldDelegate.planetas != planetas;
   }
 }

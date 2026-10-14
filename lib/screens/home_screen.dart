@@ -32,26 +32,26 @@ class _HomeScreenState extends State<HomeScreen> {
 
     switch (index) {
       case 0:
-        // Inicio (Pantalla actual)
+        // Inicio: permanece en la pantalla actual.
         break;
 
       case 1:
-        // Explorar
+        // Explorar el sistema solar.
         Navigator.pushNamed(context, '/solar-system');
         break;
 
       case 2:
-        // Aprender
+        // Contenido educativo.
         Navigator.pushNamed(context, '/learn');
         break;
 
       case 3:
-        // Quiz
-        Navigator.pushNamed(context, '/quiz', arguments: 'Tierra');
+        // Mostrar la lista de planetas para elegir un quiz.
+        Navigator.pushNamed(context, '/quiz');
         break;
 
       case 4:
-        // Perfil
+        // Perfil del usuario.
         Navigator.pushNamed(context, '/profile');
         break;
     }
@@ -64,7 +64,9 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, themeMode, child) {
         final bool isDarkMode = themeMode == ThemeMode.dark;
 
-        // Definición de colores adaptables al tema global
+        // =====================================
+        // COLORES ADAPTABLES AL TEMA
+        // =====================================
         final Color bgColor = isDarkMode
             ? const Color(0xFF0B0E14)
             : const Color(0xFFF1F5F9);
@@ -97,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: bgColor,
 
           // =====================================
-          // APP BAR CON ACCESO AL PERFIL
+          // APP BAR
           // =====================================
           appBar: AppBar(
             backgroundColor: Colors.transparent,
@@ -159,7 +161,7 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // =====================================
-                // BANNER
+                // BANNER PRINCIPAL
                 // =====================================
                 AnimatedContainer(
                   duration: const Duration(milliseconds: 300),
@@ -182,7 +184,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     borderRadius: BorderRadius.circular(24),
                     boxShadow: [
                       BoxShadow(
-                        color: const Color(0xFF15509E).withOpacity(0.3),
+                        color: const Color(0xFF15509E)
+                            .withOpacity(0.3),
                         blurRadius: 15,
                         offset: const Offset(0, 7),
                       ),
@@ -192,7 +195,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Expanded(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
                             const Text(
                               'Explora nuestro\nvecindario cósmico',
@@ -213,14 +217,17 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.white,
-                                foregroundColor: const Color(0xFF0F2B5C),
+                                foregroundColor:
+                                    const Color(0xFF0F2B5C),
                                 elevation: 0,
-                                padding: const EdgeInsets.symmetric(
+                                padding:
+                                    const EdgeInsets.symmetric(
                                   horizontal: 18,
                                   vertical: 11,
                                 ),
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(30),
+                                  borderRadius:
+                                      BorderRadius.circular(30),
                                 ),
                               ),
                               child: const Row(
@@ -268,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 const SizedBox(height: 15),
 
                 // =====================================
-                // CATEGORÍAS
+                // TARJETAS DE CATEGORÍAS
                 // =====================================
                 GridView.count(
                   crossAxisCount: 2,
@@ -278,6 +285,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisSpacing: 14,
                   childAspectRatio: 1.12,
                   children: [
+                    // PLANETAS
                     _buildCategoryCard(
                       isDarkMode: isDarkMode,
                       title: 'Planetas',
@@ -292,13 +300,18 @@ class _HomeScreenState extends State<HomeScreen> {
                       textDark: textDark,
                       textGray: textGray,
                       onTap: () {
-                        Navigator.pushNamed(context, '/solar-system');
+                        Navigator.pushNamed(
+                          context,
+                          '/solar-system',
+                        );
                       },
                     ),
+
+                    // QUIZ: MUESTRA LA LISTA DE PLANETAS
                     _buildCategoryCard(
                       isDarkMode: isDarkMode,
                       title: 'Quiz',
-                      subtitle: 'Pon a prueba lo aprendi...',
+                      subtitle: 'Pon a prueba lo aprendido',
                       icon: Icons.psychology_rounded,
                       color: isDarkMode
                           ? const Color(0xFF2D234A)
@@ -309,13 +322,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       textDark: textDark,
                       textGray: textGray,
                       onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          '/quiz',
-                          arguments: 'Tierra',
-                        );
+                        Navigator.pushNamed(context, '/quiz');
                       },
                     ),
+
+                    // APRENDER
                     _buildCategoryCard(
                       isDarkMode: isDarkMode,
                       title: 'Aprender',
@@ -333,6 +344,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.pushNamed(context, '/learn');
                       },
                     ),
+
+                    // PROGRESO: ABRE LOS RESULTADOS
                     _buildCategoryCard(
                       isDarkMode: isDarkMode,
                       title: 'Progreso',
@@ -347,7 +360,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       textDark: textDark,
                       textGray: textGray,
                       onTap: () {
-                        Navigator.pushNamed(context, '/profile');
+                        Navigator.pushNamed(
+                          context,
+                          '/progress',
+                        );
                       },
                     ),
                   ],
@@ -359,7 +375,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 // DESCUBRE EL ESPACIO
                 // =====================================
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       'Descubre el espacio ✨',
@@ -371,7 +388,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, '/solar-system');
+                        Navigator.pushNamed(
+                          context,
+                          '/solar-system',
+                        );
                       },
                       child: Text(
                         'Ver todo',
@@ -403,7 +423,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     decoration: BoxDecoration(
                       color: cardBgColor,
                       borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: cardBorderColor),
+                      border: Border.all(
+                        color: cardBorderColor,
+                      ),
                     ),
                     child: Row(
                       children: [
@@ -424,7 +446,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(width: 14),
                         Expanded(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment:
+                                CrossAxisAlignment.start,
                             children: [
                               Text(
                                 'El Sol',
@@ -436,7 +459,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                featuredPlanet['description'],
+                                featuredPlanet['description']
+                                    as String,
                                 style: TextStyle(
                                   fontSize: 12,
                                   color: textGray,
@@ -473,7 +497,7 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
 
           // =====================================
-          // BARRA INFERIOR
+          // BARRA DE NAVEGACIÓN INFERIOR
           // =====================================
           bottomNavigationBar: _buildBottomNavigationBar(
             isDarkMode: isDarkMode,
@@ -513,7 +537,9 @@ class _HomeScreenState extends State<HomeScreen> {
           border: Border.all(color: cardBorderColor),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(isDarkMode ? 0.2 : 0.05),
+              color: Colors.black.withOpacity(
+                isDarkMode ? 0.2 : 0.05,
+              ),
               blurRadius: 7,
               offset: const Offset(0, 3),
             ),
@@ -530,7 +556,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: color,
                 borderRadius: BorderRadius.circular(14),
               ),
-              child: Icon(icon, color: iconColor, size: 25),
+              child: Icon(
+                icon,
+                color: iconColor,
+                size: 25,
+              ),
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -562,7 +592,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // =====================================
-  // BOTTOM NAVIGATION
+  // BARRA DE NAVEGACIÓN INFERIOR
   // =====================================
   Widget _buildBottomNavigationBar({
     required bool isDarkMode,
@@ -573,13 +603,20 @@ class _HomeScreenState extends State<HomeScreen> {
     return AnimatedContainer(
       duration: const Duration(milliseconds: 300),
       height: 82,
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 8,
+      ),
       decoration: BoxDecoration(
         color: bottomNavBg,
-        border: Border(top: BorderSide(color: cardBorderColor)),
+        border: Border(
+          top: BorderSide(color: cardBorderColor),
+        ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(isDarkMode ? 0.3 : 0.08),
+            color: Colors.black.withOpacity(
+              isDarkMode ? 0.3 : 0.08,
+            ),
             blurRadius: 12,
             offset: const Offset(0, -3),
           ),
@@ -629,7 +666,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   // =====================================
-  // ITEM DE NAVEGACIÓN
+  // ELEMENTO DE NAVEGACIÓN
   // =====================================
   Widget _buildNavItem({
     required bool isDarkMode,
@@ -668,7 +705,11 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(icon, size: 23, color: itemColor),
+            Icon(
+              icon,
+              size: 23,
+              color: itemColor,
+            ),
             const SizedBox(height: 3),
             Text(
               label,

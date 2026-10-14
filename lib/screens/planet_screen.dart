@@ -1,6 +1,6 @@
+
 import 'package:flutter/material.dart';
 import '../main.dart'; // Importamos themeNotifier global
-import 'quiz_screen.dart';
 
 class PlanetScreen extends StatefulWidget {
   final Map<String, dynamic>? planet;
@@ -15,7 +15,6 @@ class _PlanetScreenState extends State<PlanetScreen> {
   @override
   void initState() {
     super.initState();
-    // Escuchar activamente cambios del tema
     themeNotifier.addListener(_onThemeChanged);
   }
 
@@ -35,17 +34,22 @@ class _PlanetScreenState extends State<PlanetScreen> {
   Widget build(BuildContext context) {
     final bool isDarkMode = themeNotifier.value == ThemeMode.dark;
 
-    // Paleta de colores reactiva al tema
     final Color bgColor = isDarkMode
         ? const Color(0xFF040B1E)
         : const Color(0xFFF8FAFC);
-    final Color cardBg = isDarkMode ? const Color(0xFF0B193D) : Colors.white;
+
+    final Color cardBg = isDarkMode
+        ? const Color(0xFF0B193D)
+        : Colors.white;
+
     final Color cardBorder = isDarkMode
         ? const Color(0xFF1B3266)
         : const Color(0xFFE2E8F0);
+
     final Color textPrimary = isDarkMode
         ? Colors.white
         : const Color(0xFF0F172A);
+
     final Color textSecondary = isDarkMode
         ? Colors.white70
         : const Color(0xFF64748B);
@@ -69,12 +73,18 @@ class _PlanetScreenState extends State<PlanetScreen> {
 
     final String name = data['name']?.toString() ?? 'Planeta';
     final String emoji = data['emoji']?.toString() ?? '🪐';
+
     final String description =
         data['description']?.toString() ?? 'Información no disponible.';
 
     final Color accentColor = data['color'] is Color
         ? data['color'] as Color
         : Colors.blueAccent;
+
+    // Comprobar si el astro es el Sol.
+    final String normalizedName = name.trim().toLowerCase();
+    final bool isSun =
+        normalizedName == 'sol' || normalizedName == 'el sol';
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -84,7 +94,10 @@ class _PlanetScreenState extends State<PlanetScreen> {
         elevation: 0,
         title: Text(
           name,
-          style: TextStyle(fontWeight: FontWeight.bold, color: textPrimary),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: textPrimary,
+          ),
         ),
       ),
       body: SafeArea(
@@ -110,7 +123,10 @@ class _PlanetScreenState extends State<PlanetScreen> {
                   ],
                 ),
                 child: Center(
-                  child: Text(emoji, style: const TextStyle(fontSize: 110)),
+                  child: Text(
+                    emoji,
+                    style: const TextStyle(fontSize: 110),
+                  ),
                 ),
               ),
 
@@ -182,27 +198,33 @@ class _PlanetScreenState extends State<PlanetScreen> {
 
               const SizedBox(height: 25),
 
-              // BOTÓN DE ACCESO AL QUIZ DIRECTO DEL PLANETA
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/quiz', arguments: name);
-                  },
-                  icon: const Icon(Icons.quiz),
-                  label: Text('Hacer Quiz de $name'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFE83E8C),
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 15),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(14),
+              // BOTÓN DE ACCESO A LAS CATEGORÍAS DEL QUIZ.
+              // El Sol no tiene cuestionario.
+              if (!isSun) ...[
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton.icon(
+                    onPressed: () {
+                      Navigator.pushNamed(
+                        context,
+                        '/quiz-category',
+                        arguments: name,
+                      );
+                    },
+                    icon: const Icon(Icons.quiz),
+                    label: Text('Hacer Quiz de $name'),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE83E8C),
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
                     ),
                   ),
                 ),
-              ),
-
-              const SizedBox(height: 12),
+                const SizedBox(height: 12),
+              ],
 
               // BOTÓN VOLVER
               SizedBox(
@@ -279,7 +301,10 @@ class _PlanetScreenState extends State<PlanetScreen> {
           Expanded(
             child: Text(
               title,
-              style: TextStyle(color: textSecondary, fontSize: 14),
+              style: TextStyle(
+                color: textSecondary,
+                fontSize: 14,
+              ),
             ),
           ),
           Text(

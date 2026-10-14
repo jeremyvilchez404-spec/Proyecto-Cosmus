@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 
-import '../data/quiz_data.dart';
 import '../main.dart';
+import '../services/quiz_service.dart';
 
 class QuizCategoryScreen extends StatefulWidget {
   final String planetName;
@@ -18,8 +18,8 @@ class QuizCategoryScreen extends StatefulWidget {
 }
 
 class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
-  // Las mismas imágenes de planetas utilizadas en Aprender.
-  // Comprueba que las rutas coincidan con las de tu proyecto.
+  late Future<List<String>> _categoriesFuture;
+
   static const Map<String, String> planetImages = {
     'Mercurio': 'assets/imagenes/Mercuriot.png',
     'Venus': 'assets/imagenes/Venust.png',
@@ -31,8 +31,6 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
     'Neptuno': 'assets/imagenes/Neptunot.png',
   };
 
-  // Rutas preparadas para agregar tus imágenes más adelante.
-  // Si un archivo todavía no existe, se mostrará el icono provisional.
   static const Map<String, String> categoryImages = {
     'Características': 'assets/decoraciones/Caracteristicas.png',
     'Superficie': 'assets/decoraciones/Superficie.png',
@@ -42,6 +40,10 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
   @override
   void initState() {
     super.initState();
+
+    _categoriesFuture =
+        QuizService.instance.getCategories(widget.planetName);
+
     themeNotifier.addListener(_onThemeChanged);
   }
 
@@ -117,7 +119,6 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
     );
   }
 
-  // Imagen circular del planeta seleccionado.
   Widget buildPlanetImage(Color planetColor) {
     final String? imagePath = planetImages[widget.planetName];
 
@@ -155,8 +156,6 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
     );
   }
 
-  // Imagen de cada categoría.
-  // Si todavía no existe, se muestra el icono provisional.
   Widget buildCategoryImage(
     String category,
     Color planetColor,
@@ -302,9 +301,6 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
         ? Colors.white60
         : const Color(0xFF64748B);
 
-    final List<String> categories =
-        QuizData.getCategories(widget.planetName);
-
     return Scaffold(
       backgroundColor: bgColor,
       appBar: AppBar(
@@ -365,24 +361,55 @@ class _QuizCategoryScreenState extends State<QuizCategoryScreen> {
               ),
               const SizedBox(height: 12),
               Expanded(
-                child: categories.isEmpty
-                    ? Center(
+                child: FutureBuilder<List<String>>(
+                  future: _categoriesFuture,
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState ==
+                        ConnectionState.waiting) {
+                      return Center(
+                        child: CircularProgressIndicator(
+                          color: getPlanetColor(),
+                        ),
+                      );
+                    }
+
+                    if (snapshot.hasError) {
+                      return Center(
+                        child: Text(
+                          'No se pudieron cargar las categorías.',
+                          style: TextStyle(
+                            color: textSecondary,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      );
+                    }
+
+                    final List<String> categories =
+                        snapshot.data ?? [];
+
+                    if (categories.isEmpty) {
+                      return Center(
                         child: Text(
                           'No hay categorías disponibles.',
                           style: TextStyle(
                             color: textSecondary,
                           ),
                         ),
-                      )
-                    : ListView.builder(
-                        itemCount: categories.length,
-                        itemBuilder: (context, index) {
-                          return buildCategoryCard(
-                            categories[index],
-                            isDarkMode,
-                          );
-                        },
-                      ),
+                      );
+                    }
+
+                    return ListView.builder(
+                      itemCount: categories.length,
+                      itemBuilder: (context, index) {
+                        return buildCategoryCard(
+                          categories[index],
+                          isDarkMode,
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

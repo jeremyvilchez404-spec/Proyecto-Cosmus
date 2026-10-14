@@ -7,7 +7,10 @@ import 'quiz_category_screen.dart';
 class QuizScreen extends StatefulWidget {
   final String? planetName;
 
-  const QuizScreen({super.key, this.planetName});
+  const QuizScreen({
+    super.key,
+    this.planetName,
+  });
 
   @override
   State<QuizScreen> createState() => _QuizScreenState();
@@ -25,7 +28,6 @@ class _QuizScreenState extends State<QuizScreen> {
     'Neptuno',
   ];
 
-  // Las mismas imágenes utilizadas en la sección Aprender.
   final Map<String, String> planetImages = {
     'Mercurio': 'assets/imagenes/Mercuriot.png',
     'Venus': 'assets/imagenes/Venust.png',
@@ -78,15 +80,23 @@ class _QuizScreenState extends State<QuizScreen> {
     }
   }
 
+  // =====================================
+  // ABRIR LAS CATEGORÍAS DEL PLANETA
+  // =====================================
   void openPlanet(String planet) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => QuizCategoryScreen(planetName: planet),
+        builder: (_) => QuizCategoryScreen(
+          planetName: planet,
+        ),
       ),
     );
   }
 
+  // =====================================
+  // TARJETA DE CADA PLANETA
+  // =====================================
   Widget buildPlanetCard(String planet, bool isDarkMode) {
     final Color planetColor = getPlanetColor(planet);
 
@@ -125,7 +135,6 @@ class _QuizScreenState extends State<QuizScreen> {
         ),
         child: Row(
           children: [
-            // IMAGEN CIRCULAR DEL PLANETA
             Container(
               width: 48,
               height: 48,
@@ -157,10 +166,7 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               ),
             ),
-
             const SizedBox(width: 14),
-
-            // NOMBRE DEL PLANETA
             Expanded(
               child: Text(
                 planet,
@@ -171,8 +177,6 @@ class _QuizScreenState extends State<QuizScreen> {
                 ),
               ),
             ),
-
-            // FLECHA DE NAVEGACIÓN
             Container(
               width: 32,
               height: 32,
@@ -196,9 +200,13 @@ class _QuizScreenState extends State<QuizScreen> {
     );
   }
 
+  // =====================================
+  // PANTALLA PRINCIPAL
+  // =====================================
   @override
   Widget build(BuildContext context) {
-    final bool isDarkMode = themeNotifier.value == ThemeMode.dark;
+    final bool isDarkMode =
+        themeNotifier.value == ThemeMode.dark;
 
     final Color bgColor = isDarkMode
         ? const Color(0xFF040B1E)
@@ -209,6 +217,34 @@ class _QuizScreenState extends State<QuizScreen> {
 
     final Color textSecondary =
         isDarkMode ? Colors.white60 : const Color(0xFF64748B);
+
+    // Si se abre desde el menú general, mostramos la lista.
+    // Si se construye con un planeta válido, mostramos sus categorías.
+    final String? requestedPlanet = widget.planetName?.trim();
+
+    final bool validPlanet = requestedPlanet != null &&
+        planets.contains(requestedPlanet);
+
+    if (validPlanet) {
+      return Scaffold(
+        backgroundColor: bgColor,
+        appBar: AppBar(
+          backgroundColor: bgColor,
+          elevation: 0,
+          foregroundColor: textPrimary,
+          title: Text(
+            'Quiz de $requestedPlanet',
+            style: TextStyle(
+              color: textPrimary,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+        body: QuizCategoryScreen(
+          planetName: requestedPlanet,
+        ),
+      );
+    }
 
     return Scaffold(
       backgroundColor: bgColor,
@@ -226,7 +262,12 @@ class _QuizScreenState extends State<QuizScreen> {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+          padding: const EdgeInsets.fromLTRB(
+            20,
+            8,
+            20,
+            20,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -238,9 +279,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-
               const SizedBox(height: 5),
-
               Text(
                 'Elige un planeta para comenzar el desafío.',
                 style: TextStyle(
@@ -248,9 +287,7 @@ class _QuizScreenState extends State<QuizScreen> {
                   fontSize: 13,
                 ),
               ),
-
               const SizedBox(height: 20),
-
               Expanded(
                 child: ListView.builder(
                   itemCount: planets.length,
